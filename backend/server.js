@@ -1,11 +1,14 @@
 import express from 'express';
+import connectDB from './config/db.js';
 import dotenv from 'dotenv';
+import colors from 'colors';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 //Contollers
 import memoryRoutes from './Routes/MemoryRoutes.js';
 
 dotenv.config();
+connectDB();
 const app = express();
 app.use(express.json()); // This needed to accept json data
 
