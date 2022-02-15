@@ -1,0 +1,29 @@
+{
+  "name": "corp-mem",
+  "version": "1.0.0",
+  "description": "Corporate Memory to store information",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeGallin/corp-memory.git"
+  },
+  "author": "Gary Allin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MeGallin/corp-memory/issues"
+  },
+  "homepage": "https://github.com/MeGallin/corp-memory#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
