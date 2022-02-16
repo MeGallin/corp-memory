@@ -13,12 +13,10 @@ const tagsSchema = mongoose.Schema(
 
 const memoriesSchema = mongoose.Schema(
   {
-    name: {
-      type: String,
-    },
-    email: {
-      type: String,
-      unique: true,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
     memory: {
       type: String,
