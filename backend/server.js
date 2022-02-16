@@ -6,6 +6,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 //Contollers
 import memoryRoutes from './Routes/MemoryRoutes.js';
+import userRoutes from './Routes/UserRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -15,6 +16,7 @@ app.use(express.json()); // This needed to accept json data
 //Routes
 app.use('/api/memory', memoryRoutes);
 app.use('/api/memories', memoryRoutes);
+app.use('/api/users', userRoutes);
 
 // @Error handling middleware
 app.use(notFound);
