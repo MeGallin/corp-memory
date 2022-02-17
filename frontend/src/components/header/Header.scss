@@ -1,0 +1,7 @@
+@import '../../index.scss';
+
+header {
+  background-color: red;
+
+  height: clamp(1rem, $header-height, $header-height);
+}
