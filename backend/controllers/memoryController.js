@@ -1,12 +1,12 @@
 import asyncHandler from 'express-async-handler';
 import Memories from '../models/memories.js';
+import User from '../models/userModel.js';
 
 // @description: Get All the Memories
 // @route: GET /api/memories
 // @access: Public
 const getAllMemories = asyncHandler(async (req, res) => {
-  const memories = await Memories.find({ user: req.user.id });
-
+  const memories = await Memories.find({ user: req.user._id });
   res.status(200).json(memories);
 });
 // @description: Create a Memory
@@ -18,16 +18,13 @@ const createMemory = asyncHandler(async (req, res) => {
     throw new Error('No message included');
   }
 
-  const memory = new Memories({
-    user: req.user.id,
+  const memory = await Memories.create({
     memory: req.body.memory,
     rating: req.body.rating,
+    user: req.user._id,
   });
 
-  console.log('DDD', memory);
-
-  const createMemory = await memory.save();
-  res.status(201).json(createMemory);
+  res.status(200).json(memory);
 });
 // @description: Update a Memory
 // @route: PUT /api/memory/:id
@@ -38,6 +35,17 @@ const updateMemory = asyncHandler(async (req, res) => {
   if (!memory) {
     res.status(400);
     throw new Error('Memory not found');
+  }
+
+  const user = await User.findById(req.user._id);
+  // check for logged in user
+  if (!user) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+  if (memory.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error('User not authorised');
   }
 
   const undatedMemory = await Memories.findByIdAndUpdate(
@@ -56,6 +64,16 @@ const deleteMemory = asyncHandler(async (req, res) => {
   if (!memory) {
     res.status(400);
     throw new Error('Memory not found');
+  }
+  const user = await User.findById(req.user._id);
+  // check for logged in user
+  if (!user) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+  if (memory.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error('User not authorised');
   }
   await memory.remove();
   res.status(200).json({ id: `Memory ${req.params.id} deleted` });
