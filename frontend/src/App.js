@@ -5,6 +5,7 @@ import Header from './components/header/Header';
 import HomeView from './views/homeView/HomeView';
 import AboutView from './views/aboutView/AboutView';
 import ContactView from './views/contactView/ContactView';
+import FormsView from './views/formsView/FormsView';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<HomeView />} exact />
             <Route path="/about" element={<AboutView />} exact />
             <Route path="/contact" element={<ContactView />} exact />
+            <Route path="/forms" element={<FormsView />} exact />
           </Routes>
         </div>
         <Footer />
