@@ -1,6 +1,7 @@
 import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import colors from 'colors';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
@@ -11,6 +12,7 @@ import userRoutes from './Routes/UserRoutes.js';
 dotenv.config();
 connectDB();
 const app = express();
+app.use(cors());
 app.use(express.json()); // This needed to accept json data
 
 //Routes
