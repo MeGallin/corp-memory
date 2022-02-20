@@ -11,10 +11,11 @@ const UpdateMemory = ({ updateMemory }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     id: updateMemory._id,
+    title: updateMemory.title,
     memory: updateMemory.memory,
     rating: updateMemory.rating,
   });
-  const { memory, rating } = formData;
+  const { title, memory, rating } = formData;
 
   const handleShowForm = () => {
     setShowForm(!showForm);
@@ -26,6 +27,7 @@ const UpdateMemory = ({ updateMemory }) => {
     //Dispatch Action here
     dispatch(userUpdateAction(formData));
     setFormData({
+      title: '',
       memory: '',
       rating: '',
     });
@@ -52,6 +54,15 @@ const UpdateMemory = ({ updateMemory }) => {
 
           <div>
             <form onSubmit={handleUpdateMemory}>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={title}
+                placeholder="title"
+                onChange={handleOnchange}
+              />
+
               <textarea
                 id="memory"
                 name="memory"

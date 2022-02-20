@@ -18,6 +18,10 @@ const memoriesSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    title: {
+      type: String,
+      required: [true, 'Title cant be blank'],
+    },
     memory: {
       type: String,
       required: [true, 'Memory cant be blank'],

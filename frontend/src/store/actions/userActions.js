@@ -196,7 +196,7 @@ export const userUpdateAction = (memory) => async (dispatch, getState) => {
 
     const { data } = await axios.put(
       `api/memory/${memory.id}`,
-      { memory: memory.memory, rating: memory.rating },
+      { title: memory.title, memory: memory.memory, rating: memory.rating },
       config,
     );
 
