@@ -1,5 +1,8 @@
 import axios from 'axios';
 import {
+  USER_CREATE_MEMORY_FAILURE,
+  USER_CREATE_MEMORY_REQUEST,
+  USER_CREATE_MEMORY_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -100,6 +103,37 @@ export const memoriesAction = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_MEMORIES_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+// USER Create/add a MEMORY
+export const createMemoryAction = (formData) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_CREATE_MEMORY_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(`/api/memory`, formData, config);
+    dispatch({ type: USER_CREATE_MEMORY_SUCCESS, payload: data });
+    dispatch(memoriesAction());
+  } catch (error) {
+    dispatch({
+      type: USER_CREATE_MEMORY_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
