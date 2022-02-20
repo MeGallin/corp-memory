@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   userRegistrationReducer,
   userLoginReducer,
+  userMemoriesReducer,
 } from './reducers/userReducers';
 
 //Initialise state to hold user info if logged in.
@@ -15,6 +16,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 const reducer = combineReducers({
   userRegistration: userRegistrationReducer,
   userLogin: userLoginReducer,
+  userMemories: userMemoriesReducer,
 });
 
 const initialState = {
