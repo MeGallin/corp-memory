@@ -16,6 +16,9 @@ import {
   USER_REGISTER_FAILURE,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_MEMORY_FAILURE,
+  USER_UPDATE_MEMORY_REQUEST,
+  USER_UPDATE_MEMORY_SUCCESS,
 } from '../constants/userConstants';
 
 //Register a User
@@ -103,6 +106,24 @@ export const userDeleteMemoryReducer = (state = {}, action) => {
         error: null,
       };
     case USER_DELETE_MEMORY_FAILURE:
+      return { loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+
+//USER Update a memory
+export const userUpdateMemoryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_MEMORY_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_MEMORY_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: null,
+      };
+    case USER_UPDATE_MEMORY_FAILURE:
       return { loading: false, error: action.payload };
     default:
       return { ...state };

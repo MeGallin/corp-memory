@@ -16,6 +16,9 @@ import {
   USER_REGISTER_FAILURE,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_MEMORY_FAILURE,
+  USER_UPDATE_MEMORY_REQUEST,
+  USER_UPDATE_MEMORY_SUCCESS,
 } from '../constants/userConstants';
 
 // User Registration
@@ -160,15 +163,48 @@ export const deleteMemoryAction = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-
-    console.log('ID', config);
-
     await axios.delete(`/api/memory/${id}`, config);
     dispatch({ type: USER_DELETE_MEMORY_SUCCESS });
     dispatch(memoriesAction());
   } catch (error) {
     dispatch({
       type: USER_DELETE_MEMORY_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+// USER Update a memory
+export const userUpdateAction = (memory) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_MEMORY_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `api/memory/${memory.id}`,
+      { memory: memory.memory, rating: memory.rating },
+      config,
+    );
+
+    dispatch({ type: USER_UPDATE_MEMORY_SUCCESS, payload: data });
+    dispatch(memoriesAction());
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_MEMORY_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

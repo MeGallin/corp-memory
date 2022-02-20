@@ -6,6 +6,7 @@ import './Memories.scss';
 import { memoriesAction } from '../../store/actions/userActions';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
+import UpdateMemory from '../updateMemory/UpdateMemory';
 
 const Memories = () => {
   const dispatch = useDispatch();
@@ -26,27 +27,38 @@ const Memories = () => {
     <div className="memories-wrapper">
       {error ? error : null}
       {success ? 'Registration has been successful' : null}
-      <>
-        {userInfo && memories ? (
-          <>
-            <h1>Memories</h1>
-            {memories?.map((memory) => (
-              <div key={memory._id}>
-                <p>{memory._id}</p>
-                <p>{memory.memory}</p>
-                <p>{memory.rating}</p>
-                <DeleteMemory id={memory._id} />
-                <hr />
+      {loading ? (
+        'loading'
+      ) : (
+        <>
+          {userInfo && memories ? (
+            <div className="memories-inner-wrapper">
+              <div>
+                <fieldset className="fieldSet">
+                  <legend>Memories</legend>
+
+                  {memories?.map((memory) => (
+                    <div key={memory._id}>
+                      <p>{memory._id}</p>
+                      <p>{memory.memory}</p>
+                      <p>{memory.rating}</p>
+                      <DeleteMemory id={memory._id} />
+                      <UpdateMemory updateMemory={{ ...memory }} />
+                      <hr />
+                    </div>
+                  ))}
+                </fieldset>
               </div>
-            ))}
-            <CreateMemory />
-          </>
-        ) : (
-          <>
-            <h1>Home page data</h1>
-          </>
-        )}
-      </>
+
+              <CreateMemory />
+            </div>
+          ) : (
+            <>
+              <h1>Home page data</h1>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };
