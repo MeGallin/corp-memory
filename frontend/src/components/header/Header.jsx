@@ -5,6 +5,7 @@ import './Header.scss';
 import { FaUser } from 'react-icons/fa';
 
 import { logoutAction } from '../../store/actions/userActions';
+import { USER_MEMORIES_RESET } from '../../store/constants/userConstants.js';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logoutAction());
+    dispatch({ type: USER_MEMORIES_RESET });
   };
   return (
     <header>

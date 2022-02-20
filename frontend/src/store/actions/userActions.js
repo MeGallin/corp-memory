@@ -4,6 +4,9 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_MEMORIES_FAILURE,
+  USER_MEMORIES_REQUEST,
+  USER_MEMORIES_SUCCESS,
   USER_REGISTER_FAILURE,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -73,4 +76,34 @@ export const loginAction = (email, password) => async (dispatch) => {
 export const logoutAction = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
+};
+// USER get all Memories
+export const memoriesAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_MEMORIES_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/memories`, config);
+    dispatch({ type: USER_MEMORIES_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_MEMORIES_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };

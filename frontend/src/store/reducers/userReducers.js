@@ -3,6 +3,10 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_MEMORIES_FAILURE,
+  USER_MEMORIES_REQUEST,
+  USER_MEMORIES_RESET,
+  USER_MEMORIES_SUCCESS,
   USER_REGISTER_FAILURE,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -39,6 +43,26 @@ export const userLoginReducer = (state = {}, action) => {
     case USER_LOGOUT:
       return {};
 
+    default:
+      return { ...state };
+  }
+};
+// User get their memories
+export const userMemoriesReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_MEMORIES_REQUEST:
+      return { loading: true };
+    case USER_MEMORIES_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: false,
+        memories: action.payload,
+      };
+    case USER_MEMORIES_FAILURE:
+      return { loading: false, error: action.payload };
+    case USER_MEMORIES_RESET:
+      return { memories: {} };
     default:
       return { ...state };
   }
