@@ -9,16 +9,18 @@ import { createMemoryAction } from '../../store/actions/userActions';
 const CreateMemory = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
+    title: '',
     memory: '',
     rating: '',
   });
-  const { memory, rating } = formData;
+  const { title, memory, rating } = formData;
 
   const handleCreateMemory = (e) => {
     e.preventDefault();
 
     dispatch(createMemoryAction(formData));
     setFormData({
+      title: '',
       memory: '',
       rating: '',
     });
@@ -48,6 +50,15 @@ const CreateMemory = () => {
 
           <div>
             <form onSubmit={handleCreateMemory}>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={title}
+                placeholder="title"
+                onChange={handleOnchange}
+              />
+
               <textarea
                 id="memory"
                 name="memory"

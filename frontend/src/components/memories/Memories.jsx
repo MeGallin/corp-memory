@@ -37,6 +37,7 @@ const Memories = () => {
                   {memories?.map((memory) => (
                     <div key={memory._id}>
                       <p>{memory._id}</p>
+                      <p>{memory.title}</p>
                       <p>{memory.memory}</p>
                       <p>{memory.rating}</p>
                       <DeleteMemory id={memory._id} />
