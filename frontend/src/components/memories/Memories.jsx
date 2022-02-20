@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Memories.scss';
 
 import { memoriesAction } from '../../store/actions/userActions';
+import CreateMemory from '../createMemory/CreateMemory';
 
 const Memories = () => {
   const dispatch = useDispatch();
@@ -29,14 +30,16 @@ const Memories = () => {
       ) : (
         <>
           {userInfo && memories ? (
-            memories?.map((memory) => (
-              <div key={memory._id}>
-                {console.log('DDD', memory)}
-                <h1>Memories</h1>
-                <p>{memory.memory}</p>
-                <p>{memory.rating}</p>
-              </div>
-            ))
+            <>
+              <h1>Memories</h1>
+              {memories?.map((memory) => (
+                <div key={memory._id}>
+                  <p>{memory.memory}</p>
+                  <p>{memory.rating}</p>
+                </div>
+              ))}
+              <CreateMemory />
+            </>
           ) : (
             <>
               <h1>Home page data</h1>
