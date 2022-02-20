@@ -2,5 +2,8 @@
 
 footer {
   height: $footer-height;
-  background-color: green;
+  font-size: 0.7em;
+  border: 1px solid $border-colour;
+  background-color: $main-font-colour;
+  color: $main-bg-colour;
 }

@@ -14,9 +14,9 @@ $warning: rgba(240, 173, 78, 1);
 $rating-colour: orange;
 $border-colour: rgba(200, 200, 200, 0.5);
 $border-colour-light: hsla(0, 0%, 78%, 0.2);
-$fieldSet-bg-colour: hsla(0, 0%, 45%, 0.3);
-$header-height: 40px;
-$footer-height: 40px;
+$fieldSet-bg-colour: hsla(0, 0%, 45%, 0.1);
+$header-height: 28px;
+$footer-height: 54px;
 /* Box sizing rules */
 *,
 *::before,
@@ -64,7 +64,7 @@ body {
   line-height: 1.5;
   font-size: 'min(18px, 4.2vw)';
   margin: 0;
-  padding: 0;
+  padding: 0.2em;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -176,7 +176,7 @@ textarea:focus {
 hr.style-one {
   margin: 0.5em 0;
   border: 0;
-  height: 4px;
+  height: 1px;
   background-image: linear-gradient(
     to right,
     rgba(0, 0, 0, 0),
