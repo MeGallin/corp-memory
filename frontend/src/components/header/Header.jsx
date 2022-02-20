@@ -26,6 +26,7 @@ const Header = () => {
         <>
           <button onClick={handleLogout}>
             <FaUser />
+            {userInfo.name}
             logout
           </button>
         </>

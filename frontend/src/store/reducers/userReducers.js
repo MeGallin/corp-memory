@@ -2,6 +2,9 @@ import {
   USER_CREATE_MEMORY_FAILURE,
   USER_CREATE_MEMORY_REQUEST,
   USER_CREATE_MEMORY_SUCCESS,
+  USER_DELETE_MEMORY_FAILURE,
+  USER_DELETE_MEMORY_REQUEST,
+  USER_DELETE_MEMORY_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -79,9 +82,27 @@ export const userCreateMemoryReducer = (state = {}, action) => {
       return {
         loading: false,
         success: true,
+        error: null,
         memory: action.payload,
       };
     case USER_CREATE_MEMORY_FAILURE:
+      return { loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+//USER Delete a single memory
+export const userDeleteMemoryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_DELETE_MEMORY_REQUEST:
+      return { loading: true };
+    case USER_DELETE_MEMORY_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: null,
+      };
+    case USER_DELETE_MEMORY_FAILURE:
       return { loading: false, error: action.payload };
     default:
       return { ...state };
