@@ -1,7 +1,19 @@
 @import '../../index.scss';
 
 header {
-  background-color: red;
+  border: 1px solid $border-colour;
+  a {
+    color: $main-bg-colour;
+  }
 
-  height: clamp(1rem, $header-height, $header-height);
+  nav {
+    height: clamp(1rem, $header-height, $header-height);
+    background-color: $main-font-colour;
+    color: $main-bg-colour;
+  }
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

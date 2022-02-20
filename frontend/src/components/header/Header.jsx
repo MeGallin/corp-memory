@@ -19,22 +19,30 @@ const Header = () => {
   };
   return (
     <header>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/contact">Contact Us</Link>
-      {userInfo ? (
-        <>
-          <button onClick={handleLogout}>
-            <FaUser />
-            {userInfo.name}
-            logout
-          </button>
-        </>
-      ) : (
-        <>
-          <Link to="/forms">login/logout</Link>
-        </>
-      )}
+      <nav className="nav-wrapper">
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact Us</Link>
+        </div>
+        <div>
+          {userInfo ? (
+            <>
+              <button onClick={handleLogout}>
+                <FaUser />
+                {userInfo.name}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/forms">
+                <FaUser />
+                login
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
     </header>
   );
 };
