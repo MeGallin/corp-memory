@@ -4,5 +4,11 @@
   .memories-inner-wrapper {
     display: flex;
     flex-wrap: wrap;
+
+    .memories-heading-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 }

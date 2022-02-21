@@ -36,11 +36,19 @@ const Memories = () => {
                   <legend>Memories</legend>
                   {memories?.map((memory) => (
                     <div key={memory._id}>
-                      <p>{memory._id}</p>
-                      <h1>{memory.title}</h1>
+                      <div className="memories-heading-wrapper">
+                        <h3>{memory.title}</h3>
+                        {memory.tags.map((tag) => (
+                          <div key={tag._id}>
+                            <h5>{tag.tagName}</h5>
+                          </div>
+                        ))}
+                      </div>
+
                       <p>{memory.memory}</p>
                       <p>{memory.dueDate}</p>
                       <p>{memory.rating}</p>
+
                       <DeleteMemory id={memory._id} />
                       <UpdateMemory updateMemory={{ ...memory }} />
                       <hr className="style-one" />

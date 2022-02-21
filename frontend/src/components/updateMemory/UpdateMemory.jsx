@@ -19,8 +19,9 @@ const UpdateMemory = ({ updateMemory }) => {
     memory: updateMemory.memory,
     dueDate: new Date(updateMemory.dueDate),
     rating: updateMemory.rating,
+    tags: updateMemory.tags.map((tag) => tag.tagName),
   });
-  const { id, title, memory, dueDate, rating } = formData;
+  const { id, title, memory, dueDate, rating, tags } = formData;
 
   const handleShowForm = () => {
     setShowForm(!showForm);
@@ -35,6 +36,7 @@ const UpdateMemory = ({ updateMemory }) => {
       title: '',
       memory: '',
       rating: '',
+      tags: [],
     });
     setShowForm(false);
   };
@@ -47,7 +49,7 @@ const UpdateMemory = ({ updateMemory }) => {
   };
 
   const handleOnChangeDate = (date) => {
-    setFormData({ id, title, memory, dueDate: date, rating });
+    setFormData({ id, title, memory, dueDate: date, rating, tags });
   };
 
   return (
@@ -86,6 +88,15 @@ const UpdateMemory = ({ updateMemory }) => {
                 name="rating"
                 value={rating}
                 placeholder="rating"
+                onChange={handleOnchange}
+              />
+
+              <input
+                type="text"
+                id="tags"
+                name="tags"
+                value={tags}
+                placeholder="Tags"
                 onChange={handleOnchange}
               />
 

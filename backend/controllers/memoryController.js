@@ -18,15 +18,31 @@ const createMemory = asyncHandler(async (req, res) => {
     throw new Error('No message included');
   }
 
-  const memory = await Memories.create({
-    title: req.body.title,
-    memory: req.body.memory,
-    dueDate: req.body.dueDate,
-    rating: req.body.rating,
-    user: req.user._id,
-  });
+  if (req.body.tags.length > 0) {
+    const tag = {
+      tagName: req.body.tags,
+    };
+    const memory = await Memories.create({
+      title: req.body.title,
+      memory: req.body.memory,
+      dueDate: req.body.dueDate,
+      rating: req.body.rating,
+      user: req.user._id,
+      tags: tag,
+    });
 
-  res.status(200).json(memory);
+    res.status(200).json(memory);
+  } else {
+    const memory = await Memories.create({
+      title: req.body.title,
+      memory: req.body.memory,
+      dueDate: req.body.dueDate,
+      rating: req.body.rating,
+      user: req.user._id,
+    });
+
+    res.status(200).json(memory);
+  }
 });
 // @description: Update a Memory
 // @route: PUT /api/memory/:id
