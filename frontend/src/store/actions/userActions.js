@@ -201,6 +201,7 @@ export const userUpdateAction = (memory) => async (dispatch, getState) => {
         memory: memory.memory,
         dueDate: memory.dueDate,
         rating: memory.rating,
+        tags: { tagName: memory.tags },
       },
       config,
     );

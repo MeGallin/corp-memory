@@ -17,8 +17,9 @@ const CreateMemory = () => {
     memory: '',
     dueDate: startDate,
     rating: '',
+    tags: [],
   });
-  const { title, memory, dueDate, rating } = formData;
+  const { title, memory, dueDate, rating, tags } = formData;
 
   const handleCreateMemory = (e) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ const CreateMemory = () => {
       title: '',
       memory: '',
       rating: '',
+      tags: [],
     });
   };
 
@@ -42,7 +44,7 @@ const CreateMemory = () => {
   };
 
   const handleOnChangeDate = (date) => {
-    setFormData({ title, memory, dueDate: date, rating });
+    setFormData({ title, memory, dueDate: date, rating, tags });
   };
 
   return (
@@ -82,6 +84,15 @@ const CreateMemory = () => {
                 name="rating"
                 value={rating}
                 placeholder="rating"
+                onChange={handleOnchange}
+              />
+
+              <input
+                type="text"
+                id="tags"
+                name="tags"
+                value={tags}
+                placeholder="Tags"
                 onChange={handleOnchange}
               />
 
