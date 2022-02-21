@@ -6,16 +6,21 @@ import './UpdateMemory.scss';
 
 import { userUpdateAction } from '../../store/actions/userActions';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 const UpdateMemory = ({ updateMemory }) => {
   const dispatch = useDispatch();
+  // const [startDate] = useState(new Date()); //Set initial date here to show time!
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     id: updateMemory._id,
     title: updateMemory.title,
     memory: updateMemory.memory,
+    dueDate: new Date(updateMemory.dueDate),
     rating: updateMemory.rating,
   });
-  const { title, memory, rating } = formData;
+  const { id, title, memory, dueDate, rating } = formData;
 
   const handleShowForm = () => {
     setShowForm(!showForm);
@@ -39,6 +44,10 @@ const UpdateMemory = ({ updateMemory }) => {
       ...previousState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleOnChangeDate = (date) => {
+    setFormData({ id, title, memory, dueDate: date, rating });
   };
 
   return (
@@ -79,6 +88,15 @@ const UpdateMemory = ({ updateMemory }) => {
                 placeholder="rating"
                 onChange={handleOnchange}
               />
+
+              <div>
+                Set Reminder
+                <DatePicker
+                  selected={dueDate}
+                  onChange={handleOnChangeDate}
+                  minDate={new Date()}
+                />
+              </div>
 
               <div>
                 <button type="submit">Submit</button>

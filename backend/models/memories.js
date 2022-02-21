@@ -26,6 +26,9 @@ const memoriesSchema = mongoose.Schema(
       type: String,
       required: [true, 'Memory cant be blank'],
     },
+    dueDate: {
+      type: Date,
+    },
 
     tags: [tagsSchema],
     rating: {

@@ -21,6 +21,7 @@ const createMemory = asyncHandler(async (req, res) => {
   const memory = await Memories.create({
     title: req.body.title,
     memory: req.body.memory,
+    dueDate: req.body.dueDate,
     rating: req.body.rating,
     user: req.user._id,
   });

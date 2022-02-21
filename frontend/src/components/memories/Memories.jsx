@@ -39,6 +39,7 @@ const Memories = () => {
                       <p>{memory._id}</p>
                       <h1>{memory.title}</h1>
                       <p>{memory.memory}</p>
+                      <p>{memory.dueDate}</p>
                       <p>{memory.rating}</p>
                       <DeleteMemory id={memory._id} />
                       <UpdateMemory updateMemory={{ ...memory }} />
