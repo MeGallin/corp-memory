@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { FaUser } from 'react-icons/fa';
 import './Login.scss';
@@ -8,6 +9,7 @@ import { loginAction } from '../../store/actions/userActions';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, success } = userLogin;
@@ -35,6 +37,12 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  useEffect(() => {
+    if (success) {
+      navigate('/');
+    }
+  }, [success, navigate]);
 
   return (
     <div className="login-wrapper">

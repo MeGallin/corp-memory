@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import './DeleteMemory.scss';
-import { FaUser } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 
 import { deleteMemoryAction } from '../../store/actions/userActions';
 
@@ -23,8 +23,8 @@ const DeleteMemory = ({ id }) => {
         'loading...'
       ) : (
         <button id={id} onClick={() => handleDelete(id)}>
-          <FaUser />
-          Delete this Memory
+          <FaTrash />
+          Delete
         </button>
       )}
     </div>

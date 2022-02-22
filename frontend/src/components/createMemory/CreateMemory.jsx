@@ -78,23 +78,25 @@ const CreateMemory = () => {
                 onChange={handleOnchange}
               />
 
-              <input
-                type="number"
-                id="rating"
-                name="rating"
-                value={rating}
-                placeholder="rating"
-                onChange={handleOnchange}
-              />
+              <div className="create-input-wrapper">
+                <input
+                  type="number"
+                  id="rating"
+                  name="rating"
+                  value={rating}
+                  placeholder="rating"
+                  onChange={handleOnchange}
+                />
 
-              <input
-                type="text"
-                id="tags"
-                name="tags"
-                value={tags}
-                placeholder="Tags"
-                onChange={handleOnchange}
-              />
+                <input
+                  type="text"
+                  id="tags"
+                  name="tags"
+                  value={tags}
+                  placeholder="Tags"
+                  onChange={handleOnchange}
+                />
+              </div>
 
               <div>
                 Set Reminder

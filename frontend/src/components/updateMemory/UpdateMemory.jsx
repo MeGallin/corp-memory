@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { FaUser } from 'react-icons/fa';
+import { FaPencilAlt } from 'react-icons/fa';
 import './UpdateMemory.scss';
 
 import { userUpdateAction } from '../../store/actions/userActions';
@@ -54,7 +55,9 @@ const UpdateMemory = ({ updateMemory }) => {
 
   return (
     <div className="update-memory-wrapper">
-      <button onClick={() => handleShowForm(memory)}>Edit Memory</button>
+      <button onClick={() => handleShowForm(memory)}>
+        <FaPencilAlt /> EDIT
+      </button>
 
       {showForm ? (
         <fieldset className="fieldSet">
@@ -81,24 +84,25 @@ const UpdateMemory = ({ updateMemory }) => {
                 placeholder="memory"
                 onChange={handleOnchange}
               />
+              <div className="update-input-wrapper">
+                <input
+                  type="number"
+                  id="rating"
+                  name="rating"
+                  value={rating}
+                  placeholder="rating"
+                  onChange={handleOnchange}
+                />
 
-              <input
-                type="number"
-                id="rating"
-                name="rating"
-                value={rating}
-                placeholder="rating"
-                onChange={handleOnchange}
-              />
-
-              <input
-                type="text"
-                id="tags"
-                name="tags"
-                value={tags}
-                placeholder="Tags"
-                onChange={handleOnchange}
-              />
+                <input
+                  type="text"
+                  id="tags"
+                  name="tags"
+                  value={tags}
+                  placeholder="Tags"
+                  onChange={handleOnchange}
+                />
+              </div>
 
               <div>
                 Set Reminder
@@ -109,12 +113,15 @@ const UpdateMemory = ({ updateMemory }) => {
                 />
               </div>
 
-              <div>
-                <button type="submit">Submit</button>
+              <div className="update-memory-button-wrapper">
+                <button type="submit">UPDATE</button>
+
+                <button onClick={() => setShowForm(false)}>
+                  CANCEL UPDATE
+                </button>
               </div>
             </form>
           </div>
-          <button onClick={() => setShowForm(false)}>Cancel Update</button>
         </fieldset>
       ) : null}
     </div>

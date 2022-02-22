@@ -33,21 +33,21 @@ const Memories = () => {
         <>
           {userInfo && memories ? (
             <div className="memories-inner-wrapper">
-              <div>
+              <div className="item">
                 <fieldset className="fieldSet">
                   <legend>Memories</legend>
+                  <p>[{memories.length}] memories saved</p>
                   {memories?.map((memory) => (
-                    <div key={memory._id}>
+                    <div className="memory" key={memory._id}>
                       <div className="memories-heading-wrapper">
                         <h3>{memory.title}</h3>
+
                         {memory.tags.map((tag) => (
                           <div key={tag._id}>
                             <h5>{tag.tagName}</h5>
                           </div>
                         ))}
                       </div>
-
-                      <p>{memory.memory}</p>
                       <p
                         className={
                           moment(moment(memory.dueDate).valueOf()) <
@@ -58,17 +58,21 @@ const Memories = () => {
                       >
                         Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
                       </p>
+                      <p>{memory.memory}</p>
+
                       <p>{memory.rating}</p>
 
-                      <DeleteMemory id={memory._id} />
-                      <UpdateMemory updateMemory={{ ...memory }} />
-                      <hr className="style-one" />
+                      <div className="memory-button-wrapper">
+                        <UpdateMemory updateMemory={{ ...memory }} />
+                        <DeleteMemory id={memory._id} />
+                      </div>
                     </div>
                   ))}
                 </fieldset>
               </div>
-
-              <CreateMemory />
+              <div className="item">
+                <CreateMemory />
+              </div>
             </div>
           ) : (
             <>
