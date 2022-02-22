@@ -4,6 +4,16 @@
   .memories-inner-wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+
+    .item {
+      flex-grow: 2;
+      flex-basis: min-content;
+    }
+    .item:nth-child(2) {
+      flex-grow: 1;
+      flex-basis: min-content;
+    }
 
     .danger {
       color: crimson;
@@ -11,11 +21,24 @@
     .safe {
       color: green;
     }
-
-    .memories-heading-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .memory {
+      background-color: $main-bg-colour;
+      padding: 0.2em;
+      margin-bottom: 0.2em;
+      h3 {
+        text-decoration: underline;
+        text-transform: uppercase;
+      }
+      .memories-heading-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .memory-button-wrapper {
+        border-top: 1px solid $border-colour-light;
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 }
