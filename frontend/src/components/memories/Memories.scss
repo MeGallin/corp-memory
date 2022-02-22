@@ -5,6 +5,13 @@
     display: flex;
     flex-wrap: wrap;
 
+    .danger {
+      color: crimson;
+    }
+    .safe {
+      color: green;
+    }
+
     .memories-heading-wrapper {
       display: flex;
       justify-content: space-between;

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './Memories.scss';
 
+import moment from 'moment';
+
 import { memoriesAction } from '../../store/actions/userActions';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
@@ -46,7 +48,16 @@ const Memories = () => {
                       </div>
 
                       <p>{memory.memory}</p>
-                      <p>{memory.dueDate}</p>
+                      <p
+                        className={
+                          moment(moment(memory.dueDate).valueOf()) <
+                          moment(moment(new Date()).valueOf())
+                            ? 'danger'
+                            : 'safe'
+                        }
+                      >
+                        Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
+                      </p>
                       <p>{memory.rating}</p>
 
                       <DeleteMemory id={memory._id} />
