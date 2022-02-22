@@ -66,9 +66,16 @@ const updateMemory = asyncHandler(async (req, res) => {
     throw new Error('User not authorised');
   }
 
+  const updatedData = {
+    title: req.body.title,
+    memory: req.body.memory,
+    rating: req.body.rating,
+    dueDate: req.body.dueDate,
+  };
+
   const undatedMemory = await Memories.findByIdAndUpdate(
     req.params.id,
-    req.body,
+    updatedData,
     { new: true },
   );
 

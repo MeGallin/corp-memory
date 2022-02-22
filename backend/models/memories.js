@@ -1,15 +1,10 @@
 import mongoose from 'mongoose';
 
-const tagsSchema = mongoose.Schema(
-  {
-    tagName: {
-      type: String,
-    },
+const tagsSchema = mongoose.Schema({
+  tagName: {
+    type: String,
   },
-  {
-    timestamps: true,
-  },
-);
+});
 
 const memoriesSchema = mongoose.Schema(
   {
@@ -27,14 +22,13 @@ const memoriesSchema = mongoose.Schema(
       required: [true, 'Memory cant be blank'],
     },
     dueDate: {
-      type: Date,
+      type: String,
     },
-
-    tags: [tagsSchema],
     rating: {
       type: Number,
       default: 0,
     },
+    tags: [tagsSchema],
   },
   {
     timestamps: true,
