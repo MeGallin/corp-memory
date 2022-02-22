@@ -28,6 +28,7 @@ const Header = () => {
         <div>
           {userInfo ? (
             <>
+              <Link to="/user-dashboard">User Dashboard</Link>
               <button onClick={handleLogout}>
                 <FaUser />
                 {userInfo.name}

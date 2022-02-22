@@ -21,7 +21,7 @@ const Login = () => {
   const { email, password } = formData;
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
     // Dispatch Action
     dispatch(loginAction(email, password));
 

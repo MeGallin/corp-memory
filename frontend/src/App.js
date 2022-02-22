@@ -6,6 +6,7 @@ import HomeView from './views/homeView/HomeView';
 import AboutView from './views/aboutView/AboutView';
 import ContactView from './views/contactView/ContactView';
 import FormsView from './views/formsView/FormsView';
+import UserDashboardView from './views/userDashboardView/UserDashboardView';
 
 function App() {
   return (
@@ -18,6 +19,11 @@ function App() {
             <Route path="/about" element={<AboutView />} exact />
             <Route path="/contact" element={<ContactView />} exact />
             <Route path="/forms" element={<FormsView />} exact />
+            <Route
+              path="/user-dashboard"
+              element={<UserDashboardView />}
+              exact
+            />
           </Routes>
         </div>
         <Footer />
