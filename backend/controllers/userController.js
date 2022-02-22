@@ -62,6 +62,39 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error('Invalid credentials');
   }
 });
+// @description: Update a USER
+// @route: PUT /api/user/:id
+// @access: Private
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    // hash the Password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) {
+      user.password = hashedPassword;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      profileImage: updatedUser.profileImage,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('No user found');
+  }
+});
 // @description: Get user data of logged in in user
 // @route: GET /api/users/user
 // @access: PRIVATE
@@ -81,4 +114,4 @@ const generateToken = (id, email) => {
   });
 };
 
-export { registerUser, loginUser, getMyUserData };
+export { registerUser, loginUser, getMyUserData, updateUser };

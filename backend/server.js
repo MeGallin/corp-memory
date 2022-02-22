@@ -18,6 +18,7 @@ app.use(express.json()); // This needed to accept json data
 //Routes
 app.use('/api/memory', memoryRoutes);
 app.use('/api/memories', memoryRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/users', userRoutes);
 
 // @Error handling middleware
