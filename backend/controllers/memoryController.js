@@ -6,7 +6,9 @@ import User from '../models/userModel.js';
 // @route: GET /api/memories
 // @access: Public
 const getAllMemories = asyncHandler(async (req, res) => {
-  const memories = await Memories.find({ user: req.user._id });
+  const memories = await Memories.find({ user: req.user._id }).sort({
+    createdAt: -1,
+  });
   res.status(200).json(memories);
 });
 // @description: Create a Memory
