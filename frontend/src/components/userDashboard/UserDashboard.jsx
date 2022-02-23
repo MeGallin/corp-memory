@@ -5,30 +5,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import './UserDashboards.scss';
 import { FaPencilAlt } from 'react-icons/fa';
 
-import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
+import {
+  userDetailsUpdateAction,
+  detailsAction,
+} from '../../store/actions/userDetailActions';
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(detailsAction());
+  }, []);
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { details } = userDetails;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  const userUpdateDetails = useSelector((state) => state.userUpdateDetails);
-  const { loading, success, error } = userUpdateDetails;
-
-  const [formData, setFormData] = useState({
-    id: userInfo?._id,
-    name: userInfo?.name,
-    email: userInfo?.email,
-    password: '',
-  });
-  const { name, email, password } = formData;
 
   useEffect(() => {
     if (!userInfo) {
       navigate('/');
     }
   }, [userInfo, navigate]);
+
+  const userUpdateDetails = useSelector((state) => state.userUpdateDetails);
+  const { loading, success, error } = userUpdateDetails;
+
+  const [formData, setFormData] = useState({
+    id: details?.id,
+    name: details?.name,
+    email: details?.email,
+    password: '',
+  });
+  const { name, email, password } = formData;
 
   const handleOnchange = (e) => {
     setFormData((previousState) => ({
@@ -42,9 +53,10 @@ const UserDashboard = () => {
 
     //Dispatch Action here
     dispatch(userDetailsUpdateAction(formData));
+
     setFormData({
-      name: '',
-      email: '',
+      name: name,
+      email: email,
       password: '',
     });
   };
@@ -62,6 +74,11 @@ const UserDashboard = () => {
               <FaPencilAlt />
               Update User Details
             </legend>
+            <div>
+              <p>Id: {details?.id}</p>
+              <p>Name: {details?.name}</p>
+              <p>Email: {details?.email}</p>
+            </div>
 
             <div>
               <form onSubmit={handleUpdateMemory}>
