@@ -7,4 +7,11 @@
   margin: auto;
   text-transform: uppercase;
   font-size: 0.6em;
+  .tag-x {
+    font-size: 1em;
+    position: relative;
+    top: -6px;
+    right: -3px;
+    background-color: red;
+  }
 }
