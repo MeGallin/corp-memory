@@ -9,6 +9,7 @@ import { memoriesAction } from '../../store/actions/userActions';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
+import Tags from '../tags/Tags';
 
 const Memories = () => {
   const dispatch = useDispatch();
@@ -44,15 +45,15 @@ const Memories = () => {
                           className={
                             moment(moment(memory.dueDate).valueOf()) <
                             moment(moment(new Date()).valueOf())
-                              ? 'danger'
-                              : 'safe'
+                              ? 'late'
+                              : 'early'
                           }
                         >
                           Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
                         </p>
                         {memory.tags.map((tag) => (
                           <div key={tag._id}>
-                            <h5>{tag.tagName}</h5>
+                            <Tags tag={tag.tagName} urgency="danger" />
                           </div>
                         ))}
                       </div>

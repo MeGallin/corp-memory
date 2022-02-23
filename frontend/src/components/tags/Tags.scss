@@ -1,0 +1,10 @@
+@import '../../index.scss';
+
+.tags-wrapper {
+  border: 1px solid $border-colour;
+  padding: 0 0.4em;
+  border-radius: 14px;
+  margin: auto;
+  text-transform: uppercase;
+  font-size: 0.6em;
+}
