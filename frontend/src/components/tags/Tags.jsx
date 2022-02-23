@@ -1,17 +1,35 @@
 import './Tags.scss';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { deleteMemoryTagAction } from '../../store/actions/userActions';
 
 const Tags = ({ id, tag, urgency }) => {
+  const dispatch = useDispatch();
+
+  const userDeleteMemoryTag = useSelector((state) => state.userDeleteMemoryTag);
+  const { loadingTag } = userDeleteMemoryTag;
+
   const handleDeleteTag = (id) => {
-    console.log('Delete', id);
     //Dispatch Action here
+    dispatch(deleteMemoryTagAction(id));
   };
   return (
-    <div className={`tags-wrapper ${urgency}`}>
-      {tag}
-      <span className="tag-x" onClick={() => handleDeleteTag(id)}>
-        X
-      </span>
-    </div>
+    <>
+      {loadingTag ? (
+        loadingTag
+      ) : (
+        <div className={`tags-wrapper ${urgency}`}>
+          {tag}
+          <span
+            className="tag-x"
+            onClick={() => handleDeleteTag(id)}
+            title="Delete Tag"
+          >
+            X
+          </span>
+        </div>
+      )}
+    </>
   );
 };
 
