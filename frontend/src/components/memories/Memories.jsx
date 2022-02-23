@@ -53,7 +53,11 @@ const Memories = () => {
                         </p>
                         {memory.tags.map((tag) => (
                           <div key={tag._id}>
-                            <Tags tag={tag.tagName} urgency="danger" />
+                            <Tags
+                              tag={tag.tagName}
+                              urgency="danger"
+                              id={memory._id}
+                            />
                           </div>
                         ))}
                       </div>
