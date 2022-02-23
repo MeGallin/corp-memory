@@ -25,6 +25,7 @@
       background-color: $main-bg-colour;
       padding: 0.2em;
       margin-bottom: 0.2em;
+
       h3 {
         text-decoration: underline;
         text-transform: uppercase;
@@ -33,11 +34,23 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        align-content: center;
+
+        h5 {
+          margin: 0;
+        }
       }
       .memory-button-wrapper {
         border-top: 1px solid $border-colour-light;
+        padding-top: 0.5em;
         display: flex;
         justify-content: space-between;
+      }
+      .created-updated-wrapper {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.6em;
+        padding-top: 1em;
       }
     }
   }

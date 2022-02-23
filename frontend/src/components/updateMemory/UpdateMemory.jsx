@@ -56,15 +56,12 @@ const UpdateMemory = ({ updateMemory }) => {
   return (
     <div className="update-memory-wrapper">
       <button onClick={() => handleShowForm(memory)}>
-        <FaPencilAlt /> EDIT
+        <FaPencilAlt style={{ fontSize: '14px', marginLeft: '4px' }} /> EDIT
       </button>
 
       {showForm ? (
         <fieldset className="fieldSet">
-          <legend>
-            <FaUser />
-            Update memory
-          </legend>
+          <legend>Update memory</legend>
 
           <div>
             <form onSubmit={handleUpdateMemory}>

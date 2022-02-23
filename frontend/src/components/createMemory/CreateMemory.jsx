@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { FaUser } from 'react-icons/fa';
 import './CreateMemory.scss';
 
 import { createMemoryAction } from '../../store/actions/userActions';
@@ -54,10 +52,7 @@ const CreateMemory = () => {
         'loading...'
       ) : (
         <fieldset className="fieldSet">
-          <legend>
-            <FaUser />
-            Create a new memory
-          </legend>
+          <legend>Create a new memory</legend>
 
           <div>
             <form onSubmit={handleCreateMemory}>

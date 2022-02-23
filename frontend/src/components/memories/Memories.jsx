@@ -40,31 +40,44 @@ const Memories = () => {
                   {memories?.map((memory) => (
                     <div className="memory" key={memory._id}>
                       <div className="memories-heading-wrapper">
-                        <h3>{memory.title}</h3>
-
+                        <p
+                          className={
+                            moment(moment(memory.dueDate).valueOf()) <
+                            moment(moment(new Date()).valueOf())
+                              ? 'danger'
+                              : 'safe'
+                          }
+                        >
+                          Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
+                        </p>
                         {memory.tags.map((tag) => (
                           <div key={tag._id}>
                             <h5>{tag.tagName}</h5>
                           </div>
                         ))}
                       </div>
-                      <p
-                        className={
-                          moment(moment(memory.dueDate).valueOf()) <
-                          moment(moment(new Date()).valueOf())
-                            ? 'danger'
-                            : 'safe'
-                        }
-                      >
-                        Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
-                      </p>
-                      <p>{memory.memory}</p>
 
-                      <p>{memory.rating}</p>
+                      <h2>{memory.title}</h2>
+
+                      <p>{memory.memory}</p>
+                      <p className="small-text">
+                        Due on, {moment(memory.dueDate).format('Do MMM YYYY')}
+                      </p>
+                      <p>Rating: {memory.rating}</p>
 
                       <div className="memory-button-wrapper">
                         <UpdateMemory updateMemory={{ ...memory }} />
                         <DeleteMemory id={memory._id} />
+                      </div>
+                      <div className="created-updated-wrapper">
+                        <p>
+                          Created on,{' '}
+                          {moment(memory.createdAt).format('Do MMM YYYY')}
+                        </p>
+                        <p>
+                          Updated on,{' '}
+                          {moment(memory.updatedAt).format('Do MMM YYYY')}
+                        </p>
                       </div>
                     </div>
                   ))}
