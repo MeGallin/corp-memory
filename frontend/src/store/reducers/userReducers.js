@@ -5,6 +5,9 @@ import {
   USER_DELETE_MEMORY_FAILURE,
   USER_DELETE_MEMORY_REQUEST,
   USER_DELETE_MEMORY_SUCCESS,
+  USER_DELETE_MEMORY_TAG_FAILURE,
+  USER_DELETE_MEMORY_TAG_REQUEST,
+  USER_DELETE_MEMORY_TAG_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -107,6 +110,24 @@ export const userDeleteMemoryReducer = (state = {}, action) => {
       };
     case USER_DELETE_MEMORY_FAILURE:
       return { loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+
+//USER Delete a memory TAG
+export const userDeleteMemoryTagReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_DELETE_MEMORY_TAG_REQUEST:
+      return { loading: true };
+    case USER_DELETE_MEMORY_TAG_SUCCESS:
+      return {
+        loadingTag: false,
+        successTag: true,
+        errorTag: null,
+      };
+    case USER_DELETE_MEMORY_TAG_FAILURE:
+      return { loadingTag: false, errorTag: action.payload };
     default:
       return { ...state };
   }

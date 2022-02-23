@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { FaUser } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa';
 import './UpdateMemory.scss';
 
