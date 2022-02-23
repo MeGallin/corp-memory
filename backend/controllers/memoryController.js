@@ -73,6 +73,7 @@ const updateMemory = asyncHandler(async (req, res) => {
     memory: req.body.memory,
     rating: req.body.rating,
     dueDate: req.body.dueDate,
+    tags: req.body.tags,
   };
 
   const undatedMemory = await Memories.findByIdAndUpdate(
@@ -105,5 +106,37 @@ const deleteMemory = asyncHandler(async (req, res) => {
   await memory.remove();
   res.status(200).json({ id: `Memory ${req.params.id} deleted` });
 });
+// @description: Delete a Memory TAG
+// @route: DELETE /api/memory/tag:id
+// @access: Private
+const deleteMemoryTag = asyncHandler(async (req, res) => {
+  const memory = await Memories.findById(req.params.id);
 
-export { getAllMemories, createMemory, updateMemory, deleteMemory };
+  if (!memory) {
+    res.status(400);
+    throw new Error('Memory not found');
+  }
+  const user = await User.findById(req.user._id);
+  // check for logged in user
+  if (!user) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+  if (memory.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error('User not authorised');
+  }
+
+  // Remove object for array
+  memory.tags.shift();
+  await memory.save();
+  res.status(200).json(memory);
+});
+
+export {
+  getAllMemories,
+  createMemory,
+  updateMemory,
+  deleteMemory,
+  deleteMemoryTag,
+};
