@@ -11,7 +11,10 @@ import {
   userUpdateMemoryReducer,
 } from './reducers/userReducers';
 
-import { userUpdateDetailsReducer } from './reducers/userDetailsReducers';
+import {
+  userUpdateDetailsReducer,
+  userDetailsReducer,
+} from './reducers/userDetailsReducers';
 
 //Initialise state to hold user info if logged in.
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -26,6 +29,7 @@ const reducer = combineReducers({
   userDeleteMemory: userDeleteMemoryReducer,
   userUpdateMemory: userUpdateMemoryReducer,
   userUpdateDetails: userUpdateDetailsReducer,
+  userDetails: userDetailsReducer,
 });
 
 const initialState = {

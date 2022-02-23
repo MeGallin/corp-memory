@@ -12,6 +12,8 @@ const Header = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { details } = userDetails;
 
   const handleLogout = () => {
     dispatch(logoutAction());
@@ -31,7 +33,7 @@ const Header = () => {
               <Link to="/user-dashboard">User Dashboard</Link>
               <button onClick={handleLogout}>
                 <FaUser />
-                {userInfo.name}
+                {details?.name || userInfo.name}
               </button>
             </>
           ) : (
