@@ -106,6 +106,7 @@ const UpdateMemory = ({ updateMemory }) => {
                   selected={dueDate}
                   onChange={handleOnChangeDate}
                   minDate={new Date()}
+                  showTimeInput
                 />
               </div>
 

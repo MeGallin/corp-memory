@@ -66,7 +66,10 @@ const Memories = () => {
 
                       <p>{memory.memory}</p>
                       <p className="small-text">
-                        Due on, {moment(memory.dueDate).format('Do MMM YYYY')}
+                        Due on,{' '}
+                        {moment(memory.dueDate).format(
+                          'Do MMM YYYY, h:mm:ss a',
+                        )}
                       </p>
                       <p>Rating: {memory.rating}</p>
 

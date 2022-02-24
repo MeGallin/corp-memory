@@ -73,7 +73,6 @@ const updateMemory = asyncHandler(async (req, res) => {
     memory: req.body.memory,
     rating: req.body.rating,
     dueDate: req.body.dueDate,
-    tags: req.body.tags,
   };
 
   const undatedMemory = await Memories.findByIdAndUpdate(

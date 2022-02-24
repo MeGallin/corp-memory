@@ -74,14 +74,20 @@ const CreateMemory = () => {
               />
 
               <div className="create-input-wrapper">
-                <input
-                  type="number"
-                  id="rating"
-                  name="rating"
-                  value={rating}
-                  placeholder="rating"
-                  onChange={handleOnchange}
-                />
+                <div>
+                  <label>
+                    Rating
+                    <input
+                      type="number"
+                      id="rating"
+                      name="rating"
+                      value={rating}
+                      min="1"
+                      max="10"
+                      onChange={handleOnchange}
+                    />
+                  </label>
+                </div>
 
                 <input
                   type="text"
@@ -99,6 +105,7 @@ const CreateMemory = () => {
                   selected={dueDate}
                   onChange={handleOnChangeDate}
                   minDate={new Date()}
+                  showTimeInput
                 />
               </div>
 
