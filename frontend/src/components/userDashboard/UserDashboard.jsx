@@ -1,22 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './UserDashboards.scss';
 import { FaPencilAlt } from 'react-icons/fa';
 
-import {
-  userDetailsUpdateAction,
-  detailsAction,
-} from '../../store/actions/userDetailActions';
+import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(detailsAction());
-  }, []);
 
   const userDetails = useSelector((state) => state.userDetails);
   const { details } = userDetails;
@@ -28,15 +19,6 @@ const UserDashboard = () => {
     password: '',
   });
   const { id, name, email, password } = formData;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/');
-    }
-  }, [userInfo, navigate]);
 
   const userUpdateDetails = useSelector((state) => state.userUpdateDetails);
   const { loading, success, error } = userUpdateDetails;
@@ -50,14 +32,12 @@ const UserDashboard = () => {
 
   const handleUpdateMemory = (e) => {
     e.preventDefault();
-
     //Dispatch Action here
     dispatch(userDetailsUpdateAction(formData));
-    dispatch(detailsAction());
     setFormData({
-      id: id,
-      name: name,
-      email: email,
+      id,
+      name,
+      email,
       password: '',
     });
   };
@@ -76,9 +56,9 @@ const UserDashboard = () => {
               Update User Details
             </legend>
             <div>
-              <p>Id: {details?.id}</p>
-              <p>Name: {details?.name}</p>
-              <p>Email: {details?.email}</p>
+              <p>Id: {id}</p>
+              <p>Name: {name}</p>
+              <p>Email: {email}</p>
             </div>
 
             <div>

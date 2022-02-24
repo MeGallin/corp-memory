@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './Memories.scss';
@@ -6,13 +6,17 @@ import './Memories.scss';
 import moment from 'moment';
 
 import { memoriesAction } from '../../store/actions/userActions';
+import { detailsAction } from '../../store/actions/userDetailActions';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
 import Tags from '../tags/Tags';
+import SearchComponent from '../searchComponent/SearchComponent';
 
 const Memories = () => {
   const dispatch = useDispatch();
+
+  const [keyword, setKeyword] = useState('');
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -20,11 +24,26 @@ const Memories = () => {
   useEffect(() => {
     if (userInfo) {
       dispatch(memoriesAction());
+      dispatch(detailsAction());
     }
   }, [userInfo, dispatch]);
 
   const userMemories = useSelector((state) => state.userMemories);
   const { loading, memories } = userMemories;
+
+  const handleSearch = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const searchedMemories = memories?.filter((memory) => {
+    if (memory.title !== undefined || memory.memory !== undefined) {
+      return (
+        memory.title.toLowerCase().includes(keyword.toLowerCase()) ||
+        memory.memory.toLowerCase().includes(keyword.toLowerCase())
+      );
+    }
+    return false;
+  });
 
   return (
     <div className="memories-wrapper">
@@ -32,13 +51,24 @@ const Memories = () => {
         'loading'
       ) : (
         <>
-          {userInfo && memories ? (
+          {userInfo && searchedMemories ? (
             <div className="memories-inner-wrapper">
               <div className="item">
                 <fieldset className="fieldSet">
                   <legend>Memories</legend>
-                  <p>[{memories.length}] memories saved</p>
-                  {memories?.map((memory) => (
+                  <SearchComponent
+                    placeholder="search"
+                    value={keyword}
+                    handleSearch={handleSearch}
+                  />
+                  <p>
+                    [{searchedMemories.length}]{' '}
+                    {searchedMemories.length === 1
+                      ? 'memory found.'
+                      : 'memories'}{' '}
+                  </p>
+
+                  {searchedMemories?.map((memory) => (
                     <div className="memory" key={memory._id}>
                       <div className="memories-heading-wrapper">
                         <p
