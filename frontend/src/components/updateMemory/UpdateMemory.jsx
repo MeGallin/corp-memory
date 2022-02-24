@@ -19,7 +19,7 @@ const UpdateMemory = ({ updateMemory }) => {
     memory: updateMemory.memory,
     dueDate: new Date(updateMemory.dueDate),
     rating: updateMemory.rating,
-    tags: updateMemory.tags.map((tag) => tag.tagName),
+    tags: updateMemory.tags[0]?.tagName || 'TAG',
   });
   const { id, title, memory, dueDate, rating, tags } = formData;
 
@@ -49,7 +49,14 @@ const UpdateMemory = ({ updateMemory }) => {
   };
 
   const handleOnChangeDate = (date) => {
-    setFormData({ id, title, memory, dueDate: date, rating, tags });
+    setFormData({
+      id,
+      title,
+      memory,
+      dueDate: date,
+      rating,
+      tags: tags,
+    });
   };
 
   return (

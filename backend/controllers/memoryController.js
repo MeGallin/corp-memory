@@ -21,9 +21,11 @@ const createMemory = asyncHandler(async (req, res) => {
   }
 
   if (req.body.tags.length > 0) {
-    const tag = {
-      tagName: req.body.tags,
-    };
+    const tag = [
+      {
+        tagName: req.body.tags,
+      },
+    ];
     const memory = await Memories.create({
       title: req.body.title,
       memory: req.body.memory,
@@ -68,11 +70,13 @@ const updateMemory = asyncHandler(async (req, res) => {
     throw new Error('User not authorised');
   }
 
+  const tags = req.body.tags;
   const updatedData = {
     title: req.body.title,
     memory: req.body.memory,
     rating: req.body.rating,
     dueDate: req.body.dueDate,
+    tags: tags,
   };
 
   const undatedMemory = await Memories.findByIdAndUpdate(

@@ -135,6 +135,7 @@ export const userDeleteMemoryTagReducer = (state = {}, action) => {
 
 //USER Update a memory
 export const userUpdateMemoryReducer = (state = {}, action) => {
+  // console.log('UPDATE RECUCER', action.payload);
   switch (action.type) {
     case USER_UPDATE_MEMORY_REQUEST:
       return { loading: true };
@@ -143,6 +144,7 @@ export const userUpdateMemoryReducer = (state = {}, action) => {
         loading: false,
         success: true,
         error: null,
+        memory: action.payload,
       };
     case USER_UPDATE_MEMORY_FAILURE:
       return { loading: false, error: action.payload };
