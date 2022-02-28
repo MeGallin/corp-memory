@@ -32,6 +32,7 @@ const createMemory = asyncHandler(async (req, res) => {
       setDueDate: req.body.setDueDate,
       dueDate: req.body.dueDate,
       rating: req.body.rating,
+      isComplete: req.body.isComplete,
       user: req.user._id,
       tags: tag,
     });
@@ -44,6 +45,7 @@ const createMemory = asyncHandler(async (req, res) => {
       setDueDate: req.body.setDueDate,
       dueDate: req.body.dueDate,
       rating: req.body.rating,
+      isComplete: req.body.isComplete,
       user: req.user._id,
     });
 
@@ -79,6 +81,7 @@ const updateMemory = asyncHandler(async (req, res) => {
     rating: req.body.rating,
     setDueDate: req.body.setDueDate,
     dueDate: req.body.dueDate,
+    isComplete: req.body.isComplete,
     tags: tags,
   };
 

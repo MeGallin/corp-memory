@@ -20,6 +20,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_UPDATE_MEMORY_FAILURE,
+  USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE,
+  USER_UPDATE_MEMORY_IS_COMPLETE_REQUEST,
+  USER_UPDATE_MEMORY_IS_COMPLETE_SUCCESS,
   USER_UPDATE_MEMORY_REQUEST,
   USER_UPDATE_MEMORY_SET_DUE_DATE_FAILURE,
   USER_UPDATE_MEMORY_SET_DUE_DATE_REQUEST,
@@ -288,6 +291,48 @@ export const userUpdateSetDueDateAction =
     } catch (error) {
       dispatch({
         type: USER_UPDATE_MEMORY_SET_DUE_DATE_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+// USER Update a memory SET IS COMPLETE
+export const userUpdateIsCompleteAction =
+  (memory) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: USER_UPDATE_MEMORY_IS_COMPLETE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `api/memory/${memory.id}`,
+        {
+          isComplete: memory.isComplete,
+        },
+        config,
+      );
+
+      dispatch({
+        type: USER_UPDATE_MEMORY_IS_COMPLETE_SUCCESS,
+        payload: data,
+      });
+      dispatch(memoriesAction());
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

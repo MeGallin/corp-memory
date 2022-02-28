@@ -20,6 +20,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_UPDATE_MEMORY_FAILURE,
+  USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE,
+  USER_UPDATE_MEMORY_IS_COMPLETE_REQUEST,
+  USER_UPDATE_MEMORY_IS_COMPLETE_SUCCESS,
   USER_UPDATE_MEMORY_REQUEST,
   USER_UPDATE_MEMORY_SET_DUE_DATE_FAILURE,
   USER_UPDATE_MEMORY_SET_DUE_DATE_REQUEST,
@@ -170,6 +173,24 @@ export const userUpdateMemorySetDueDateReducer = (state = {}, action) => {
         memory: action.payload,
       };
     case USER_UPDATE_MEMORY_SET_DUE_DATE_FAILURE:
+      return { loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+//USER Update a memory IS COMPLETE
+export const userUpdateMemoryIsCompleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_MEMORY_IS_COMPLETE_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_MEMORY_IS_COMPLETE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: null,
+        memory: action.payload,
+      };
+    case USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE:
       return { loading: false, error: action.payload };
     default:
       return { ...state };
