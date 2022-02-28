@@ -21,6 +21,10 @@ const memoriesSchema = mongoose.Schema(
       type: String,
       required: [true, 'Memory cant be blank'],
     },
+    setDueDate: {
+      type: Boolean,
+      default: true,
+    },
     dueDate: {
       type: String,
     },

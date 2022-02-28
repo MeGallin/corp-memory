@@ -10,6 +10,7 @@ import {
   userDeleteMemoryReducer,
   userDeleteMemoryTagReducer,
   userUpdateMemoryReducer,
+  userUpdateMemorySetDueDateReducer,
 } from './reducers/userReducers';
 
 import {
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   userDeleteMemory: userDeleteMemoryReducer,
   userDeleteMemoryTag: userDeleteMemoryTagReducer,
   userUpdateMemory: userUpdateMemoryReducer,
+  userUpdateMemorySetDueDate: userUpdateMemorySetDueDateReducer,
   userUpdateDetails: userUpdateDetailsReducer,
   userDetails: userDetailsReducer,
 });
