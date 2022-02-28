@@ -5,8 +5,12 @@ import './Memories.scss';
 
 import moment from 'moment';
 
-import { memoriesAction } from '../../store/actions/userActions';
+import {
+  memoriesAction,
+  userUpdateSetDueDateAction,
+} from '../../store/actions/userActions';
 import { detailsAction } from '../../store/actions/userDetailActions';
+
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
@@ -33,6 +37,12 @@ const Memories = () => {
 
   const handleSearch = (e) => {
     setKeyword(e.target.value);
+  };
+
+  const handleOnchangeChecked = (id, value) => {
+    const toggledValue = (value = !value);
+    //Dispatch setDueDate Action
+    dispatch(userUpdateSetDueDateAction({ id: id, setDueDate: toggledValue }));
   };
 
   const searchedMemories = memories?.filter((memory) => {
@@ -71,16 +81,21 @@ const Memories = () => {
                   {searchedMemories?.map((memory) => (
                     <div className="memory" key={memory._id}>
                       <div className="memories-heading-wrapper">
-                        <p
-                          className={
-                            moment(moment(memory.dueDate).valueOf()) <
-                            moment(moment(new Date()).valueOf())
-                              ? 'late'
-                              : 'early'
-                          }
-                        >
-                          Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
-                        </p>
+                        {memory.setDueDate ? (
+                          <p
+                            className={
+                              moment(moment(memory.dueDate).valueOf()) <
+                              moment(moment(new Date()).valueOf())
+                                ? 'late'
+                                : 'early'
+                            }
+                          >
+                            Due, {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
+                          </p>
+                        ) : (
+                          <div className="small-text">No due date set</div>
+                        )}
+
                         {memory.tags.map((tag) => (
                           <div key={tag._id}>
                             <Tags
@@ -95,13 +110,37 @@ const Memories = () => {
                       <h2>{memory.title}</h2>
 
                       <p>{memory.memory}</p>
-                      <p className="small-text">
-                        Due on,{' '}
-                        {moment(memory.dueDate).format(
-                          'Do MMM YYYY, h:mm:ss a',
-                        )}
-                      </p>
-                      <p>Rating: {memory.rating}</p>
+
+                      <div className="memories-heading-wrapper">
+                        <div>
+                          <label>
+                            Due Date:
+                            <input
+                              type="checkbox"
+                              id="setDueDate"
+                              name="setDueDate"
+                              checked={memory.setDueDate}
+                              onChange={() =>
+                                handleOnchangeChecked(
+                                  memory._id,
+                                  memory.setDueDate,
+                                )
+                              }
+                            />
+                          </label>
+                        </div>
+
+                        {memory.setDueDate ? (
+                          <p className="small-text">
+                            Due on,{' '}
+                            {moment(memory.dueDate).format(
+                              'Do MMM YYYY, h:mm:ss a',
+                            )}
+                          </p>
+                        ) : null}
+
+                        <p>Rating: {memory.rating}</p>
+                      </div>
 
                       <div className="memory-button-wrapper">
                         <UpdateMemory updateMemory={{ ...memory }} />

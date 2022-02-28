@@ -29,6 +29,7 @@ const createMemory = asyncHandler(async (req, res) => {
     const memory = await Memories.create({
       title: req.body.title,
       memory: req.body.memory,
+      setDueDate: req.body.setDueDate,
       dueDate: req.body.dueDate,
       rating: req.body.rating,
       user: req.user._id,
@@ -40,6 +41,7 @@ const createMemory = asyncHandler(async (req, res) => {
     const memory = await Memories.create({
       title: req.body.title,
       memory: req.body.memory,
+      setDueDate: req.body.setDueDate,
       dueDate: req.body.dueDate,
       rating: req.body.rating,
       user: req.user._id,
@@ -75,6 +77,7 @@ const updateMemory = asyncHandler(async (req, res) => {
     title: req.body.title,
     memory: req.body.memory,
     rating: req.body.rating,
+    setDueDate: req.body.setDueDate,
     dueDate: req.body.dueDate,
     tags: tags,
   };

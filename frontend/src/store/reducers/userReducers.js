@@ -21,6 +21,9 @@ import {
   USER_REGISTER_SUCCESS,
   USER_UPDATE_MEMORY_FAILURE,
   USER_UPDATE_MEMORY_REQUEST,
+  USER_UPDATE_MEMORY_SET_DUE_DATE_FAILURE,
+  USER_UPDATE_MEMORY_SET_DUE_DATE_REQUEST,
+  USER_UPDATE_MEMORY_SET_DUE_DATE_SUCCESS,
   USER_UPDATE_MEMORY_SUCCESS,
 } from '../constants/userConstants';
 
@@ -147,6 +150,26 @@ export const userUpdateMemoryReducer = (state = {}, action) => {
         memory: action.payload,
       };
     case USER_UPDATE_MEMORY_FAILURE:
+      return { loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+
+//USER Update a memory SET DUE DATE
+export const userUpdateMemorySetDueDateReducer = (state = {}, action) => {
+  // console.log('UPDATE RECUCER', action.payload);
+  switch (action.type) {
+    case USER_UPDATE_MEMORY_SET_DUE_DATE_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_MEMORY_SET_DUE_DATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: null,
+        memory: action.payload,
+      };
+    case USER_UPDATE_MEMORY_SET_DUE_DATE_FAILURE:
       return { loading: false, error: action.payload };
     default:
       return { ...state };
