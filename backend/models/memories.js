@@ -28,6 +28,10 @@ const memoriesSchema = mongoose.Schema(
     dueDate: {
       type: String,
     },
+    isComplete: {
+      type: Boolean,
+      default: false,
+    },
     rating: {
       type: Number,
       default: 0,

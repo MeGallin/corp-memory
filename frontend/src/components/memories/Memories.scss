@@ -24,10 +24,10 @@
     .memory {
       background-color: $main-bg-colour;
       padding: 0.2em;
-      margin-bottom: 0.2em;
+      margin-bottom: 0.6em;
 
-      h3 {
-        text-decoration: underline;
+      h2 {
+        // text-decoration: underline;
         text-transform: uppercase;
       }
       .memories-heading-wrapper {
@@ -35,10 +35,20 @@
         justify-content: space-between;
         align-items: center;
         align-content: center;
+        border-bottom: 1px solid $border-colour-light;
         .danger {
           background-color: $warning;
           color: $main-bg-colour;
         }
+      }
+      .memory-inner-wrapper {
+      }
+      .memories-rating-wrapper {
+        border-top: 1px solid $border-colour-light;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
       }
       .memory-button-wrapper {
         border-top: 1px solid $border-colour-light;
@@ -52,6 +62,10 @@
         font-size: 0.6em;
         padding-top: 1em;
       }
+    }
+    .memory:nth-child(even) {
+      background-color: $main-font-colour;
+      color: $main-bg-colour;
     }
   }
 }
