@@ -17,6 +17,7 @@ import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
 import Tags from '../tags/Tags';
 import SearchComponent from '../searchComponent/SearchComponent';
+import Modal from '../modal/Modal';
 
 const Memories = () => {
   const dispatch = useDispatch();
@@ -71,23 +72,37 @@ const Memories = () => {
         <>
           {userInfo && searchedMemories ? (
             <div className="memories-inner-wrapper">
-              <div className="item">
-                <fieldset className="fieldSet">
-                  <legend>Memories</legend>
+              <fieldset className="fieldSet">
+                <legend>Memories</legend>
+
+                <div className="search-modal-wrapper">
                   <SearchComponent
                     placeholder="search"
                     value={keyword}
                     handleSearch={handleSearch}
                   />
-                  <p>
-                    [{searchedMemories.length}]{' '}
-                    {searchedMemories.length === 1
-                      ? 'memory found.'
-                      : 'memories'}{' '}
-                  </p>
+                  <Modal
+                    openButtonTitle="Create New Memory"
+                    closeButtonTitle="X"
+                    props={<CreateMemory />}
+                  />
+                </div>
 
+                <p>
+                  [{searchedMemories.length}]{' '}
+                  {searchedMemories.length === 1 ? 'memory found.' : 'memories'}{' '}
+                </p>
+                <div className="mem-wrapper">
                   {searchedMemories?.map((memory) => (
-                    <div className="memory" key={memory._id}>
+                    <div
+                      className={
+                        moment(moment(memory.dueDate).valueOf()) <
+                        moment(moment(new Date()).valueOf())
+                          ? 'memory lateBorder'
+                          : 'memory'
+                      }
+                      key={memory._id}
+                    >
                       {!memory.isComplete ? (
                         <>
                           <div className="memories-heading-wrapper">
@@ -101,7 +116,10 @@ const Memories = () => {
                                 }
                               >
                                 Due,{' '}
-                                {moment(memory.dueDate, 'YYYYMMDD').fromNow()}
+                                {/* {moment(memory.dueDate, 'YYYYMMDD').fromNow()} */}
+                                {moment(memory.dueDate)
+                                  .startOf('minute')
+                                  .fromNow()}
                               </p>
                             ) : (
                               <div className="small-text">No due date set</div>
@@ -189,11 +207,8 @@ const Memories = () => {
                       ) : null}
                     </div>
                   ))}
-                </fieldset>
-              </div>
-              <div className="item">
-                <CreateMemory />
-              </div>
+                </div>
+              </fieldset>
             </div>
           ) : (
             <>
