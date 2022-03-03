@@ -6,30 +6,37 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    .item {
-      flex-grow: 2;
-      flex-basis: min-content;
-    }
-    .item:nth-child(2) {
-      flex-grow: 1;
-      flex-basis: min-content;
+    .search-modal-wrapper {
+      display: flex;
+      justify-content: space-between;
     }
 
     .late {
       color: crimson;
     }
+    .lateBorder {
+      border: 2px solid $danger;
+    }
     .early {
       color: green;
+    }
+    .mem-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
     }
     .memory {
       background-color: $main-bg-colour;
       padding: 0.2em;
-      margin-bottom: 0.6em;
+      margin: 0.2em 0.2em;
+      flex-grow: 1;
+      width: MIN(100%, 600px);
 
       h2 {
         // text-decoration: underline;
         text-transform: uppercase;
       }
+
       .memories-heading-wrapper {
         display: flex;
         justify-content: space-between;
