@@ -132,7 +132,8 @@ h6 {
 fieldset.fieldSet {
   border: 1px solid $border-colour-light;
   background-color: $fieldSet-bg-colour;
-  width: 100%;
+  flex-grow: 1;
+  width: MIN(100%, 600px);
 }
 fieldset legend {
   text-transform: uppercase;
