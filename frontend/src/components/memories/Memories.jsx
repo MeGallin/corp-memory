@@ -139,28 +139,31 @@ const Memories = () => {
                           </div>
 
                           <div className="memory-inner-wrapper">
-                            <h2>{memory.title}</h2>
-                            <p>{memory.memory}</p>
-                            <div className="small-text">
-                              <label>
-                                Mark as Complete:
-                                <input
-                                  type="checkbox"
-                                  id="isComplete"
-                                  name="isComplete"
-                                  checked={memory.isComplete}
-                                  onChange={() =>
-                                    handleOnchangeIsComplete(
-                                      memory._id,
-                                      memory.isComplete,
-                                    )
-                                  }
-                                />
-                              </label>
+                            <div className="memory-title-wrapper">
+                              <h2>{memory.title}</h2>
+                              <div className="small-text">
+                                <label>
+                                  Mark as Complete:
+                                  <input
+                                    type="checkbox"
+                                    id="isComplete"
+                                    name="isComplete"
+                                    checked={memory.isComplete}
+                                    onChange={() =>
+                                      handleOnchangeIsComplete(
+                                        memory._id,
+                                        memory.isComplete,
+                                      )
+                                    }
+                                  />
+                                </label>
+                              </div>
                             </div>
+
+                            <p>{memory.memory}</p>
                           </div>
 
-                          <div className="memories-rating-wrapper">
+                          <div className="memories-priority-wrapper">
                             <div className="small-text">
                               <label>
                                 Due Date:
@@ -188,7 +191,9 @@ const Memories = () => {
                               </p>
                             ) : null}
 
-                            <p>Rating: {memory.rating}</p>
+                            <p className="small-text">
+                              {memory.priority} priority.
+                            </p>
                           </div>
 
                           <div className="memory-button-wrapper">

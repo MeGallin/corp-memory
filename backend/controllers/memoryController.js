@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Memories from '../models/memories.js';
+import Memories from '../models/memoriesModel.js';
 import User from '../models/userModel.js';
 
 // @description: Get All the Memories
@@ -31,7 +31,7 @@ const createMemory = asyncHandler(async (req, res) => {
       memory: req.body.memory,
       setDueDate: req.body.setDueDate,
       dueDate: req.body.dueDate,
-      rating: req.body.rating,
+      priority: req.body.priority,
       isComplete: req.body.isComplete,
       user: req.user._id,
       tags: tag,
@@ -44,7 +44,7 @@ const createMemory = asyncHandler(async (req, res) => {
       memory: req.body.memory,
       setDueDate: req.body.setDueDate,
       dueDate: req.body.dueDate,
-      rating: req.body.rating,
+      priority: req.body.priority,
       isComplete: req.body.isComplete,
       user: req.user._id,
     });
@@ -78,7 +78,7 @@ const updateMemory = asyncHandler(async (req, res) => {
   const updatedData = {
     title: req.body.title,
     memory: req.body.memory,
-    rating: req.body.rating,
+    priority: req.body.priority,
     setDueDate: req.body.setDueDate,
     dueDate: req.body.dueDate,
     isComplete: req.body.isComplete,
