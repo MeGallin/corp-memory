@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './UserDashboards.scss';
-import { FaPencilAlt } from 'react-icons/fa';
+import { FaPencilAlt, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 
 import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
 import { userUpdateIsCompleteAction } from '../../store/actions/userActions';
@@ -13,6 +13,8 @@ const UserDashboard = () => {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { details } = userDetails;
+
+  console.log('DDD', details);
 
   const userMemories = useSelector((state) => state.userMemories);
   const { memories } = userMemories;
@@ -72,46 +74,8 @@ const UserDashboard = () => {
           <fieldset className="fieldSet">
             <legend>
               <FaPencilAlt />
-              Update User Details
+              Completed Memories
             </legend>
-            <div>
-              <p>Id: {id}</p>
-              <p>Name: {name}</p>
-              <p>Email: {email}</p>
-            </div>
-
-            <div>
-              <form onSubmit={handleUpdateMemory}>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={name}
-                  placeholder="name"
-                  onChange={handleOnchange}
-                />
-
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  placeholder="email"
-                  onChange={handleOnchange}
-                />
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  placeholder="password"
-                  onChange={handleOnchange}
-                />
-
-                <button type="submit">UPDATE</button>
-              </form>
-            </div>
-            <hr />
             <div
               className="show-completed"
               onClick={() => setShowCompleted(!showCompleted)}
@@ -149,6 +113,65 @@ const UserDashboard = () => {
                   : null}
               </div>
             ) : null}
+          </fieldset>
+          <fieldset className="fieldSet">
+            <legend>
+              <FaPencilAlt />
+              Update User Details
+            </legend>
+            <div>
+              <p>Id: {id}</p>
+              <p>Name: {name}</p>
+              <p>Email: {email}</p>
+              <p>
+                Admin:{' '}
+                {details.isAdmin ? (
+                  <FaRegThumbsUp style={{ color: 'green' }} />
+                ) : (
+                  <FaRegThumbsDown style={{ color: 'crimson' }} />
+                )}
+              </p>
+              <p>
+                Email Confirmed:{' '}
+                {details.isConfirmed ? (
+                  <FaRegThumbsUp style={{ color: 'green' }} />
+                ) : (
+                  <FaRegThumbsDown style={{ color: 'crimson' }} />
+                )}
+              </p>
+            </div>
+
+            <div>
+              <form onSubmit={handleUpdateMemory}>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  placeholder="name"
+                  onChange={handleOnchange}
+                />
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  placeholder="email"
+                  onChange={handleOnchange}
+                />
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  placeholder="password"
+                  onChange={handleOnchange}
+                />
+
+                <button type="submit">UPDATE</button>
+              </form>
+            </div>
           </fieldset>
         </div>
       )}

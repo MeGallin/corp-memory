@@ -99,11 +99,15 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route: GET /api/users/user
 // @access: PRIVATE
 const getMyUserData = asyncHandler(async (req, res) => {
-  const { _id, name, email } = await User.findById(req.user.id);
+  const { _id, name, email, isAdmin, isConfirmed } = await User.findById(
+    req.user.id,
+  );
   res.status(200).json({
     id: _id,
     name,
     email,
+    isAdmin,
+    isConfirmed,
   });
 });
 

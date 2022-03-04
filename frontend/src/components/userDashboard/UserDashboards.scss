@@ -1,6 +1,8 @@
 @import '../../index.scss';
 
 .userDashboard-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 }
 .show-completed {
   font-weight: bold;
