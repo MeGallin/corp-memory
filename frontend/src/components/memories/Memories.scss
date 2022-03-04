@@ -23,6 +23,11 @@
     .early {
       color: $success;
     }
+    .memory-title-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .mem-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -53,7 +58,7 @@
       }
       .memory-inner-wrapper {
       }
-      .memories-rating-wrapper {
+      .memories-priority-wrapper {
         border-top: 1px solid $border-colour-light;
         display: flex;
         justify-content: space-between;

@@ -18,10 +18,10 @@ const UpdateMemory = ({ updateMemory }) => {
     title: updateMemory.title,
     memory: updateMemory.memory,
     dueDate: new Date(updateMemory.dueDate),
-    rating: updateMemory.rating,
+    priority: updateMemory.priority,
     tags: updateMemory.tags[0]?.tagName || 'TAG',
   });
-  const { id, title, memory, dueDate, rating, tags } = formData;
+  const { id, title, memory, dueDate, priority, tags } = formData;
 
   const handleShowForm = () => {
     setShowForm(!showForm);
@@ -35,7 +35,7 @@ const UpdateMemory = ({ updateMemory }) => {
     setFormData({
       title: '',
       memory: '',
-      rating: '',
+      priority: '',
       tags: [],
     });
     setShowForm(false);
@@ -54,7 +54,7 @@ const UpdateMemory = ({ updateMemory }) => {
       title,
       memory,
       dueDate: date,
-      rating,
+      priority,
       tags: tags,
     });
   };
@@ -90,10 +90,10 @@ const UpdateMemory = ({ updateMemory }) => {
               <div className="update-input-wrapper">
                 <input
                   type="number"
-                  id="rating"
-                  name="rating"
-                  value={rating}
-                  placeholder="rating"
+                  id="priority"
+                  name="priority"
+                  value={priority}
+                  placeholder="priority"
                   onChange={handleOnchange}
                 />
 

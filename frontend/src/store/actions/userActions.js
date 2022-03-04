@@ -238,7 +238,7 @@ export const userUpdateAction = (memory) => async (dispatch, getState) => {
         title: memory.title,
         memory: memory.memory,
         dueDate: memory.dueDate,
-        rating: memory.rating,
+        priority: memory.priority,
         tags: { tagName: memory.tags },
       },
       config,

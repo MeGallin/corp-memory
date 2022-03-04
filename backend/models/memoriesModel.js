@@ -32,7 +32,7 @@ const memoriesSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    rating: {
+    priority: {
       type: Number,
       default: 0,
     },
