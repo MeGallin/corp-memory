@@ -104,6 +104,7 @@ button,
 textarea,
 select {
   font: inherit;
+  text-transform: uppercase;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */
@@ -126,7 +127,13 @@ h6 {
   font-family: 'Bebas Neue', cursive;
   letter-spacing: 0.4em;
 }
-
+/* Responsive layout */
+@media (max-width: 812px) {
+  button {
+    font-size: 0.7em;
+    text-transform: uppercase;
+  }
+}
 /* General global stye settings */
 
 fieldset.fieldSet {

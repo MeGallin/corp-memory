@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './Header.scss';
 import { FaUser } from 'react-icons/fa';
@@ -23,29 +23,45 @@ const Header = () => {
   return (
     <header>
       <nav className="nav-wrapper">
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact Us</Link>
-        </div>
-        <div>
-          {userInfo ? (
-            <>
-              <Link to="/user-dashboard">User Dashboard</Link>
+        <span>
+          <NavLink
+            className={(navData) => (navData.isActive ? 'active' : '')}
+            to="/"
+          >
+            Home
+          </NavLink>
+        </span>
+        <span>
+          <NavLink to="/about">About</NavLink>
+        </span>
+        <span>
+          <NavLink to="/contact">Contact Us</NavLink>
+        </span>
+
+        {userInfo ? (
+          <>
+            <span>
+              <NavLink to="/user-dashboard">
+                {' '}
+                <FaUser /> Dashboard
+              </NavLink>
+            </span>
+            <span>
               <button onClick={handleLogout}>
-                <FaUser />
                 {details?.name || userInfo.name}
               </button>
-            </>
-          ) : (
-            <>
-              <Link to="/forms">
+            </span>
+          </>
+        ) : (
+          <>
+            <span>
+              <NavLink to="/forms">
                 <FaUser />
                 login
-              </Link>
-            </>
-          )}
-        </div>
+              </NavLink>
+            </span>
+          </>
+        )}
       </nav>
     </header>
   );

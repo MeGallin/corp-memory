@@ -2,6 +2,7 @@
 
 header {
   border: 1px solid $border-colour;
+  text-transform: uppercase;
   a {
     color: $main-bg-colour;
   }
@@ -10,10 +11,28 @@ header {
     height: clamp(1rem, $header-height, $header-height);
     background-color: $main-font-colour;
     color: $main-bg-colour;
+    span {
+      border: 1px solid $border-colour;
+      padding: 0.2em 0.4em;
+    }
   }
   .nav-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .active {
+    border-top: 2px solid $rating-colour;
+    border-bottom: 2px solid $rating-colour;
+    color: $main-font-colour;
+    background-color: $main-bg-colour;
+    padding: 0.1em;
+  }
+}
+/* Responsive layout */
+@media (max-width: 812px) {
+  header nav {
+    font-size: 0.65em;
+    padding: 0.1em;
   }
 }
