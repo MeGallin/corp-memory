@@ -14,8 +14,6 @@ const UserDashboard = () => {
   const userDetails = useSelector((state) => state.userDetails);
   const { details } = userDetails;
 
-  console.log('DDD', details);
-
   const userMemories = useSelector((state) => state.userMemories);
   const { memories } = userMemories;
 
@@ -81,7 +79,7 @@ const UserDashboard = () => {
               onClick={() => setShowCompleted(!showCompleted)}
             >
               {!showCompleted
-                ? `[${completedMemories?.length}] completed Memories to SHOW `
+                ? `SHOW completed [${completedMemories?.length}]`
                 : 'HIDE completed Memories'}
             </div>
             {showCompleted ? (
