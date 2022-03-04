@@ -12,13 +12,16 @@
     }
 
     .late {
-      color: crimson;
+      color: $danger;
     }
-    .lateBorder {
-      border: 2px solid $danger;
+    .late-border {
+      border-left: 6px solid $danger;
+    }
+    .late-width {
+      display: none;
     }
     .early {
-      color: green;
+      color: $success;
     }
     .mem-wrapper {
       display: flex;
