@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './UserDashboards.scss';
@@ -47,9 +47,9 @@ const UserDashboard = () => {
     //Dispatch Action here
     dispatch(userDetailsUpdateAction(formData));
     setFormData({
-      id,
-      name,
-      email,
+      id: formData.id,
+      name: formData.name,
+      email: formData.email,
       password: '',
     });
   };
@@ -57,7 +57,6 @@ const UserDashboard = () => {
   const handleOnchangeIsComplete = (id, value) => {
     const toggledValue = (value = !value);
     setChecked((value = !value));
-
     //Dispatch setDueDate Action
     dispatch(userUpdateIsCompleteAction({ id: id, isComplete: toggledValue }));
   };
@@ -118,7 +117,7 @@ const UserDashboard = () => {
               onClick={() => setShowCompleted(!showCompleted)}
             >
               {!showCompleted
-                ? 'SHOW completed Memories'
+                ? `[${completedMemories?.length}] completed Memories to SHOW `
                 : 'HIDE completed Memories'}
             </div>
             {showCompleted ? (
@@ -130,7 +129,7 @@ const UserDashboard = () => {
                         <p>{memory.memory}</p>
                         <div>
                           <label>
-                            Marked as Complete:
+                            Un-mark as Completed:
                             <input
                               type="checkbox"
                               id="isComplete"

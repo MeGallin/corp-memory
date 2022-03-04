@@ -23,6 +23,7 @@ const Memories = () => {
   const dispatch = useDispatch();
 
   const [keyword, setKeyword] = useState('');
+  const [dateTime, setDateTime] = useState('');
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -32,6 +33,9 @@ const Memories = () => {
       dispatch(memoriesAction());
       dispatch(detailsAction());
     }
+    setInterval(() => {
+      setDateTime(moment().valueOf());
+    }, 1000);
   }, [userInfo, dispatch]);
 
   const userMemories = useSelector((state) => state.userMemories);
@@ -95,12 +99,11 @@ const Memories = () => {
                 <div className="mem-wrapper">
                   {searchedMemories?.map((memory) => (
                     <div
-                      className={
-                        moment(moment(memory.dueDate).valueOf()) <
-                        moment(moment(new Date()).valueOf())
-                          ? 'memory lateBorder'
-                          : 'memory'
-                      }
+                      className={`memory ${
+                        moment(memory.dueDate).valueOf() < dateTime
+                          ? ' late-border'
+                          : ''
+                      } ${memory.isComplete ? 'late-width' : ''}`}
                       key={memory._id}
                     >
                       {!memory.isComplete ? (
@@ -109,8 +112,7 @@ const Memories = () => {
                             {memory.setDueDate ? (
                               <p
                                 className={
-                                  moment(moment(memory.dueDate).valueOf()) <
-                                  moment(moment(new Date()).valueOf())
+                                  moment(memory.dueDate).valueOf() < dateTime
                                     ? 'late'
                                     : 'early'
                                 }
