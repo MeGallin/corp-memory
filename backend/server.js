@@ -8,6 +8,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 //Contollers
 import memoryRoutes from './Routes/MemoryRoutes.js';
 import userRoutes from './Routes/UserRoutes.js';
+import contactFormRoutes from './routes/contactFormRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -20,6 +21,8 @@ app.use('/api/memory', memoryRoutes);
 app.use('/api/memories', memoryRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/users', userRoutes);
+//Contact form
+app.use('/api/contact', contactFormRoutes);
 
 // @Error handling middleware
 app.use(notFound);
