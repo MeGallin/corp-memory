@@ -38,6 +38,9 @@ const Memories = () => {
     }, 1000);
   }, [userInfo, dispatch]);
 
+  const userDetails = useSelector((state) => state.userDetails);
+  const { details } = userDetails;
+
   const userMemories = useSelector((state) => state.userMemories);
   const { loading, memories } = userMemories;
 
@@ -74,7 +77,7 @@ const Memories = () => {
         'loading'
       ) : (
         <>
-          {userInfo && searchedMemories ? (
+          {userInfo && searchedMemories && details?.isConfirmed ? (
             <div className="memories-inner-wrapper">
               <fieldset className="fieldSet">
                 <legend>Memories</legend>
@@ -226,6 +229,16 @@ const Memories = () => {
             </div>
           ) : (
             <>
+              {!details?.isConfirmed && userInfo ? (
+                <div className="memories-confirmation-error">
+                  <p>ERROR: Your email address need to be confirmed.</p>
+                  <p>Please check you emails for our confirmation link.</p>
+                  <p>
+                    Click the link and you will redirected to a new page where
+                    you can log in again.
+                  </p>
+                </div>
+              ) : null}
               <h1>Corporate memory</h1>
               <p>
                 Corporate memory is the ability of an organization to retain

@@ -1,6 +1,11 @@
 @import '../../index.scss';
 
 .memories-wrapper {
+  .memories-confirmation-error {
+    background-color: $danger;
+    color: $main-bg-colour;
+    font-size: 1.2em;
+  }
   .memories-inner-wrapper {
     display: flex;
     flex-wrap: wrap;
