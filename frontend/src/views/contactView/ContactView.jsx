@@ -1,7 +1,8 @@
+import ContactForm from '../../components/contactForm/ContactForm';
 import './ContactView.scss';
 
 const ContactView = () => {
-  return <div className="contact-wrapper">ContactView</div>;
+  return <ContactForm />;
 };
 
 export default ContactView;

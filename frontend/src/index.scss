@@ -104,7 +104,7 @@ button,
 textarea,
 select {
   font: inherit;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */
@@ -140,7 +140,7 @@ fieldset.fieldSet {
   border: 1px solid $border-colour-light;
   background-color: $fieldSet-bg-colour;
   flex-grow: 1;
-  width: MIN(100%, 600px);
+  // width: MIN(100%, 600px);
 }
 fieldset legend {
   text-transform: uppercase;
