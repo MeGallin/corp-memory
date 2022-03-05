@@ -85,11 +85,13 @@ const Memories = () => {
                     value={keyword}
                     handleSearch={handleSearch}
                   />
-                  <Modal
-                    openButtonTitle="Create New Memory"
-                    closeButtonTitle="X"
-                    props={<CreateMemory />}
-                  />
+                  <div>
+                    <Modal
+                      openButtonTitle="Create New Memory"
+                      closeButtonTitle="X"
+                      props={<CreateMemory />}
+                    />
+                  </div>
                 </div>
 
                 <p>
@@ -106,112 +108,117 @@ const Memories = () => {
                       } ${memory.isComplete ? 'late-width' : ''}`}
                       key={memory._id}
                     >
-                      {!memory.isComplete ? (
-                        <>
-                          <div className="memories-heading-wrapper">
-                            {memory.setDueDate ? (
-                              <p
-                                className={
-                                  moment(memory.dueDate).valueOf() < dateTime
-                                    ? 'late'
-                                    : 'early'
-                                }
-                              >
-                                Due,{' '}
-                                {/* {moment(memory.dueDate, 'YYYYMMDD').fromNow()} */}
-                                {moment(memory.dueDate)
-                                  .startOf('minute')
-                                  .fromNow()}
-                              </p>
-                            ) : (
-                              <div className="small-text">No due date set</div>
-                            )}
+                      <fieldset className="fieldSet">
+                        <legend>{memory.title}</legend>
 
-                            {memory.tags.map((tag) => (
-                              <div key={tag._id}>
-                                <Tags
-                                  tag={tag.tagName}
-                                  urgency="danger"
-                                  id={memory._id}
-                                />
+                        {!memory.isComplete ? (
+                          <>
+                            <div className="memories-heading-wrapper">
+                              {memory.setDueDate ? (
+                                <p
+                                  className={
+                                    moment(memory.dueDate).valueOf() < dateTime
+                                      ? 'late'
+                                      : 'early'
+                                  }
+                                >
+                                  Due,{' '}
+                                  {/* {moment(memory.dueDate, 'YYYYMMDD').fromNow()} */}
+                                  {moment(memory.dueDate)
+                                    .startOf('minute')
+                                    .fromNow()}
+                                </p>
+                              ) : (
+                                <div className="small-text">
+                                  No due date set
+                                </div>
+                              )}
+
+                              {memory.tags.map((tag) => (
+                                <div key={tag._id}>
+                                  <Tags
+                                    tag={tag.tagName}
+                                    urgency="danger"
+                                    id={memory._id}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="memory-inner-wrapper">
+                              <div className="memory-title-wrapper">
+                                <h2>{memory.title}</h2>
+                                <div className="small-text">
+                                  <label>
+                                    Mark as Complete:
+                                    <input
+                                      type="checkbox"
+                                      id="isComplete"
+                                      name="isComplete"
+                                      checked={memory.isComplete}
+                                      onChange={() =>
+                                        handleOnchangeIsComplete(
+                                          memory._id,
+                                          memory.isComplete,
+                                        )
+                                      }
+                                    />
+                                  </label>
+                                </div>
                               </div>
-                            ))}
-                          </div>
 
-                          <div className="memory-inner-wrapper">
-                            <div className="memory-title-wrapper">
-                              <h2>{memory.title}</h2>
+                              <p>{memory.memory}</p>
+                              <p className="small-text">
+                                {memory.priority} priority.
+                              </p>
+                            </div>
+
+                            <div className="memories-priority-wrapper">
                               <div className="small-text">
                                 <label>
-                                  Mark as Complete:
+                                  Due Date:
                                   <input
                                     type="checkbox"
-                                    id="isComplete"
-                                    name="isComplete"
-                                    checked={memory.isComplete}
+                                    id="setDueDate"
+                                    name="setDueDate"
+                                    checked={memory.setDueDate}
                                     onChange={() =>
-                                      handleOnchangeIsComplete(
+                                      handleOnchangeChecked(
                                         memory._id,
-                                        memory.isComplete,
+                                        memory.setDueDate,
                                       )
                                     }
                                   />
                                 </label>
                               </div>
+
+                              {memory.setDueDate ? (
+                                <p className="small-text">
+                                  Due on,{' '}
+                                  {moment(memory.dueDate).format(
+                                    'Do MMM YYYY, h:mm:ss a',
+                                  )}
+                                </p>
+                              ) : null}
                             </div>
 
-                            <p>{memory.memory}</p>
-                          </div>
-
-                          <div className="memories-priority-wrapper">
-                            <div className="small-text">
-                              <label>
-                                Due Date:
-                                <input
-                                  type="checkbox"
-                                  id="setDueDate"
-                                  name="setDueDate"
-                                  checked={memory.setDueDate}
-                                  onChange={() =>
-                                    handleOnchangeChecked(
-                                      memory._id,
-                                      memory.setDueDate,
-                                    )
-                                  }
-                                />
-                              </label>
+                            <div className="memory-button-wrapper">
+                              <UpdateMemory updateMemory={{ ...memory }} />
+                              <DeleteMemory id={memory._id} />
                             </div>
-
-                            {memory.setDueDate ? (
-                              <p className="small-text">
-                                Due on,{' '}
-                                {moment(memory.dueDate).format(
-                                  'Do MMM YYYY, h:mm:ss a',
-                                )}
+                            <div className="created-updated-wrapper">
+                              <p>
+                                Created on,{' '}
+                                {moment(memory.createdAt).format('Do MMM YYYY')}
                               </p>
-                            ) : null}
-
-                            <p className="small-text">
-                              {memory.priority} priority.
-                            </p>
-                          </div>
-
-                          <div className="memory-button-wrapper">
-                            <UpdateMemory updateMemory={{ ...memory }} />
-                            <DeleteMemory id={memory._id} />
-                          </div>
-                          <div className="created-updated-wrapper">
-                            <p>
-                              Created on,{' '}
-                              {moment(memory.createdAt).format('Do MMM YYYY')}
-                            </p>
-                            <p>
-                              Updated on,{' '}
-                              {moment(memory.updatedAt).format('Do MMM YYYY')}
-                            </p>
-                          </div>
-                        </>
-                      ) : null}
+                              <p>
+                                Updated on,{' '}
+                                {moment(memory.updatedAt).format('Do MMM YYYY')}
+                              </p>
+                            </div>
+                          </>
+                        ) : null}
+                      </fieldset>
                     </div>
                   ))}
                 </div>

@@ -23,7 +23,7 @@ const DeleteMemory = ({ id }) => {
         'loading...'
       ) : (
         <button id={id} onClick={() => handleDelete(id)}>
-          <FaTrash style={{ fontSize: '14px', marginLeft: '4px' }} />
+          <FaTrash style={{ fontSize: '10px', marginRight: '4px' }} />
           DELETE
         </button>
       )}
