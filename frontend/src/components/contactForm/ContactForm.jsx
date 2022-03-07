@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import './ContactFrom.scss';
 
 import { contactFormAction } from '../../store/actions/contactFormActions';
+import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
+  const nameRegEx = /^([\w])+\s+([\w\s])+$/i;
+  const emailRegEx =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+  const navigate = useNavigate();
 
   const contactForm = useSelector((state) => state.contactForm);
-  const { loading, error, success } = contactForm;
+  const { error, success } = contactForm;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +24,15 @@ const ContactForm = () => {
     message: '',
   });
   const { name, email, message } = formData;
+
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        navigate('/');
+      }, 5000);
+    }
+  }, [success, navigate]);
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
@@ -40,29 +56,40 @@ const ContactForm = () => {
   return (
     <div className="contact-form-wrapper">
       {error ? error : null}
-      {success ? 'Your message has been successfully sent. Thank you' : null}
-      {loading ? (
-        'loading'
+      {success ? (
+        'Your message has been successfully sent. Thank you. You will re-directed shortly.'
       ) : (
         <fieldset className="fieldSet">
           <legend>Contact Form</legend>
           <p>Please send us a message and we will be in contact shortly.</p>
           <div>
             <form onSubmit={handleLoginSubmit}>
-              <input
-                type="text"
-                id="name"
-                name="name"
+              <InputFieldComponent
+                label="Name"
                 value={name}
-                placeholder="name"
+                type="text"
+                name="name"
+                required
+                className={!nameRegEx.test(name) ? 'invalid' : 'entered'}
+                error={
+                  !nameRegEx.test(name) && name.length !== 0
+                    ? `Name field must start with an uppercase letter and contain at least 3 letters and have no white space.`
+                    : null
+                }
                 onChange={handleOnchange}
               />
-              <input
+
+              <InputFieldComponent
+                label="Email"
                 type="email"
-                id="email"
                 name="email"
                 value={email}
-                placeholder="email"
+                className={!emailRegEx.test(email) ? 'invalid' : 'entered'}
+                error={
+                  !emailRegEx.test(email) && email.length !== 0
+                    ? `Invalid email address.`
+                    : null
+                }
                 onChange={handleOnchange}
               />
               <textarea
@@ -74,7 +101,10 @@ const ContactForm = () => {
               />
 
               <div>
-                <button type="submit" disabled={!name && !email && !message}>
+                <button
+                  type="submit"
+                  disabled={!nameRegEx.test(name) || !emailRegEx.test(email)}
+                >
                   Submit
                 </button>
               </div>
