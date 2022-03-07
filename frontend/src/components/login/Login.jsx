@@ -6,10 +6,15 @@ import { FaUser } from 'react-icons/fa';
 import './Login.scss';
 
 import { loginAction } from '../../store/actions/userActions';
+import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const emailRegEx =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, success } = userLogin;
@@ -53,31 +58,57 @@ const Login = () => {
       ) : (
         <fieldset className="fieldSet">
           <legend>
-            <FaUser />
+            <FaUser
+              style={{
+                fontSize: '14px',
+                marginRight: '4px',
+                color: 'orange',
+              }}
+            />
             Login
           </legend>
           <p>Please log into your account</p>
           <div>
             <form onSubmit={handleLoginSubmit}>
-              <input
+              <InputFieldComponent
+                label="Email"
                 type="email"
-                id="email"
                 name="email"
                 value={email}
-                placeholder="email"
+                className={!emailRegEx.test(email) ? 'invalid' : 'entered'}
+                error={
+                  !emailRegEx.test(email) && email.length !== 0
+                    ? `Invalid email address.`
+                    : null
+                }
                 onChange={handleOnchange}
               />
-              <input
+              <InputFieldComponent
+                label="Password"
                 type="password"
-                id="password"
                 name="password"
                 value={password}
-                placeholder="password"
+                required
+                className={
+                  !passwordRegEx.test(password) ? 'invalid' : 'entered'
+                }
+                error={
+                  !passwordRegEx.test(password) && password.length !== 0
+                    ? `Password must contain at least 1 uppercase letter and a number`
+                    : null
+                }
                 onChange={handleOnchange}
               />
 
               <div>
-                <button type="submit">Submit</button>
+                <button
+                  type="submit"
+                  disabled={
+                    !passwordRegEx.test(password) || !emailRegEx.test(email)
+                  }
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>
