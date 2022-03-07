@@ -43,20 +43,32 @@ const Header = () => {
             <span>
               <NavLink to="/user-dashboard">
                 {' '}
-                <FaUser /> Dashboard
+                <FaUser
+                  style={{
+                    fontSize: '14px',
+                    marginRight: '4px',
+                    color: 'yellowGreen',
+                  }}
+                />{' '}
+                {details?.name || userInfo.name} Dashboard
               </NavLink>
             </span>
-            <span>
-              <button onClick={handleLogout}>
-                {details?.name || userInfo.name}
-              </button>
-            </span>
+
+            <button className="header-logout-button" onClick={handleLogout}>
+              <div>logout</div>
+            </button>
           </>
         ) : (
           <>
             <span>
               <NavLink to="/forms">
-                <FaUser />
+                <FaUser
+                  style={{
+                    fontSize: '14px',
+                    marginRight: '4px',
+                    color: 'orange',
+                  }}
+                />
                 login
               </NavLink>
             </span>
