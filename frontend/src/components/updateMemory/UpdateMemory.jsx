@@ -8,6 +8,7 @@ import { userUpdateAction } from '../../store/actions/userActions';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const UpdateMemory = ({ updateMemory }) => {
   const dispatch = useDispatch();
@@ -71,12 +72,11 @@ const UpdateMemory = ({ updateMemory }) => {
 
           <div>
             <form onSubmit={handleUpdateMemory}>
-              <input
-                type="text"
-                id="title"
-                name="title"
+              <InputFieldComponent
+                label="Title"
                 value={title}
-                placeholder="title"
+                type="text"
+                name="title"
                 onChange={handleOnchange}
               />
 

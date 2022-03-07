@@ -8,16 +8,17 @@ const FormsView = () => {
 
   return (
     <div className="forms-view-wrapper">
-      FormsView
       {showForm ? (
         <>
           <Login />
-          <p onClick={() => setShowForm(!showForm)}>Register here</p>
+          <p></p>
+          <button onClick={() => setShowForm(!showForm)}>Register here</button>
         </>
       ) : (
         <>
           <Registration />
-          <p onClick={() => setShowForm(!showForm)}>login here</p>
+          <p></p>
+          <button onClick={() => setShowForm(!showForm)}>login here</button>
         </>
       )}
     </div>

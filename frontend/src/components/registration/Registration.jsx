@@ -5,9 +5,17 @@ import { FaUser } from 'react-icons/fa';
 import './Registration.scss';
 
 import { registerAction } from '../../store/actions/userActions';
+import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const Registration = () => {
   const dispatch = useDispatch();
+  const nameRegEx = /^([\w])+\s+([\w\s])+$/i;
+  const emailRegEx =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+  const passwordConfirmRegEx =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+
   const [pwMessage, setPwMessage] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
@@ -55,48 +63,94 @@ const Registration = () => {
       ) : (
         <fieldset className="fieldSet">
           <legend>
-            <FaUser />
+            <FaUser
+              style={{
+                fontSize: '14px',
+                marginRight: '4px',
+                color: 'orange',
+              }}
+            />
             Registration
           </legend>
           <p>Please create an account.</p>
           {!pwMessage ? <p>Seems like your password's dont' match</p> : null}
           <div>
             <form onSubmit={handleRegistrationSubmit}>
-              <input
-                type="text"
-                id="name"
-                name="name"
+              <InputFieldComponent
+                label="Name"
                 value={name}
-                placeholder="Name"
+                type="text"
+                name="name"
+                required
+                className={!nameRegEx.test(name) ? 'invalid' : 'entered'}
+                error={
+                  !nameRegEx.test(name) && name.length !== 0
+                    ? `Name field must start with an uppercase letter and contain at least 3 letters and have no white space.`
+                    : null
+                }
                 onChange={handleOnchange}
               />
 
-              <input
+              <InputFieldComponent
+                label="Email"
                 type="email"
-                id="email"
                 name="email"
                 value={email}
-                placeholder="email"
+                className={!emailRegEx.test(email) ? 'invalid' : 'entered'}
+                error={
+                  !emailRegEx.test(email) && email.length !== 0
+                    ? `Invalid email address.`
+                    : null
+                }
                 onChange={handleOnchange}
               />
-              <input
+              <InputFieldComponent
+                label="Password"
                 type="password"
-                id="password"
                 name="password"
                 value={password}
-                placeholder="password"
+                required
+                className={
+                  !passwordRegEx.test(password) ? 'invalid' : 'entered'
+                }
+                error={
+                  !passwordRegEx.test(password) && password.length !== 0
+                    ? `Password must contain at least 1 uppercase letter and a number`
+                    : null
+                }
                 onChange={handleOnchange}
               />
-              <input
+
+              <InputFieldComponent
+                label="Confirm Password"
                 type="password"
-                id="confirmPassword"
                 name="confirmPassword"
                 value={confirmPassword}
-                placeholder="confirmPassword"
+                required
+                className={
+                  !passwordRegEx.test(confirmPassword) ? 'invalid' : 'entered'
+                }
+                error={
+                  !passwordRegEx.test(confirmPassword) &&
+                  confirmPassword.length !== 0
+                    ? `Password must contain at least 1 uppercase letter and a number`
+                    : null
+                }
                 onChange={handleOnchange}
               />
+
               <div>
-                <button type="submit">Submit</button>
+                <button
+                  type="submit"
+                  disabled={
+                    !nameRegEx.test(name) ||
+                    !passwordRegEx.test(password) ||
+                    !passwordConfirmRegEx.test(confirmPassword) ||
+                    !emailRegEx.test(email)
+                  }
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>

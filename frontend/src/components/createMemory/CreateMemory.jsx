@@ -6,6 +6,7 @@ import { createMemoryAction } from '../../store/actions/userActions';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const CreateMemory = () => {
   const dispatch = useDispatch();
@@ -56,12 +57,11 @@ const CreateMemory = () => {
 
           <div>
             <form onSubmit={handleCreateMemory}>
-              <input
-                type="text"
-                id="title"
-                name="title"
+              <InputFieldComponent
+                label="Title"
                 value={title}
-                placeholder="title"
+                type="text"
+                name="title"
                 onChange={handleOnchange}
               />
 
