@@ -15,6 +15,14 @@ header {
       border: 1px solid $border-colour;
       padding: 0.2em 0.4em;
     }
+    .header-logout-button {
+      position: fixed;
+      z-index: 100;
+      top: 42px;
+      right: 18px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
   }
   .nav-wrapper {
     display: flex;

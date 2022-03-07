@@ -70,10 +70,7 @@ const UserDashboard = () => {
       ) : (
         <div className="userDashboard-wrapper">
           <fieldset className="fieldSet">
-            <legend>
-              <FaPencilAlt />
-              Completed Memories
-            </legend>
+            <legend>Completed Memories</legend>
             <div
               className="show-completed"
               onClick={() => setShowCompleted(!showCompleted)}
@@ -114,7 +111,7 @@ const UserDashboard = () => {
           </fieldset>
           <fieldset className="fieldSet">
             <legend>
-              <FaPencilAlt />
+              <FaPencilAlt style={{ fontSize: '10px', marginRight: '4px' }} />
               Update User Details
             </legend>
             <div>
