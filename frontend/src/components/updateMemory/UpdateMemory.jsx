@@ -79,7 +79,9 @@ const UpdateMemory = ({ updateMemory }) => {
                 name="title"
                 onChange={handleOnchange}
               />
-
+              <p className="small-text">
+                Memory needs to have at least 5 characters [{memory.length}]
+              </p>
               <textarea
                 id="memory"
                 name="memory"
@@ -118,7 +120,12 @@ const UpdateMemory = ({ updateMemory }) => {
               </div>
 
               <div className="update-memory-button-wrapper">
-                <button type="submit">UPDATE</button>
+                <button
+                  type="submit"
+                  disabled={!title || !memory || memory.length < 3}
+                >
+                  UPDATE
+                </button>
 
                 <button onClick={() => setShowForm(false)}>
                   CANCEL UPDATE

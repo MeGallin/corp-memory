@@ -120,7 +120,7 @@ const UserDashboard = () => {
               <p>Email: {email}</p>
               <p>
                 Admin:{' '}
-                {details.isAdmin ? (
+                {details?.isAdmin ? (
                   <FaRegThumbsUp style={{ color: 'green' }} />
                 ) : (
                   <FaRegThumbsDown style={{ color: 'crimson' }} />
@@ -128,7 +128,7 @@ const UserDashboard = () => {
               </p>
               <p>
                 Email Confirmed:{' '}
-                {details.isConfirmed ? (
+                {details?.isConfirmed ? (
                   <FaRegThumbsUp style={{ color: 'green' }} />
                 ) : (
                   <FaRegThumbsDown style={{ color: 'crimson' }} />

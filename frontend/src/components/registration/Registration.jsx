@@ -104,6 +104,7 @@ const Registration = () => {
                 }
                 onChange={handleOnchange}
               />
+
               <InputFieldComponent
                 label="Password"
                 type="password"

@@ -64,7 +64,9 @@ const CreateMemory = () => {
                 name="title"
                 onChange={handleOnchange}
               />
-
+              <p className="small-text">
+                Memory needs to have at least 5 characters [{memory.length}]
+              </p>
               <textarea
                 id="memory"
                 name="memory"
@@ -110,7 +112,12 @@ const CreateMemory = () => {
               </div>
 
               <div>
-                <button type="submit">Submit</button>
+                <button
+                  type="submit"
+                  disabled={!title || !memory || memory.length < 3}
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>
