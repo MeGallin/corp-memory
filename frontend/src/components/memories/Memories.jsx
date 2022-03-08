@@ -108,7 +108,9 @@ const Memories = () => {
                         moment(memory.dueDate).valueOf() < dateTime
                           ? 'late-border'
                           : 'early-border'
-                      } ${memory.isComplete ? 'late-width' : ''}`}
+                      } ${memory.isComplete ? 'late-width' : ''} ${
+                        !memory.setDueDate ? 'set-due-date' : ''
+                      }`}
                       key={memory._id}
                     >
                       <fieldset className="fieldSet">

@@ -32,6 +32,9 @@
     .early {
       color: green;
     }
+    .set-due-date {
+      border-left: 6px solid $rating-colour;
+    }
     .memory-title-wrapper {
       display: flex;
       justify-content: space-between;
