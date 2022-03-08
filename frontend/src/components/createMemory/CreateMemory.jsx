@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './CreateMemory.scss';
 
@@ -10,7 +10,7 @@ import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const CreateMemory = () => {
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState(null); //Set initial date here to show time!
+  const [startDate] = useState(new Date()); //Set initial date here to show time!
   const [formData, setFormData] = useState({
     title: '',
     memory: '',
@@ -19,10 +19,6 @@ const CreateMemory = () => {
     tags: [],
   });
   const { title, memory, dueDate, priority, tags } = formData;
-
-  useEffect(() => {
-    setStartDate(new Date());
-  }, [startDate]);
 
   const handleCreateMemory = (e) => {
     e.preventDefault();
