@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './CreateMemory.scss';
 
@@ -10,15 +10,19 @@ import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const CreateMemory = () => {
   const dispatch = useDispatch();
-  const [startDate] = useState(new Date()); //Set initial date here to show time!
+  const [startDate, setStartDate] = useState(null); //Set initial date here to show time!
   const [formData, setFormData] = useState({
     title: '',
     memory: '',
     dueDate: startDate,
-    rating: '',
+    priority: '',
     tags: [],
   });
-  const { title, memory, dueDate, rating, tags } = formData;
+  const { title, memory, dueDate, priority, tags } = formData;
+
+  useEffect(() => {
+    setStartDate(new Date());
+  }, [startDate]);
 
   const handleCreateMemory = (e) => {
     e.preventDefault();
@@ -27,7 +31,7 @@ const CreateMemory = () => {
     setFormData({
       title: '',
       memory: '',
-      rating: '',
+      priority: '',
       tags: [],
     });
   };
@@ -43,7 +47,7 @@ const CreateMemory = () => {
   };
 
   const handleOnChangeDate = (date) => {
-    setFormData({ title, memory, dueDate: date, rating, tags });
+    setFormData({ title, memory, dueDate: date, priority, tags });
   };
 
   return (
@@ -78,12 +82,12 @@ const CreateMemory = () => {
               <div className="create-input-wrapper">
                 <div>
                   <label>
-                    Rating
+                    Priority
                     <input
                       type="number"
-                      id="rating"
-                      name="rating"
-                      value={rating}
+                      id="priority"
+                      name="priority"
+                      value={priority}
                       min="1"
                       max="10"
                       onChange={handleOnchange}

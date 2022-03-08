@@ -45,7 +45,7 @@ const Header = () => {
                 {' '}
                 <FaUser
                   style={{
-                    fontSize: '14px',
+                    fontSize: '12px',
                     marginRight: '4px',
                     color: 'yellowGreen',
                   }}
@@ -60,11 +60,11 @@ const Header = () => {
           </>
         ) : (
           <>
-            <span>
+            <span className="login-wrapper">
               <NavLink to="/forms">
                 <FaUser
                   style={{
-                    fontSize: '14px',
+                    fontSize: '12px',
                     marginRight: '4px',
                     color: 'orange',
                   }}

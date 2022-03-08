@@ -6,9 +6,15 @@ import { FaPencilAlt, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 
 import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
 import { userUpdateIsCompleteAction } from '../../store/actions/userActions';
+import InputFieldComponent from '../inputField/inputFieldComponent';
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
+  const nameRegEx = /^([\w])+\s+([\w\s])+$/i;
+  const emailRegEx =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+
   const [showCompleted, setShowCompleted] = useState(false);
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -138,29 +144,49 @@ const UserDashboard = () => {
 
             <div>
               <form onSubmit={handleUpdateMemory}>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
+                <InputFieldComponent
+                  label="Name"
                   value={name}
-                  placeholder="name"
+                  type="text"
+                  name="name"
+                  required
+                  className={!nameRegEx.test(name) ? 'invalid' : 'entered'}
+                  error={
+                    !nameRegEx.test(name) && name.length !== 0
+                      ? `Name field must start with an uppercase letter and contain at least 3 letters and have no white space.`
+                      : null
+                  }
                   onChange={handleOnchange}
                 />
 
-                <input
+                <InputFieldComponent
+                  label="Email"
                   type="email"
-                  id="email"
                   name="email"
                   value={email}
-                  placeholder="email"
+                  className={!emailRegEx.test(email) ? 'invalid' : 'entered'}
+                  error={
+                    !emailRegEx.test(email) && email.length !== 0
+                      ? `Invalid email address.`
+                      : null
+                  }
                   onChange={handleOnchange}
                 />
-                <input
+
+                <InputFieldComponent
+                  label="Password"
                   type="password"
-                  id="password"
                   name="password"
                   value={password}
-                  placeholder="password"
+                  required
+                  className={
+                    !passwordRegEx.test(password) ? 'invalid' : 'entered'
+                  }
+                  error={
+                    !passwordRegEx.test(password) && password.length !== 0
+                      ? `Password must contain at least 1 uppercase letter and a number`
+                      : null
+                  }
                   onChange={handleOnchange}
                 />
 

@@ -18,13 +18,6 @@ const ContactForm = () => {
   const contactForm = useSelector((state) => state.contactForm);
   const { error, success } = contactForm;
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const { name, email, message } = formData;
-
   useEffect(() => {
     if (success) {
       setTimeout(() => {
@@ -32,6 +25,13 @@ const ContactForm = () => {
       }, 5000);
     }
   }, [success, navigate]);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const { name, email, message } = formData;
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();

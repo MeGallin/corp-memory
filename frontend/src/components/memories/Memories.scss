@@ -23,11 +23,14 @@
     .late-border {
       border-left: 6px solid $danger;
     }
+    .early-border {
+      border-left: 6px solid green;
+    }
     .late-width {
       display: none;
     }
     .early {
-      color: $success;
+      color: green;
     }
     .memory-title-wrapper {
       display: flex;
@@ -41,10 +44,7 @@
     }
     .memory {
       background-color: $main-bg-colour;
-      padding: 0.2em;
-      margin: 0.2em 0.2em;
-      flex-grow: 1;
-      width: MIN(100%, 600px);
+      width: MAX(33%, 600px);
 
       h2 {
         // text-decoration: underline;
@@ -85,7 +85,8 @@
       }
     }
     .memory:nth-child(even) {
-      background-color: $main-font-colour;
+      background-color: $border-colour-dark;
+
       color: $main-bg-colour;
     }
   }

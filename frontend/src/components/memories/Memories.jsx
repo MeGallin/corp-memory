@@ -106,8 +106,8 @@ const Memories = () => {
                     <div
                       className={`memory ${
                         moment(memory.dueDate).valueOf() < dateTime
-                          ? ' late-border'
-                          : ''
+                          ? 'late-border'
+                          : 'early-border'
                       } ${memory.isComplete ? 'late-width' : ''}`}
                       key={memory._id}
                     >
@@ -126,7 +126,6 @@ const Memories = () => {
                                   }
                                 >
                                   Due,{' '}
-                                  {/* {moment(memory.dueDate, 'YYYYMMDD').fromNow()} */}
                                   {moment(memory.dueDate)
                                     .startOf('minute')
                                     .fromNow()}

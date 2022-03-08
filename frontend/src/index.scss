@@ -13,6 +13,7 @@ $success: rgba(92, 184, 92, 1);
 $warning: rgba(240, 173, 78, 1);
 $rating-colour: orange;
 $border-colour: rgba(200, 200, 200, 0.5);
+$border-colour-dark: hsla(0, 1%, 33%, 0.2);
 $border-colour-light: hsla(0, 0%, 78%, 0.2);
 $fieldSet-bg-colour: hsla(0, 0%, 45%, 0.1);
 $header-height: 36px;
@@ -144,7 +145,9 @@ fieldset.fieldSet {
 }
 fieldset legend {
   text-transform: uppercase;
-  font-weight: bold;
+  font-size: 1.6em;
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 0.3em;
 }
 
 textarea {
