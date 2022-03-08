@@ -8,8 +8,8 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 //Contollers
 import memoryRoutes from './Routes/MemoryRoutes.js';
-import userRoutes from './Routes/UserRoutes.js';
-import contactFormRoutes from './routes/contactFormRoutes.js';
+import userRoutes from './Routes/userRoutes.js';
+import contactFormRoutes from './Routes/contactFormRoutes.js';
 import emailConfirmationRoutes from './Routes/emailConfirmationRoutes.js';
 
 dotenv.config();
