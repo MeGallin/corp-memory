@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import { FaPencilAlt } from 'react-icons/fa';
 import './UpdateMemory.scss';
 
 import { userUpdateAction } from '../../store/actions/userActions';
@@ -23,10 +21,6 @@ const UpdateMemory = ({ updateMemory }) => {
     tags: updateMemory.tags[0]?.tagName || 'TAG',
   });
   const { id, title, memory, dueDate, priority, tags } = formData;
-
-  const handleShowForm = () => {
-    setShowForm(!showForm);
-  };
 
   const handleUpdateMemory = (e) => {
     e.preventDefault();
@@ -62,11 +56,7 @@ const UpdateMemory = ({ updateMemory }) => {
 
   return (
     <div className="update-memory-wrapper">
-      <button onClick={() => handleShowForm(memory)}>
-        <FaPencilAlt style={{ fontSize: '10px', marginRight: '4px' }} /> EDIT
-      </button>
-
-      {showForm ? (
+      {!showForm ? (
         <fieldset className="fieldSet">
           <legend>Update memory</legend>
 
@@ -125,10 +115,6 @@ const UpdateMemory = ({ updateMemory }) => {
                   disabled={!title || !memory || memory.length < 3}
                 >
                   UPDATE
-                </button>
-
-                <button onClick={() => setShowForm(false)}>
-                  CANCEL UPDATE
                 </button>
               </div>
             </form>

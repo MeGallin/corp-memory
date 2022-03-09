@@ -12,6 +12,7 @@ import {
 } from '../../store/actions/userActions';
 import { detailsAction } from '../../store/actions/userDetailActions';
 
+import { FaPencilAlt } from 'react-icons/fa';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
@@ -207,7 +208,24 @@ const Memories = () => {
                             </div>
 
                             <div className="memory-button-wrapper">
-                              <UpdateMemory updateMemory={{ ...memory }} />
+                              <Modal
+                                openButtonTitle={
+                                  <>
+                                    <FaPencilAlt
+                                      style={{
+                                        fontSize: '10px',
+                                        marginRight: '4px',
+                                      }}
+                                    />
+                                    EDIT
+                                  </>
+                                }
+                                closeButtonTitle="X"
+                                props={
+                                  <UpdateMemory updateMemory={{ ...memory }} />
+                                }
+                              />
+                              {/* <UpdateMemory updateMemory={{ ...memory }} /> */}
                               <DeleteMemory id={memory._id} />
                             </div>
                             <div className="created-updated-wrapper">
