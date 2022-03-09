@@ -17,7 +17,7 @@ header {
     }
     .header-logout-button {
       position: fixed;
-      z-index: 100;
+      z-index: 40; //Layered below Modal
       top: 42px;
       right: 18px;
       text-transform: uppercase;
