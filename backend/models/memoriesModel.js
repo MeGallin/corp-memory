@@ -34,7 +34,7 @@ const memoriesSchema = mongoose.Schema(
     },
     priority: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     tags: [tagsSchema],
   },
