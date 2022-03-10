@@ -51,9 +51,25 @@
   }
   input[type='password'].entered {
     border-left: greenyellow 4px solid;
+    img {
+      border: red 20px solid;
+      cursor: pointer;
+      position: absolute;
+      width: 20px;
+      right: 8px;
+      top: 8px;
+    }
   }
   input[type='password'].invalid {
     border-left: $secondary-bg-colour 4px solid;
+    img {
+      border: red 20px solid;
+      cursor: pointer;
+      position: absolute;
+      width: 20px;
+      right: 8px;
+      top: 8px;
+    }
   }
   input[type='search'].entered {
     border-left: greenyellow 4px solid;
@@ -79,4 +95,11 @@
 
   margin-bottom: 0.4rem;
   margin-top: 0.4rem;
+
+  .input-icon-wrapper {
+    display: flex;
+    align-items: baseline;
+
+    border: 4px solid greenyellow;
+  }
 }
