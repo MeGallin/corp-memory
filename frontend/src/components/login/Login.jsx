@@ -7,6 +7,7 @@ import './Login.scss';
 
 import { loginAction } from '../../store/actions/userActions';
 import InputFieldComponent from '../inputField/inputFieldComponent';
+import LoadingComponent from '../loadingComponent/LoadingComponent';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const Login = () => {
       {error ? error : null}
       {success ? 'You have successfully logged in' : null}
       {loading ? (
-        'loading'
+        <LoadingComponent />
       ) : (
         <fieldset className="fieldSet">
           <legend>
