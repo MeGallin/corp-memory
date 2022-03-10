@@ -39,25 +39,27 @@ const InputFieldComponent = ({
 
   return (
     <div className="input-field-wrapper">
-      {label && <label htmlFor="input-field">{label}</label>}
       <div className="input-icon-wrapper">
-        <input
-          ref={inputFocus}
-          type={type}
-          name={name}
-          value={value}
-          placeholder={placeholder}
-          error={error}
-          className={className}
-          onChange={onChange}
-        />
-
+        {label && <label htmlFor="input-field">{label}</label>}
         {onlyPassword ? (
-          <span onClick={() => handleShowHidePw()}>
+          <span
+            onClick={() => handleShowHidePw()}
+            title={!showPassword ? 'SHOW PASSWORD' : 'HIDE PASSWORD'}
+          >
             {!showPassword ? <FaEye /> : <FaEyeSlash />}
           </span>
         ) : null}
       </div>
+      <input
+        ref={inputFocus}
+        type={type}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        error={error}
+        className={className}
+        onChange={onChange}
+      />
 
       {error && <p className="validation-error">{error}</p>}
     </div>
