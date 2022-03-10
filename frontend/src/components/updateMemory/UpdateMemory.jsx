@@ -85,6 +85,8 @@ const UpdateMemory = ({ updateMemory }) => {
                   id="priority"
                   name="priority"
                   value={priority}
+                  min="1"
+                  max="5"
                   placeholder="priority"
                   onChange={handleOnchange}
                 />

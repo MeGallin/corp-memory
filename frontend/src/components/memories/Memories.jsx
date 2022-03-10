@@ -19,6 +19,7 @@ import UpdateMemory from '../updateMemory/UpdateMemory';
 import Tags from '../tags/Tags';
 import SearchComponent from '../searchComponent/SearchComponent';
 import Modal from '../modal/Modal';
+import StarComponent from '../starComponent/StarComponent';
 
 const Memories = () => {
   const dispatch = useDispatch();
@@ -155,7 +156,6 @@ const Memories = () => {
                                 <h2>{memory.title}</h2>
                                 <div className="small-text">
                                   <label>
-                                    Mark as Complete:
                                     <input
                                       type="checkbox"
                                       id="isComplete"
@@ -168,14 +168,18 @@ const Memories = () => {
                                         )
                                       }
                                     />
+                                    Mark as Complete.
                                   </label>
                                 </div>
                               </div>
 
                               <p>{memory.memory}</p>
-                              <p className="small-text">
-                                {memory.priority} priority.
-                              </p>
+
+                              {new Array(memory.priority)
+                                .fill(null)
+                                .map((num, i) => (
+                                  <StarComponent key={i} />
+                                ))}
                             </div>
 
                             <div className="memories-priority-wrapper">
