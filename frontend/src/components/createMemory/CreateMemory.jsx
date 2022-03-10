@@ -7,6 +7,7 @@ import { createMemoryAction } from '../../store/actions/userActions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import InputFieldComponent from '../inputField/inputFieldComponent';
+import LoadingComponent from '../loadingComponent/LoadingComponent';
 
 const CreateMemory = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const CreateMemory = () => {
     <div className="create-memory-wrapper">
       {success ? 'Memory successfully created' : null}
       {loading ? (
-        'loading...'
+        <LoadingComponent />
       ) : (
         <fieldset className="fieldSet">
           <legend>Create a new memory</legend>

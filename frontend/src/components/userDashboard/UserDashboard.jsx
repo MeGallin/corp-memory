@@ -7,6 +7,7 @@ import { FaPencilAlt, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
 import { userUpdateIsCompleteAction } from '../../store/actions/userActions';
 import InputFieldComponent from '../inputField/inputFieldComponent';
+import LoadingComponent from '../loadingComponent/LoadingComponent';
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
@@ -72,7 +73,7 @@ const UserDashboard = () => {
       {success ? 'Details have be successfully changed' : null}
       {error ? `Failed to update. ${error}` : null}
       {loading ? (
-        'loading...'
+        <LoadingComponent />
       ) : (
         <div className="userDashboard-wrapper">
           <fieldset className="fieldSet">

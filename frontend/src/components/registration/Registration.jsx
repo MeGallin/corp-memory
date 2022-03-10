@@ -6,6 +6,7 @@ import './Registration.scss';
 
 import { registerAction } from '../../store/actions/userActions';
 import InputFieldComponent from '../inputField/inputFieldComponent';
+import LoadingComponent from '../loadingComponent/LoadingComponent';
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const Registration = () => {
       {error ? error : null}
       {success ? 'Registration has been successful' : null}
       {loading ? (
-        'loading'
+        <LoadingComponent />
       ) : (
         <fieldset className="fieldSet">
           <legend>

@@ -4,6 +4,7 @@ import './DeleteMemory.scss';
 import { FaTrash } from 'react-icons/fa';
 
 import { deleteMemoryAction } from '../../store/actions/userActions';
+import LoadingComponent from '../loadingComponent/LoadingComponent';
 
 const DeleteMemory = ({ id }) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const DeleteMemory = ({ id }) => {
       {error ? error : null}
 
       {loading ? (
-        'loading...'
+        <LoadingComponent />
       ) : (
         <button id={id} onClick={() => handleDelete(id)}>
           <FaTrash style={{ fontSize: '10px', marginRight: '4px' }} />
