@@ -21,7 +21,7 @@ const confirmEmail = asyncHandler(async (req, res) => {
     user.isConfirmed = true;
     await user.save();
     if (process.env.NODE_ENV === 'production') {
-      return res.redirect('https://yourcorporatememory.com/');
+      return res.redirect('http://www.yourcorporatememory.com/');
     } else {
       return res.status(200).send({ message: 'Account Verified' });
     }
