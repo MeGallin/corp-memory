@@ -98,8 +98,10 @@
 
   .input-icon-wrapper {
     display: flex;
-    align-items: baseline;
-
-    border: 4px solid greenyellow;
+    align-items: center;
+    span {
+      margin-left: 1em;
+      cursor: pointer;
+    }
   }
 }
