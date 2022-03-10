@@ -55,11 +55,13 @@
       }
 
       .memories-heading-wrapper {
+        border-bottom: 1px solid $border-colour-light;
+        padding-bottom: 0.3em;
         display: flex;
         justify-content: space-between;
         align-items: center;
         align-content: center;
-        border-bottom: 1px solid $border-colour-light;
+
         .danger {
           background-color: $warning;
           color: $main-bg-colour;
@@ -69,28 +71,46 @@
       }
       .memories-priority-wrapper {
         border-top: 1px solid $border-colour-light;
+        padding-top: 0.3em;
         display: flex;
         justify-content: space-between;
         align-items: center;
         align-content: center;
+        label {
+          display: flex;
+          align-items: center;
+          align-content: center;
+        }
       }
       .memory-button-wrapper {
         border-top: 1px solid $border-colour-light;
+        padding-bottom: 0.3em;
         padding-top: 0.5em;
         display: flex;
         justify-content: space-between;
+        align-items: center;
       }
       .created-updated-wrapper {
         display: flex;
         justify-content: space-between;
         font-size: 0.6em;
-        padding-top: 1em;
       }
     }
     .memory:nth-child(even) {
       background-color: $border-colour-dark;
-
       color: $main-bg-colour;
+      .memory-button-wrapper {
+        border-top: 1px solid $border-colour-dark;
+      }
+      .memories-priority-wrapper {
+        border-top: 1px solid $border-colour-dark;
+      }
+      .memories-priority-wrapper {
+        border-top: 1px solid $border-colour-dark;
+      }
+      .memories-heading-wrapper {
+        border-bottom: 1px solid $border-colour-dark;
+      }
     }
   }
 }

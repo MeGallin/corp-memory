@@ -20,6 +20,7 @@ import Tags from '../tags/Tags';
 import SearchComponent from '../searchComponent/SearchComponent';
 import Modal from '../modal/Modal';
 import StarComponent from '../starComponent/StarComponent';
+import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
 
 const Memories = () => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const Memories = () => {
   return (
     <div className="memories-wrapper">
       {loading ? (
-        'loading'
+        <LoadingComponent />
       ) : (
         <>
           {userInfo && searchedMemories && details?.isConfirmed ? (
@@ -126,7 +127,7 @@ const Memories = () => {
                                   className={
                                     moment(memory.dueDate).valueOf() < dateTime
                                       ? 'late'
-                                      : 'early'
+                                      : 'small-text early'
                                   }
                                 >
                                   Due,{' '}
@@ -154,23 +155,6 @@ const Memories = () => {
                             <div className="memory-inner-wrapper">
                               <div className="memory-title-wrapper">
                                 <h2>{memory.title}</h2>
-                                <div className="small-text">
-                                  <label>
-                                    <input
-                                      type="checkbox"
-                                      id="isComplete"
-                                      name="isComplete"
-                                      checked={memory.isComplete}
-                                      onChange={() =>
-                                        handleOnchangeIsComplete(
-                                          memory._id,
-                                          memory.isComplete,
-                                        )
-                                      }
-                                    />
-                                    Mark as Complete.
-                                  </label>
-                                </div>
                               </div>
 
                               <p>{memory.memory}</p>
@@ -182,34 +166,48 @@ const Memories = () => {
                                 ))}
                             </div>
 
-                            <div className="memories-priority-wrapper">
-                              <div className="small-text">
-                                <label>
-                                  Due Date:
-                                  <input
-                                    type="checkbox"
-                                    id="setDueDate"
-                                    name="setDueDate"
-                                    checked={memory.setDueDate}
-                                    onChange={() =>
-                                      handleOnchangeChecked(
-                                        memory._id,
-                                        memory.setDueDate,
-                                      )
-                                    }
-                                  />
-                                </label>
-                              </div>
+                            <div className="memories-priority-wrapper small-text">
+                              <label>
+                                Set Due Date:
+                                <input
+                                  type="checkbox"
+                                  id="setDueDate"
+                                  name="setDueDate"
+                                  checked={memory.setDueDate}
+                                  onChange={() =>
+                                    handleOnchangeChecked(
+                                      memory._id,
+                                      memory.setDueDate,
+                                    )
+                                  }
+                                />
+                              </label>
 
-                              {memory.setDueDate ? (
-                                <p className="small-text">
-                                  Due on,{' '}
-                                  {moment(memory.dueDate).format(
-                                    'Do MMM YYYY, h:mm:ss a',
-                                  )}
-                                </p>
-                              ) : null}
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  id="isComplete"
+                                  name="isComplete"
+                                  checked={memory.isComplete}
+                                  onChange={() =>
+                                    handleOnchangeIsComplete(
+                                      memory._id,
+                                      memory.isComplete,
+                                    )
+                                  }
+                                />
+                                Mark as Complete.
+                              </label>
                             </div>
+
+                            {memory.setDueDate ? (
+                              <p className="small-text">
+                                Due on,{' '}
+                                {moment(memory.dueDate).format(
+                                  'Do MMM YYYY, h:mm:ss a',
+                                )}
+                              </p>
+                            ) : null}
 
                             <div className="memory-button-wrapper">
                               <Modal
