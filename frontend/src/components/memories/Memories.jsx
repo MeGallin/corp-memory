@@ -93,7 +93,7 @@ const Memories = () => {
                   />
                   <div>
                     <Modal
-                      openButtonTitle="Create New Memory"
+                      openButtonTitle="New Memory"
                       closeButtonTitle="X"
                       props={<CreateMemory />}
                     />
@@ -227,7 +227,7 @@ const Memories = () => {
                                   <UpdateMemory updateMemory={{ ...memory }} />
                                 }
                               />
-                              {/* <UpdateMemory updateMemory={{ ...memory }} /> */}
+
                               <DeleteMemory id={memory._id} />
                             </div>
                             <div className="created-updated-wrapper">

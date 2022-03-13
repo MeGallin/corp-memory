@@ -77,7 +77,7 @@ const UserDashboard = () => {
       ) : (
         <div className="userDashboard-wrapper">
           <fieldset className="fieldSet">
-            <legend>Completed Memories</legend>
+            <legend>Completed</legend>
             <div
               className="show-completed"
               onClick={() => setShowCompleted(!showCompleted)}
