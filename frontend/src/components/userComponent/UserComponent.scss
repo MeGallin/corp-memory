@@ -1,0 +1,10 @@
+@import '../../index.scss';
+
+.user-component-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $main-font-colour;
+  font-size: 0.65em;
+  padding: 0.3em 0.5em 0 0.5em;
+}
