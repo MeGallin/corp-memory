@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import './Header.scss';
-import { FaUser } from 'react-icons/fa';
 
 import { logoutAction } from '../../store/actions/userActions';
 
@@ -32,45 +31,44 @@ const Header = () => {
           </NavLink>
         </span>
         <span>
-          <NavLink to="/about">About</NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? 'active' : '')}
+            to="/about"
+          >
+            About
+          </NavLink>
         </span>
         <span>
-          <NavLink to="/contact">Contact Us</NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? 'active' : '')}
+            to="/contact"
+          >
+            Contact
+          </NavLink>
         </span>
 
         {userInfo ? (
           <>
             <span>
-              <NavLink to="/user-dashboard">
-                {' '}
-                <FaUser
-                  style={{
-                    fontSize: '12px',
-                    marginRight: '4px',
-                    color: 'yellowGreen',
-                  }}
-                />{' '}
-                {details?.name || userInfo.name} Dashboard
+              <NavLink
+                className={(navData) => (navData.isActive ? 'active' : '')}
+                to="/user-dashboard"
+              >
+                Dashboard
               </NavLink>
             </span>
 
             <button className="header-logout-button" onClick={handleLogout}>
-              <div>logout</div>
+              <div>
+                <div>logout</div>
+                <p className="small-text">{details?.name || userInfo.name}</p>
+              </div>
             </button>
           </>
         ) : (
           <>
-            <span className="login-wrapper">
-              <NavLink to="/forms">
-                <FaUser
-                  style={{
-                    fontSize: '12px',
-                    marginRight: '4px',
-                    color: 'orange',
-                  }}
-                />
-                login
-              </NavLink>
+            <span>
+              <NavLink to="/forms">login</NavLink>
             </span>
           </>
         )}

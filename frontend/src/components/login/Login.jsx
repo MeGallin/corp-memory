@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { FaUser } from 'react-icons/fa';
 import './Login.scss';
 
 import { loginAction } from '../../store/actions/userActions';
@@ -58,16 +57,7 @@ const Login = () => {
         <LoadingComponent />
       ) : (
         <fieldset className="fieldSet">
-          <legend>
-            <FaUser
-              style={{
-                fontSize: '14px',
-                marginRight: '4px',
-                color: 'orange',
-              }}
-            />
-            Login
-          </legend>
+          <legend>Login</legend>
           <p>Please log into your account</p>
           <div>
             <form onSubmit={handleLoginSubmit}>
