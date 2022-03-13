@@ -1,3 +1,9 @@
 @import '../../index.scss';
 .delete-memory-wrapper {
+  button {
+    opacity: 0.6;
+  }
+  button:hover {
+    opacity: 1;
+  }
 }

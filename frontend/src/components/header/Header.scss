@@ -11,11 +11,16 @@ header {
     height: clamp(1rem, $header-height, $header-height);
     background-color: $main-font-colour;
     color: $main-bg-colour;
+
     span {
       border: 1px solid $border-colour;
       padding: 0.2em 0.4em;
+      width: 100%;
+      text-align: center;
     }
     .header-logout-button {
+      background-color: $danger;
+      color: $main-bg-colour;
       position: fixed;
       z-index: 40; //Layered below Modal
       top: 42px;
@@ -32,18 +37,21 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .active {
-    border-left: 4px solid $rating-colour;
-    color: $main-font-colour;
-    background-color: $main-bg-colour;
-    padding: 0.3em 1rem;
+    span {
+      a.active {
+        border-left: 2px solid $rating-colour;
+        border-right: 2px solid $rating-colour;
+        color: $main-font-colour;
+        background-color: $main-bg-colour;
+        padding: 8px 0.6em;
+      }
+    }
   }
 }
 /* Responsive layout */
 @media (max-width: 812px) {
   header nav {
-    font-size: 0.65em;
-    padding: 0.1em;
+    font-size: 0.9em;
+    padding: 6px 0;
   }
 }

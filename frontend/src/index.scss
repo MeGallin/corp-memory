@@ -16,8 +16,8 @@ $border-colour: rgba(200, 200, 200, 0.5);
 $border-colour-dark: hsla(0, 1%, 33%, 0.2);
 $border-colour-light: hsla(0, 0%, 78%, 0.2);
 $fieldSet-bg-colour: hsla(0, 0%, 45%, 0.1);
-$header-height: 36px;
-$footer-height: 54px;
+$header-height: 28px;
+$footer-height: 60px;
 /* Box sizing rules */
 *,
 *::before,
@@ -131,7 +131,7 @@ h6 {
 /* Responsive layout */
 @media (max-width: 812px) {
   button {
-    font-size: 0.65em;
+    font-size: 0.9em;
     text-transform: uppercase;
   }
 }
