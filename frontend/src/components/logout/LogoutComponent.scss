@@ -1,0 +1,14 @@
+@import '../../index.scss';
+
+.logout-button {
+  background-color: $danger;
+  color: $main-bg-colour;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  .button-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

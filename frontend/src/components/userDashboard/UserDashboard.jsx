@@ -8,6 +8,7 @@ import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
 import { userUpdateIsCompleteAction } from '../../store/actions/userActions';
 import InputFieldComponent from '../inputField/inputFieldComponent';
 import LoadingComponent from '../loadingComponent/LoadingComponent';
+import LogoutComponent from '../logout/LogoutComponent';
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const UserDashboard = () => {
         <div className="userDashboard-wrapper">
           <fieldset className="fieldSet">
             <legend>Completed</legend>
+            <LogoutComponent />
             <div
               className="show-completed"
               onClick={() => setShowCompleted(!showCompleted)}
