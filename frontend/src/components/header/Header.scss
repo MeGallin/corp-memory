@@ -18,16 +18,7 @@ header {
       width: 100%;
       text-align: center;
     }
-    .header-logout-button {
-      background-color: $danger;
-      color: $main-bg-colour;
-      position: fixed;
-      z-index: 40; //Layered below Modal
-      top: 42px;
-      right: 18px;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
+
     .login-wrapper {
       display: flex;
       align-items: center;
