@@ -6,11 +6,12 @@ import path from 'path';
 import colors from 'colors';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
-//Contollers
+//Import Routes
 import memoryRoutes from './Routes/MemoryRoutes.js';
 import userRoutes from './Routes/UserRoutes.js';
-import contactFormRoutes from './routes/contactFormRoutes.js';
+import contactFormRoutes from './Routes/contactFormRoutes.js';
 import emailConfirmationRoutes from './Routes/emailConfirmationRoutes.js';
+import adminRoutes from './Routes/adminRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -27,7 +28,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/contact', contactFormRoutes);
 //email confirmation routes
 app.use('/api/confirm', emailConfirmationRoutes);
-
+//Admin Routes
+app.use('/api/admin/user-memories', adminRoutes);
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
   // Create a static folder
