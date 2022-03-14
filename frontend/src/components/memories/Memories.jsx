@@ -62,11 +62,18 @@ const Memories = () => {
 
   const handleOnchangeIsComplete = (id, value) => {
     const toggledValue = (value = !value);
-
     //Dispatch setDueDate Action
     dispatch(userUpdateIsCompleteAction({ id: id, isComplete: toggledValue }));
   };
 
+  const completedMemories = memories?.filter((memory) => {
+    if (memory.isComplete) {
+      return memory;
+    }
+    return false;
+  });
+
+  //Search
   const searchedMemories = memories?.filter((memory) => {
     if (memory.title !== undefined || memory.memory !== undefined) {
       return (
@@ -76,6 +83,7 @@ const Memories = () => {
     }
     return false;
   });
+  //Search
   // SORT
   const sortByDueDateNewest = (a, b) => {
     return moment(a.dueDate).valueOf() - moment(b.dueDate).valueOf();
@@ -149,6 +157,7 @@ const Memories = () => {
                 <p>
                   [{searchedMemories.length}]{' '}
                   {searchedMemories.length === 1 ? 'memory found.' : 'memories'}{' '}
+                  and [{completedMemories.length}] marked as complete.
                 </p>
                 <div className="mem-wrapper">
                   {searchedMemories?.map((memory) => (
