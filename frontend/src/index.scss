@@ -17,7 +17,7 @@ $border-colour-dark: hsla(0, 1%, 33%, 0.2);
 $border-colour-light: hsla(0, 0%, 78%, 0.2);
 $fieldSet-bg-colour: hsla(0, 0%, 45%, 0.1);
 $header-height: 28px;
-$footer-height: 60px;
+$footer-height: 82px;
 /* Box sizing rules */
 *,
 *::before,
@@ -196,3 +196,7 @@ hr.style-one {
   );
 }
 @import './css/scrollBar.scss';
+
+.border-temp {
+  border: 2px solid green;
+}
