@@ -12,7 +12,7 @@ import {
 } from '../../store/actions/userActions';
 import { detailsAction } from '../../store/actions/userDetailActions';
 
-import { FaPencilAlt } from 'react-icons/fa';
+import { FaPencilAlt, FaSortUp, FaSortDown } from 'react-icons/fa';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
@@ -47,6 +47,9 @@ const Memories = () => {
   const userMemories = useSelector((state) => state.userMemories);
   const { loading, memories } = userMemories;
 
+  //SORT
+  const [sortedMemories, setSortedMemories] = useState(memories);
+  //SORT
   const handleSearch = (e) => {
     setKeyword(e.target.value);
   };
@@ -73,6 +76,31 @@ const Memories = () => {
     }
     return false;
   });
+  // SORT
+  const sortByDueDateNewest = (a, b) => {
+    return moment(a.dueDate).valueOf() - moment(b.dueDate).valueOf();
+  };
+  const sortByDueDateOldest = (a, b) => {
+    return moment(b.dueDate).valueOf() - moment(a.dueDate).valueOf();
+  };
+  const handleSort = (val) => {
+    const sortedMemories = [...memories];
+    switch (val) {
+      case 'UP':
+        memories.sort(sortByDueDateNewest);
+        break;
+      case 'DOWN':
+        memories.sort(sortByDueDateOldest);
+        break;
+      default:
+        break;
+    }
+    setSortedMemories(sortedMemories);
+  };
+  useEffect(() => {
+    setSortedMemories(sortedMemories);
+  }, [sortedMemories]);
+  // SORT
 
   return (
     <div className="memories-wrapper">
@@ -86,18 +114,36 @@ const Memories = () => {
                 <legend>Memories</legend>
 
                 <div className="search-modal-wrapper">
-                  <SearchComponent
-                    placeholder="search"
-                    value={keyword}
-                    handleSearch={handleSearch}
-                  />
-                  <div>
-                    <Modal
-                      openButtonTitle="New Memory"
-                      closeButtonTitle="X"
-                      props={<CreateMemory />}
+                  <div className="search-sort-wrapper">
+                    <SearchComponent
+                      placeholder="search"
+                      value={keyword}
+                      handleSearch={handleSearch}
                     />
+                    <div>
+                      <div>
+                        <div
+                          title="Sort By Latest"
+                          className="memory-sort"
+                          onClick={() => handleSort('UP')}
+                        >
+                          <FaSortUp />
+                        </div>
+                        <div
+                          title="Sort By Oldest"
+                          className="memory-sort"
+                          onClick={() => handleSort('DOWN')}
+                        >
+                          <FaSortDown />
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                  <Modal
+                    openButtonTitle="Create"
+                    closeButtonTitle="X"
+                    props={<CreateMemory />}
+                  />
                 </div>
 
                 <p>
