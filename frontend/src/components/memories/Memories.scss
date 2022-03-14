@@ -15,6 +15,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .search-sort-wrapper {
+        display: flex;
+        align-items: center;
+        .memory-sort {
+          padding-top: 6px;
+          font-size: 1.2em;
+          opacity: 0.4;
+        }
+        .memory-sort:hover {
+          opacity: 1;
+          cursor: pointer;
+        }
+      }
     }
 
     .late {

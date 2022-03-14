@@ -1,5 +1,7 @@
 @import '../../index.scss';
 
-.search-component-wrapper {
-  background-color: $success;
+.search-input-wrapper {
+  input {
+    // height: 100%;
+  }
 }
