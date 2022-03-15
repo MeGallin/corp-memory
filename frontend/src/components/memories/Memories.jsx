@@ -116,7 +116,10 @@ const Memories = () => {
         <LoadingComponent />
       ) : (
         <>
-          {userInfo && searchedMemories && details?.isConfirmed ? (
+          {userInfo &&
+          searchedMemories &&
+          details?.isConfirmed &&
+          !details?.isAdmin ? (
             <div className="memories-inner-wrapper">
               <fieldset className="fieldSet">
                 <legend>Memories</legend>
