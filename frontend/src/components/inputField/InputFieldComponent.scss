@@ -98,10 +98,13 @@
 
   .input-icon-wrapper {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    span {
-      margin-left: 1em;
+    div {
+      font-size: 1.4em;
       cursor: pointer;
+      padding-top: 6px;
+      color: $main-font-colour;
     }
   }
 }

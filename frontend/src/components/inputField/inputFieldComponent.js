@@ -42,12 +42,12 @@ const InputFieldComponent = ({
       <div className="input-icon-wrapper">
         {label && <label htmlFor="input-field">{label}</label>}
         {onlyPassword ? (
-          <span
+          <div
             onClick={() => handleShowHidePw()}
             title={!showPassword ? 'SHOW PASSWORD' : 'HIDE PASSWORD'}
           >
             {!showPassword ? <FaEye /> : <FaEyeSlash />}
-          </span>
+          </div>
         ) : null}
       </div>
       <input
