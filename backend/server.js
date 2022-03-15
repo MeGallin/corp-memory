@@ -8,7 +8,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 //Import Routes
 import memoryRoutes from './Routes/MemoryRoutes.js';
-import userRoutes from './Routes/UserRoutes.js';
+import userRoutes from './Routes/userRoutes.js';
 import contactFormRoutes from './Routes/contactFormRoutes.js';
 import emailConfirmationRoutes from './Routes/emailConfirmationRoutes.js';
 import adminRoutes from './Routes/adminRoutes.js';
