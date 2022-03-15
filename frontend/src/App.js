@@ -7,6 +7,7 @@ import AboutView from './views/aboutView/AboutView';
 import ContactView from './views/contactView/ContactView';
 import FormsView from './views/formsView/FormsView';
 import UserDashboardView from './views/userDashboardView/UserDashboardView';
+import AdminView from './views/adminView/AdminView';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <div className="content-wrapper">
           <Routes>
             <Route path="/" element={<HomeView />} exact />
+            <Route path="/admin" element={<AdminView />} exact />
             <Route path="/about" element={<AboutView />} exact />
             <Route path="/contact" element={<ContactView />} exact />
             <Route path="/forms" element={<FormsView />} exact />

@@ -8,7 +8,8 @@ import User from '../models/userModel.js';
 const getAllUsersMemories = asyncHandler(async (req, res) => {
   const memories = await Memories.find({});
   const users = await User.find({});
-  const all = { ...memories, ...users };
+
+  const all = [...memories, ...users];
   res.status(200).json(all);
 });
 

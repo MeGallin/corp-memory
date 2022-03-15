@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import './UserDashboards.scss';
 import { FaPencilAlt, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
@@ -135,6 +136,10 @@ const UserDashboard = () => {
                   <FaRegThumbsDown style={{ color: 'crimson' }} />
                 )}
               </p>
+              {details?.isAdmin ? (
+                <NavLink to="/admin">Admin View</NavLink>
+              ) : null}
+
               <p>
                 Email Confirmed:{' '}
                 {details?.isConfirmed ? (

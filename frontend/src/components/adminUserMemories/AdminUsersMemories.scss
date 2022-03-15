@@ -1,0 +1,11 @@
+@import '../../index.scss';
+.admin-users-memories-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  .inner-wrapper {
+    flex-grow: 1;
+    border: 1px solid $border-colour-dark;
+    padding: 0.2em;
+  }
+}
