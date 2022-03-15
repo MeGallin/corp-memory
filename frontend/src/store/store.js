@@ -19,6 +19,7 @@ import {
   userDetailsReducer,
 } from './reducers/userDetailsReducers';
 import { contactFormReducer } from './reducers/contactFormReducers';
+import { adminUserMemoriesReducer } from './reducers/adminReducers';
 
 //Initialise state to hold user info if logged in.
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -26,6 +27,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   : null;
 
 const reducer = combineReducers({
+  adminUserMemories: adminUserMemoriesReducer,
   contactForm: contactFormReducer,
   userRegistration: userRegistrationReducer,
   userLogin: userLoginReducer,
