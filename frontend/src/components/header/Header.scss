@@ -30,11 +30,11 @@ header {
     align-items: center;
     span {
       a.active {
-        border-left: 2px solid $rating-colour;
-        border-right: 2px solid $rating-colour;
+        border-top: 2px solid $rating-colour;
+        border-bottom: 2px solid $rating-colour;
         color: $main-font-colour;
         background-color: $main-bg-colour;
-        padding: 8px 0.6em;
+        padding: 6px 0.2em;
       }
     }
   }

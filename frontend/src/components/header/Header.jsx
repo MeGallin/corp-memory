@@ -13,12 +13,21 @@ const Header = () => {
       <header>
         <nav className="nav-wrapper">
           <span>
-            <NavLink
-              className={(navData) => (navData.isActive ? 'active' : '')}
-              to="/"
-            >
-              Home
-            </NavLink>
+            {userInfo ? (
+              <NavLink
+                className={(navData) => (navData.isActive ? 'active' : '')}
+                to="/"
+              >
+                Memories
+              </NavLink>
+            ) : (
+              <NavLink
+                className={(navData) => (navData.isActive ? 'active' : '')}
+                to="/"
+              >
+                Home
+              </NavLink>
+            )}
           </span>
           <span>
             <NavLink
