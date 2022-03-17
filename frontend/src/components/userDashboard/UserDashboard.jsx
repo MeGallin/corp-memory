@@ -90,11 +90,7 @@ const UserDashboard = () => {
         },
       };
 
-      const { data } = await axios.post(
-        'http://localhost:5000/api/profileUpload',
-        formData,
-        config,
-      );
+      const { data } = await axios.post('/api/profileUpload', formData, config);
       // console.log('DDD', data);
       setProfileImage(data);
       setUploading(false);
