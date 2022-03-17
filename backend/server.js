@@ -12,6 +12,7 @@ import userRoutes from './Routes/userRoutes.js';
 import contactFormRoutes from './Routes/contactFormRoutes.js';
 import emailConfirmationRoutes from './Routes/emailConfirmationRoutes.js';
 import adminRoutes from './Routes/adminRoutes.js';
+import uploadRoutes from './Routes/uploadRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -30,6 +31,9 @@ app.use('/api/contact', contactFormRoutes);
 app.use('/api/confirm', emailConfirmationRoutes);
 //Admin Routes
 app.use('/api/admin/user-memories', adminRoutes);
+// Profile Upload Routes
+app.use('/api/profileUpload', uploadRoutes);
+
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
   // Create a static folder

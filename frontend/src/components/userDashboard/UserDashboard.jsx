@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -20,9 +21,10 @@ const UserDashboard = () => {
 
   const [showCompleted, setShowCompleted] = useState(false);
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const userDetails = useSelector((state) => state.userDetails);
   const { details } = userDetails;
-
   const userMemories = useSelector((state) => state.userMemories);
   const { memories } = userMemories;
 
@@ -32,12 +34,15 @@ const UserDashboard = () => {
   });
 
   const [checked, setChecked] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     id: details?.id,
     name: details?.name,
     email: details?.email,
     password: '',
+    profileImage: details?.profileImage,
   });
   const { id, name, email, password } = formData;
 
@@ -60,6 +65,7 @@ const UserDashboard = () => {
       name: formData.name,
       email: formData.email,
       password: '',
+      profileImage: formData.profileImage,
     });
   };
 
@@ -68,6 +74,34 @@ const UserDashboard = () => {
     setChecked((value = !value));
     //Dispatch setDueDate Action
     dispatch(userUpdateIsCompleteAction({ id: id, isComplete: toggledValue }));
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('profileImage', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo?.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        'http://localhost:5000/api/profileUpload',
+        formData,
+        config,
+      );
+      // console.log('DDD', data);
+      setProfileImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -148,6 +182,19 @@ const UserDashboard = () => {
                   <FaRegThumbsDown style={{ color: 'crimson' }} />
                 )}
               </p>
+
+              {!profileImage?.avatar && !details?.profileImage ? (
+                <img src={`${details?.profileImage}`} alt="sample" />
+              ) : (
+                <img
+                  src={`${
+                    profileImage?.avatar
+                      ? profileImage?.avatar
+                      : details?.profileImage
+                  }`}
+                  alt={details?.name}
+                />
+              )}
             </div>
 
             <div>
@@ -160,7 +207,7 @@ const UserDashboard = () => {
                   required
                   className={!nameRegEx.test(name) ? 'invalid' : 'entered'}
                   error={
-                    !nameRegEx.test(name) && name.length !== 0
+                    !nameRegEx.test(name) && name?.length !== 0
                       ? `Name field must start with an uppercase letter and contain at least 3 letters and have no white space.`
                       : null
                   }
@@ -174,11 +221,19 @@ const UserDashboard = () => {
                   value={email}
                   className={!emailRegEx.test(email) ? 'invalid' : 'entered'}
                   error={
-                    !emailRegEx.test(email) && email.length !== 0
+                    !emailRegEx.test(email) && email?.length !== 0
                       ? `Invalid email address.`
                       : null
                   }
                   onChange={handleOnchange}
+                />
+
+                {uploading ? 'loading...' : null}
+                <InputFieldComponent
+                  label="Profile Image"
+                  type="file"
+                  name="profileImage"
+                  onChange={uploadFileHandler}
                 />
 
                 <InputFieldComponent
@@ -191,7 +246,7 @@ const UserDashboard = () => {
                     !passwordRegEx.test(password) ? 'invalid' : 'entered'
                   }
                   error={
-                    !passwordRegEx.test(password) && password.length !== 0
+                    !passwordRegEx.test(password) && password?.length !== 0
                       ? `Password must contain at least 1 uppercase letter and a number`
                       : null
                   }
