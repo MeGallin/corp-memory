@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
+import ProfileImages from '../models/profileImageModel.js';
 import nodemailer from 'nodemailer';
 
 // @description: Register new user
@@ -29,13 +30,21 @@ const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   // Create the user
-  const user = await User.create({ name, email, password: hashedPassword });
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    profileImage: '/assets/images/sample.png',
+    cloudinaryId: '12345',
+  });
 
   if (user) {
     res.status(201).json({
       _id: user.id,
       name: user.name,
       email: user.email,
+      profileImage: user.profileImage,
+      cloudinaryId: user.cloudinaryId,
       token: generateToken(user._id, user.email),
     });
 
@@ -114,6 +123,9 @@ const loginUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
+  const profileImage = await ProfileImages.find({ user: req.params.id });
+  const profileImgLength = profileImage.length - 1;
+
   if (user) {
     // hash the Password
     const salt = await bcrypt.genSalt(10);
@@ -121,6 +133,8 @@ const updateUser = asyncHandler(async (req, res) => {
 
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.profileImage = profileImage[profileImgLength].avatar;
+    user.cloudinaryId = profileImage[profileImgLength].cloudinaryId;
 
     if (req.body.password) {
       user.password = hashedPassword;
@@ -132,8 +146,9 @@ const updateUser = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      profileImage: updatedUser.profileImage,
       isAdmin: updatedUser.isAdmin,
+      profileImage: updatedUser.profileImage,
+      cloudinaryId: updatedUser.cloudinaryId,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -145,15 +160,16 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route: GET /api/users/user
 // @access: PRIVATE
 const getMyUserData = asyncHandler(async (req, res) => {
-  const { _id, name, email, isAdmin, isConfirmed } = await User.findById(
-    req.user.id,
-  );
+  const { _id, name, email, isAdmin, isConfirmed, profileImage, cloudinaryId } =
+    await User.findById(req.user.id);
   res.status(200).json({
     id: _id,
     name,
     email,
     isAdmin,
     isConfirmed,
+    profileImage,
+    cloudinaryId,
   });
 });
 
