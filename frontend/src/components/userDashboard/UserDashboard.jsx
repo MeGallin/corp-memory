@@ -26,7 +26,7 @@ const UserDashboard = () => {
     loading: profileImageLoading,
     success: profileImageSuccess,
     error: profileImageError,
-    profileImage,
+    profileImageUploaded,
   } = profileImageUpload;
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -46,9 +46,9 @@ const UserDashboard = () => {
     name: details?.name,
     email: details?.email,
     password: '',
-    profileImage: details?.profileImage,
+    profileImage: profileImageUploaded?.avatar || details?.profileImage,
   });
-  const { id, name, email, password } = formData;
+  const { id, name, email, password, profileImage } = formData;
 
   const userUpdateDetails = useSelector((state) => state.userUpdateDetails);
   const { loading, success, error } = userUpdateDetails;
@@ -82,11 +82,11 @@ const UserDashboard = () => {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('profileImage', file);
+    const formImageData = new FormData();
+    formImageData.append('profileImage', file);
 
     // Dispatch Profile image upload Action
-    dispatch(profileImageUploadAction(formData));
+    dispatch(profileImageUploadAction(formImageData));
   };
 
   return (
@@ -99,6 +99,7 @@ const UserDashboard = () => {
         <div className="userDashboard-wrapper">
           <fieldset className="fieldSet">
             <legend>Completed</legend>
+
             <LogoutComponent />
             <div
               className="show-completed"
@@ -155,7 +156,6 @@ const UserDashboard = () => {
               {details?.isAdmin ? (
                 <NavLink to="/admin">Admin View</NavLink>
               ) : null}
-
               <p>
                 Email Confirmed:{' '}
                 {details?.isConfirmed ? (
@@ -165,7 +165,10 @@ const UserDashboard = () => {
                 )}
               </p>
 
-              {!profileImage?.avatar && !details?.profileImage ? (
+              {profileImageUploaded?.avatar ? (
+                // profileImageUploaded?.avatar is the selected image to upload
+                <img src={`${profileImageUploaded?.avatar}`} alt="sample" />
+              ) : !profileImage?.avatar && !details?.profileImage ? (
                 <img src={`${details?.profileImage}`} alt="sample" />
               ) : (
                 <img
@@ -210,16 +213,6 @@ const UserDashboard = () => {
                   onChange={handleOnchange}
                 />
 
-                {profileImageLoading ? <LoadingComponent /> : null}
-                {profileImageSuccess && !success ? (
-                  <div className="profileImage-success">
-                    Your profile image has been successfully uploaded.
-                    <div>
-                      <button type="submit">SAVE YOUR CHANGE</button>
-                    </div>
-                  </div>
-                ) : null}
-                {profileImageError ? 'Error uploading' : null}
                 <InputFieldComponent
                   label="Upload Profile Image"
                   type="file"
@@ -244,7 +237,19 @@ const UserDashboard = () => {
                   onChange={handleOnchange}
                 />
 
-                <button type="submit">UPDATE</button>
+                {profileImageLoading ? <LoadingComponent /> : null}
+                {profileImageSuccess && !success ? (
+                  <div>
+                    <div>
+                      <button type="submit" className="profileImage-success">
+                        UPDATE YOUR CHANGES
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button type="submit">UPDATE</button>
+                )}
+                {profileImageError ? 'Error uploading' : null}
               </form>
             </div>
           </fieldset>
