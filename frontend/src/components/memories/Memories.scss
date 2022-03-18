@@ -31,13 +31,20 @@
     }
 
     .late {
-      color: $danger;
+      padding: 0.3em;
+      border-radius: 0.8em 0 1em 0;
+      background-image: linear-gradient(
+        -100deg,
+        rgba(255, 20, 0, 0.2),
+        rgba(255, 20, 0, 0.7) 95%,
+        rgba(255, 20, 0, 0.1)
+      );
     }
     .late-border {
-      border-left: 6px solid $danger;
+      border-left: 2px solid $danger;
     }
     .early-border {
-      border-left: 6px solid green;
+      border-left: 2px solid green;
     }
     .late-width {
       display: none;
@@ -46,7 +53,7 @@
       color: green;
     }
     .set-due-date {
-      border-left: 6px solid $rating-colour;
+      border-left: 2px solid $rating-colour;
     }
     .memory-title-wrapper {
       display: flex;

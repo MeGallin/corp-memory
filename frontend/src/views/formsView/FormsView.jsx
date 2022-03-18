@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import Login from '../../components/login/Login';
 import Registration from '../../components/registration/Registration';
 import './FormView.scss';
@@ -6,9 +8,12 @@ import './FormView.scss';
 const FormsView = () => {
   const [showForm, setShowForm] = useState(true);
 
+  const userRegistration = useSelector((state) => state.userRegistration);
+  const { success } = userRegistration;
+
   return (
     <div className="forms-view-wrapper">
-      {showForm ? (
+      {showForm || success ? (
         <>
           <Login />
           <p></p>

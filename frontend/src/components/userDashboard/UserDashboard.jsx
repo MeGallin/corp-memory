@@ -1,13 +1,13 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import './UserDashboards.scss';
-import { FaPencilAlt, FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
+import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 
 import { userDetailsUpdateAction } from '../../store/actions/userDetailActions';
 import { userUpdateIsCompleteAction } from '../../store/actions/userActions';
+import { profileImageUploadAction } from '../../store/actions/imageUploadAction';
 import InputFieldComponent from '../inputField/inputFieldComponent';
 import LoadingComponent from '../loadingComponent/LoadingComponent';
 import LogoutComponent from '../logout/LogoutComponent';
@@ -21,8 +21,14 @@ const UserDashboard = () => {
 
   const [showCompleted, setShowCompleted] = useState(false);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const profileImageUpload = useSelector((state) => state.profileImageUpload);
+  const {
+    loading: profileImageLoading,
+    success: profileImageSuccess,
+    error: profileImageError,
+    profileImage,
+  } = profileImageUpload;
+
   const userDetails = useSelector((state) => state.userDetails);
   const { details } = userDetails;
   const userMemories = useSelector((state) => state.userMemories);
@@ -34,8 +40,6 @@ const UserDashboard = () => {
   });
 
   const [checked, setChecked] = useState(false);
-  const [profileImage, setProfileImage] = useState('');
-  const [uploading, setUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     id: details?.id,
@@ -80,24 +84,9 @@ const UserDashboard = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('profileImage', file);
-    setUploading(true);
 
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userInfo?.token}`,
-        },
-      };
-
-      const { data } = await axios.post('/api/profileUpload', formData, config);
-      // console.log('DDD', data);
-      setProfileImage(data);
-      setUploading(false);
-    } catch (error) {
-      console.log(error);
-      setUploading(false);
-    }
+    // Dispatch Profile image upload Action
+    dispatch(profileImageUploadAction(formData));
   };
 
   return (
@@ -150,10 +139,7 @@ const UserDashboard = () => {
             ) : null}
           </fieldset>
           <fieldset className="fieldSet">
-            <legend>
-              <FaPencilAlt style={{ fontSize: '10px', marginRight: '4px' }} />
-              Update User Details
-            </legend>
+            <legend>Update User Details</legend>
             <div>
               <p>Id: {id}</p>
               <p>Name: {name}</p>
@@ -224,9 +210,18 @@ const UserDashboard = () => {
                   onChange={handleOnchange}
                 />
 
-                {uploading ? 'loading...' : null}
+                {profileImageLoading ? <LoadingComponent /> : null}
+                {profileImageSuccess && !success ? (
+                  <div className="profileImage-success">
+                    Your profile image has been successfully uploaded.
+                    <div>
+                      <button type="submit">SAVE YOUR CHANGE</button>
+                    </div>
+                  </div>
+                ) : null}
+                {profileImageError ? 'Error uploading' : null}
                 <InputFieldComponent
-                  label="Profile Image"
+                  label="Upload Profile Image"
                   type="file"
                   name="profileImage"
                   onChange={uploadFileHandler}

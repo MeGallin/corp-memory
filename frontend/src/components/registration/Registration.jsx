@@ -36,6 +36,7 @@ const Registration = () => {
     if (password === confirmPassword) {
       // Dispatch Action
       dispatch(registerAction(formData));
+
       setPwMessage(true);
       setFormData({
         name: '',

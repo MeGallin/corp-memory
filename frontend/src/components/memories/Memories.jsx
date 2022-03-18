@@ -116,10 +116,7 @@ const Memories = () => {
         <LoadingComponent />
       ) : (
         <>
-          {userInfo &&
-          searchedMemories &&
-          details?.isConfirmed &&
-          !details?.isAdmin ? (
+          {userInfo && searchedMemories && details?.isConfirmed ? (
             <div className="memories-inner-wrapper">
               <fieldset className="fieldSet">
                 <legend>Memories</legend>
@@ -184,7 +181,7 @@ const Memories = () => {
                                 <p
                                   className={
                                     moment(memory.dueDate).valueOf() < dateTime
-                                      ? 'late'
+                                      ? 'late late-border'
                                       : 'small-text early'
                                   }
                                 >
