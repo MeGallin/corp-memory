@@ -228,7 +228,7 @@ const UserDashboard = () => {
                   onChange={handleOnchange}
                 />
 
-                {uploading ? 'loading...' : null}
+                {uploading ? <LoadingComponent /> : null}
                 <InputFieldComponent
                   label="Profile Image"
                   type="file"
