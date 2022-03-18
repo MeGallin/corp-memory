@@ -23,11 +23,7 @@ export const profileImageUploadAction =
         },
       };
 
-      const { data } = await axios.post(
-        'http://localhost:5000/api/profileUpload',
-        formData,
-        config,
-      );
+      const { data } = await axios.post('/api/profileUpload', formData, config);
       dispatch({
         type: PROFILE_IMAGE_UPLOAD_SUCCESS,
         payload: data,
