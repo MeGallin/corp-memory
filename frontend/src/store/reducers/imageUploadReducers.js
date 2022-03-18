@@ -13,7 +13,7 @@ export const profileImageUploadReducer = (state = {}, action) => {
         ...state,
         loading: false,
         success: true,
-        profileImage: action.payload,
+        profileImageUploaded: action.payload,
       };
     case PROFILE_IMAGE_UPLOAD_FAILURE:
       return { ...state, loading: false, error: action.payload };
