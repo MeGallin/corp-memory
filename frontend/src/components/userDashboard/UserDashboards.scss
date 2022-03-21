@@ -1,5 +1,8 @@
 @import '../../index.scss';
 
+.user-dashboard-updated {
+  background-color: $success;
+}
 .userDashboard-wrapper {
   display: flex;
   flex-wrap: wrap;

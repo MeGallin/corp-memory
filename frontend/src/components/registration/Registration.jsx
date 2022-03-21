@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaUser } from 'react-icons/fa';
 import './Registration.scss';
 
 import { registerAction } from '../../store/actions/userActions';
@@ -13,9 +12,10 @@ const Registration = () => {
   const nameRegEx = /^([\w])+\s+([\w\s])+$/i;
   const emailRegEx =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+  const passwordRegEx =
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
   const passwordConfirmRegEx =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
   const [pwMessage, setPwMessage] = useState(true);
   const [formData, setFormData] = useState({
@@ -64,17 +64,8 @@ const Registration = () => {
         <LoadingComponent />
       ) : (
         <fieldset className="fieldSet">
-          <legend>
-            <FaUser
-              style={{
-                fontSize: '14px',
-                marginRight: '4px',
-                color: 'orange',
-              }}
-            />
-            Registration
-          </legend>
-          <p>Please create an account.</p>
+          <legend>Registration</legend>
+
           {!pwMessage ? <p>Seems like your password's dont' match</p> : null}
           <div>
             <form onSubmit={handleRegistrationSubmit}>
@@ -87,7 +78,7 @@ const Registration = () => {
                 className={!nameRegEx.test(name) ? 'invalid' : 'entered'}
                 error={
                   !nameRegEx.test(name) && name.length !== 0
-                    ? `Name field must start with an uppercase letter and contain at least 3 letters and have no white space.`
+                    ? `Name field must contain a first name and surname both of which must start with a capital letter.`
                     : null
                 }
                 onChange={handleOnchange}
@@ -118,7 +109,7 @@ const Registration = () => {
                 }
                 error={
                   !passwordRegEx.test(password) && password.length !== 0
-                    ? `Password must contain at least 1 uppercase letter and a number`
+                    ? `Password must contain at least l Capital letter, 1 number and 1 special character.`
                     : null
                 }
                 onChange={handleOnchange}
@@ -136,7 +127,7 @@ const Registration = () => {
                 error={
                   !passwordRegEx.test(confirmPassword) &&
                   confirmPassword.length !== 0
-                    ? `Password must contain at least 1 uppercase letter and a number`
+                    ? `Password must contain at least l Capital letter, 1 number and 1 special character.`
                     : null
                 }
                 onChange={handleOnchange}
@@ -152,7 +143,7 @@ const Registration = () => {
                     !emailRegEx.test(email)
                   }
                 >
-                  Submit
+                  SIGN UP
                 </button>
               </div>
             </form>
