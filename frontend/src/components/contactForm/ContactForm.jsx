@@ -105,7 +105,7 @@ const ContactForm = () => {
                   type="submit"
                   disabled={!nameRegEx.test(name) || !emailRegEx.test(email)}
                 >
-                  Submit
+                  SUBMIT
                 </button>
               </div>
             </form>

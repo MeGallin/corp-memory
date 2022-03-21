@@ -14,7 +14,8 @@ const Login = () => {
 
   const emailRegEx =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+  const passwordRegEx =
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, success } = userLogin;
@@ -24,6 +25,7 @@ const Login = () => {
     password: '',
   });
   const { email, password } = formData;
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
@@ -58,7 +60,7 @@ const Login = () => {
       ) : (
         <fieldset className="fieldSet">
           <legend>Login</legend>
-          <p>Please log into your account</p>
+
           <div>
             <form onSubmit={handleLoginSubmit}>
               <InputFieldComponent
@@ -67,11 +69,11 @@ const Login = () => {
                 name="email"
                 value={email}
                 className={!emailRegEx.test(email) ? 'invalid' : 'entered'}
-                error={
-                  !emailRegEx.test(email) && email.length !== 0
-                    ? `Invalid email address.`
-                    : null
-                }
+                // error={
+                //   !emailRegEx.test(email) && email.length !== 0
+                //     ? `Invalid email address.`
+                //     : null
+                // }
                 onChange={handleOnchange}
               />
               <InputFieldComponent
@@ -83,22 +85,22 @@ const Login = () => {
                 className={
                   !passwordRegEx.test(password) ? 'invalid' : 'entered'
                 }
-                error={
-                  !passwordRegEx.test(password) && password.length !== 0
-                    ? `Password must contain at least 1 uppercase letter and a number`
-                    : null
-                }
+                // error={
+                //   !passwordRegEx.test(password) && password.length !== 0
+                //     ? `Password must contain at least l Capital letter, 1 number and 1 special character.`
+                //     : null
+                // }
                 onChange={handleOnchange}
               />
 
               <div>
                 <button
                   type="submit"
-                  disabled={
-                    !passwordRegEx.test(password) || !emailRegEx.test(email)
-                  }
+                  // disabled={
+                  //   !passwordRegEx.test(password) || !emailRegEx.test(email)
+                  // }
                 >
-                  Submit
+                  LOGIN
                 </button>
               </div>
             </form>

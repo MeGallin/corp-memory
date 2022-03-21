@@ -17,7 +17,8 @@ const UserDashboard = () => {
   const nameRegEx = /^([\w])+\s+([\w\s])+$/i;
   const emailRegEx =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-  const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+  const passwordRegEx =
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
   const [showCompleted, setShowCompleted] = useState(false);
 
@@ -91,7 +92,11 @@ const UserDashboard = () => {
 
   return (
     <>
-      {success ? 'Details have be successfully changed' : null}
+      {success ? (
+        <div className="user-dashboard-updated">
+          Your details have be successfully changed
+        </div>
+      ) : null}
       {error ? `Failed to update. ${error}` : null}
       {loading ? (
         <LoadingComponent />
@@ -221,7 +226,7 @@ const UserDashboard = () => {
                 />
 
                 <InputFieldComponent
-                  label="Password"
+                  label="Change Your Password"
                   type="password"
                   name="password"
                   value={password}
@@ -231,7 +236,7 @@ const UserDashboard = () => {
                   }
                   error={
                     !passwordRegEx.test(password) && password?.length !== 0
-                      ? `Password must contain at least 1 uppercase letter and a number`
+                      ? `Password must contain at least l Capital letter, 1 number and 1 special character.`
                       : null
                   }
                   onChange={handleOnchange}
