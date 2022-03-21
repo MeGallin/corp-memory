@@ -15,15 +15,30 @@ const FormsView = () => {
     <div className="forms-view-wrapper">
       {showForm || success ? (
         <>
+          {success ? (
+            <>
+              <h3>Please note:</h3>
+              <p>
+                Please check you emails. You need to confirm you email address
+                before logging into your account.
+              </p>
+              <p>
+                You will need to do this in order to gain full functionality to
+                the application.
+              </p>
+            </>
+          ) : null}
           <Login />
           <p></p>
-          <button onClick={() => setShowForm(!showForm)}>Register here</button>
+          Not a user yet?{' '}
+          <button onClick={() => setShowForm(!showForm)}>REGISTER</button>
         </>
       ) : (
         <>
           <Registration />
           <p></p>
-          <button onClick={() => setShowForm(!showForm)}>login here</button>
+          Already a user?{' '}
+          <button onClick={() => setShowForm(!showForm)}>LOGIN</button>
         </>
       )}
     </div>

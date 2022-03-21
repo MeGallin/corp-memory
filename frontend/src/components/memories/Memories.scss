@@ -117,7 +117,7 @@
       }
     }
     .memory:nth-child(even) {
-      background-color: $border-colour-dark;
+      background-color: $main-font-colour;
       color: $main-bg-colour;
       .memory-button-wrapper {
         border-top: 1px solid $border-colour-dark;
