@@ -7,5 +7,12 @@
     flex-grow: 1;
     border: 1px solid $border-colour-dark;
     padding: 0.2em;
+    width: MAX(33%, 480px);
+    background-color: lightseagreen;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .inner-wrapper:nth-child(even) {
+    background-color: lightcoral;
   }
 }
