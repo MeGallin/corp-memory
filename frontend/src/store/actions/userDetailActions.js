@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   USER_DETAILS_FAILURE,
   USER_DETAILS_REQUEST,

@@ -158,8 +158,18 @@ const UserDashboard = () => {
                   <FaRegThumbsDown style={{ color: 'crimson' }} />
                 )}
               </p>
+              <p>
+                SUSPENDED:{' '}
+                {details?.isSuspended ? (
+                  <FaRegThumbsUp style={{ color: 'green' }} />
+                ) : (
+                  <FaRegThumbsDown style={{ color: 'crimson' }} />
+                )}
+              </p>
               {details?.isAdmin ? (
-                <NavLink to="/admin">Admin View</NavLink>
+                <NavLink to="/admin" className="user-dashboard-link">
+                  View User Summary
+                </NavLink>
               ) : null}
               <p>
                 Email Confirmed:{' '}
