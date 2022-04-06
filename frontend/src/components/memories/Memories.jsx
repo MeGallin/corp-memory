@@ -147,11 +147,18 @@ const Memories = () => {
                       </div>
                     </div>
                   </div>
-                  <Modal
-                    openButtonTitle="Create"
-                    closeButtonTitle="X"
-                    props={<CreateMemory />}
-                  />
+                  {!details?.isSuspended ? (
+                    <Modal
+                      openButtonTitle="Create"
+                      closeButtonTitle="X"
+                      props={<CreateMemory />}
+                    />
+                  ) : (
+                    <div>
+                      <h3>'Your account has been suspended'</h3>
+                      <h5>Please contact ADMIN</h5>
+                    </div>
+                  )}
                 </div>
 
                 <p>

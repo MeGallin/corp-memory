@@ -147,6 +147,7 @@ const updateUser = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      isSuspended: updatedUser.isSuspended,
       profileImage: updatedUser.profileImage,
       cloudinaryId: updatedUser.cloudinaryId,
       token: generateToken(updatedUser._id),
@@ -160,14 +161,23 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route: GET /api/users/user
 // @access: PRIVATE
 const getMyUserData = asyncHandler(async (req, res) => {
-  const { _id, name, email, isAdmin, isConfirmed, profileImage, cloudinaryId } =
-    await User.findById(req.user.id);
+  const {
+    _id,
+    name,
+    email,
+    isAdmin,
+    isConfirmed,
+    isSuspended,
+    profileImage,
+    cloudinaryId,
+  } = await User.findById(req.user.id);
   res.status(200).json({
     id: _id,
     name,
     email,
     isAdmin,
     isConfirmed,
+    isSuspended,
     profileImage,
     cloudinaryId,
   });

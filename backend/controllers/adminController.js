@@ -13,4 +13,20 @@ const getAllUsersMemories = asyncHandler(async (req, res) => {
   res.status(200).json(all);
 });
 
-export { getAllUsersMemories };
+// @description: Update isSuspended to true/false
+// @route: PUT admin/user/:id
+// @access: Private/Admin
+const updateIsSuspended = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.isSuspended = req.body.isSuspended;
+    const updateIsSuspended = await user.save();
+    res.json(updateIsSuspended);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+export { getAllUsersMemories, updateIsSuspended };

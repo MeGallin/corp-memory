@@ -31,6 +31,7 @@ app.use('/api/contact', contactFormRoutes);
 app.use('/api/confirm', emailConfirmationRoutes);
 //Admin Routes
 app.use('/api/admin/user-memories', adminRoutes);
+app.use('/api/admin/user', adminRoutes);
 // Profile Upload Routes
 app.use('/api/profileUpload', uploadRoutes);
 
