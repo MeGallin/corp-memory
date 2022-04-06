@@ -1,4 +1,7 @@
 import {
+  ADMIN_SUSPEND_USER_FAILURE,
+  ADMIN_SUSPEND_USER_REQUEST,
+  ADMIN_SUSPEND_USER_SUCCESS,
   ADMIN_USER_MEMORIES_FAILURE,
   ADMIN_USER_MEMORIES_REQUEST,
   ADMIN_USER_MEMORIES_RESET,
@@ -21,6 +24,24 @@ export const adminUserMemoriesReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case ADMIN_USER_MEMORIES_RESET:
       return { usersMemories: {} };
+    default:
+      return { ...state };
+  }
+};
+
+// Add OR REmove Suspension
+export const adminSuspendUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_SUSPEND_USER_REQUEST:
+      return { ...state, loading: true };
+    case ADMIN_SUSPEND_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+      };
+    case ADMIN_SUSPEND_USER_FAILURE:
+      return { ...state, loading: false, error: action.payload };
     default:
       return { ...state };
   }

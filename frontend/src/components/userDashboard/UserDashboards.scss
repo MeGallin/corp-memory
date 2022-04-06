@@ -17,6 +17,12 @@
     color: $danger;
     padding: 0.2em;
   }
+  .user-dashboard-link {
+    color: blue;
+  }
+  :hover {
+    color: darkblue;
+  }
 }
 .show-completed {
   font-weight: bold;

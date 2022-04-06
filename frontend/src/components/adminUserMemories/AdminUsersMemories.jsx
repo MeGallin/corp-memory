@@ -2,9 +2,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './AdminUsersMemories.scss';
 
-import { adminUserMemoriesAction } from '../../store/actions/adminActions';
+import {
+  adminUserMemoriesAction,
+  adminSuspendUserAction,
+} from '../../store/actions/adminActions';
 
 import moment from 'moment';
+
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 
 const AdminUsersMemories = () => {
   const dispatch = useDispatch();
@@ -29,6 +34,11 @@ const AdminUsersMemories = () => {
     return false;
   });
 
+  const handleSuspend = (id, isSuspended) => {
+    //Dispatch Action here
+    dispatch(adminSuspendUserAction({ id, isSuspended }));
+  };
+
   return (
     <div className="admin-users-memories-wrapper">
       {error ? error : success}
@@ -40,15 +50,41 @@ const AdminUsersMemories = () => {
             <div key={user?._id} className="inner-wrapper">
               <>
                 <h2>{user?.name}</h2>
+
+                {user?.isSuspended ? (
+                  <button onClick={() => handleSuspend(user?._id, false)}>
+                    UN-SUSPEND
+                  </button>
+                ) : (
+                  <button onClick={() => handleSuspend(user?._id, true)}>
+                    SUSPEND
+                  </button>
+                )}
+
                 <p>
                   Email:{' '}
-                  <a href={`mailto:${user?.email}`} target="_blank">
+                  <a
+                    href={`mailto:${user?.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     {user?.name}
                   </a>{' '}
                   [{user?.email}]
                 </p>
-                <p>{user?.isConfirmed}</p>
-                <p>{user?.isAdmin}</p>
+                <p>
+                  Admin: {user?.isAdmin ? <FaThumbsUp /> : <FaThumbsDown />}
+                </p>
+                <p>
+                  Confirmed:{' '}
+                  {user?.isConfirmed ? <FaThumbsUp /> : <FaThumbsDown />}
+                </p>
+
+                <p>
+                  Suspended:{' '}
+                  {user?.isSuspended ? <FaThumbsUp /> : <FaThumbsDown />}
+                </p>
+
                 <p>
                   Created: {moment(user?.createdAt).startOf('minute').fromNow()}
                 </p>
@@ -61,7 +97,6 @@ const AdminUsersMemories = () => {
                 <div key={memory?._id}>
                   {user?._id === memory?.user ? (
                     <>
-                      {console.log(memory)}
                       <h3>{memory?.title}</h3>
                       <p>{memory.memory}</p>
                     </>

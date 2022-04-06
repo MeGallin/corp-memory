@@ -12,9 +12,12 @@
     justify-content: space-between;
 
     .search-modal-wrapper {
+      border: 1px solid $border-colour;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      padding: 0.2em;
       .search-sort-wrapper {
         display: flex;
         align-items: center;
@@ -27,6 +30,10 @@
           opacity: 1;
           cursor: pointer;
         }
+      }
+      h3,
+      h5 {
+        color: $danger;
       }
     }
 
