@@ -25,7 +25,6 @@ const UserDashboard = () => {
   const profileImageUpload = useSelector((state) => state.profileImageUpload);
   const {
     loading: profileImageLoading,
-    success: profileImageSuccess,
     error: profileImageError,
     profileImageUploaded,
   } = profileImageUpload;
@@ -81,13 +80,36 @@ const UserDashboard = () => {
     dispatch(userUpdateIsCompleteAction({ id: id, isComplete: toggledValue }));
   };
 
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewImageFile, setPreviewImageFile] = useState('');
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+  };
+
+  const uploadFileHandler = (e) => {
+    const imageFile = e.target.files[0];
+    setPreviewImageFile(imageFile);
+    previewFile(imageFile);
+  };
+
+  const handleImageUpdate = (e) => {
+    e.preventDefault();
     const formImageData = new FormData();
-    formImageData.append('profileImage', file);
+    formImageData.append('profileImage', previewImageFile);
 
     // Dispatch Profile image upload Action
     dispatch(profileImageUploadAction(formImageData));
+    setPreviewImage('');
+  };
+
+  const handelCancelUpload = () => {
+    document.getElementById('profileImage').value = '';
+    setPreviewImage('');
   };
 
   return (
@@ -195,6 +217,31 @@ const UserDashboard = () => {
                   alt={details?.name}
                 />
               )}
+
+              <div>
+                <form onSubmit={handleImageUpdate}>
+                  {profileImageLoading ? <LoadingComponent /> : null}
+                  <InputFieldComponent
+                    id="profileImage"
+                    label="Change Profile Image"
+                    type="file"
+                    name="profileImage"
+                    onChange={uploadFileHandler}
+                  />
+                  {previewImage ? (
+                    <>
+                      Image Preview
+                      <img src={previewImage} alt="profile preview" />
+                      <button type="submit">I Like It</button>
+                      <button type="button" onClick={handelCancelUpload}>
+                        Cancel
+                      </button>
+                    </>
+                  ) : null}
+
+                  {profileImageError ? 'Error uploading' : null}
+                </form>
+              </div>
             </div>
 
             <div>
@@ -213,7 +260,6 @@ const UserDashboard = () => {
                   }
                   onChange={handleOnchange}
                 />
-
                 <InputFieldComponent
                   label="Email"
                   type="email"
@@ -226,13 +272,6 @@ const UserDashboard = () => {
                       : null
                   }
                   onChange={handleOnchange}
-                />
-
-                <InputFieldComponent
-                  label="Upload Profile Image"
-                  type="file"
-                  name="profileImage"
-                  onChange={uploadFileHandler}
                 />
 
                 <InputFieldComponent
@@ -251,20 +290,13 @@ const UserDashboard = () => {
                   }
                   onChange={handleOnchange}
                 />
-
-                {profileImageLoading ? <LoadingComponent /> : null}
-                {profileImageSuccess && !success ? (
-                  <div>
-                    <div>
-                      <button type="submit" className="profileImage-success">
-                        UPDATE YOUR CHANGES
-                      </button>
-                    </div>
-                  </div>
-                ) : (
+                {!profileImageUploaded?.avatar ? (
                   <button type="submit">UPDATE</button>
+                ) : (
+                  <button type="submit" className="submit-button">
+                    CONFIRM UPDATE
+                  </button>
                 )}
-                {profileImageError ? 'Error uploading' : null}
               </form>
             </div>
           </fieldset>
