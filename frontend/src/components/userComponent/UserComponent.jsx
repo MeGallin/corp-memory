@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 import './UserComponent.scss';
 
 const UserComponent = () => {
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { details } = userDetails;
 
-  return userInfo ? (
+  return details ? (
     <div className="user-component-wrapper">
-      <p>Current USER: {userInfo.name} </p>
+      <p>Current USER: {details?.name} </p>
       <NavLink to="/user-dashboard">LOGOUT</NavLink>
     </div>
   ) : null;
