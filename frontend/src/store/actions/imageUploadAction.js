@@ -7,6 +7,7 @@ import {
 
 export const profileImageUploadAction =
   (formData) => async (dispatch, getState) => {
+    console.log('DDD', formData);
     try {
       dispatch({
         type: PROFILE_IMAGE_UPLOAD_REQUEST,
