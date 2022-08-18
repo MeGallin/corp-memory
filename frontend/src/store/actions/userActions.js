@@ -357,7 +357,7 @@ export const userForgotPasswordAction = (email) => async (dispatch) => {
     dispatch({
       type: USER_FORGOT_PASSWORD_REQUEST,
     });
-    const { data } = await axios.post('/api/user-forgot-password', { email });
+    const { data } = await axios.post(`/api/user-forgot-password`, { email });
     dispatch({ type: USER_FORGOT_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
