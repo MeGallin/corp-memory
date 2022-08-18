@@ -192,7 +192,7 @@ const userForgotPassword = asyncHandler(async (req, res) => {
 
   if (user) {
     const token = generateToken(user._id, { expiresIn: '360s' });
-    const link = `${process.env.RESET_PASSWORD_LOCAL_URL}/reset-password/${token}`;
+    const link = `${process.env.MAILER_LOCAL_URL}/reset-password/${token}`;
     user.resetPasswordToken = token;
     await user.save();
     // Email with magic link here
