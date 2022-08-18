@@ -380,7 +380,7 @@ export const updateUserPasswordAction =
       });
 
       const { data } = await axios.put(
-        `/api/user-update-password`,
+        `/api/user-update-forgotten-password`,
         userUpdatedInfo,
       );
       console.log('DDD', data);

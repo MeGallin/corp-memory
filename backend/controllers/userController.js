@@ -183,8 +183,8 @@ const getMyUserData = asyncHandler(async (req, res) => {
   });
 });
 
-// @description: UPdate User FORGOTTEN PASSWORD
-// @route: PUT /api/user_forgot_password
+// @description:  User FORGOTTEN PASSWORD
+// @route: POST /api/user-forgot-password
 // @access: PUBLIC
 const userForgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
@@ -213,7 +213,7 @@ const userForgotPassword = asyncHandler(async (req, res) => {
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Your Corporate Memory" <info@yourcorporatememory.com>', // sender address
-      to: 'me@garyallin.uk', // list of receivers
+      to: `${user.email}`, // list of receivers
       bcc: 'me@garyallin.uk',
       subject: 'Your Corporate Memory password re-set request', // Subject line
       text: 'Your Corporate Memory password re-set request', // plain text body
@@ -250,10 +250,32 @@ const generateToken = (id, email) => {
   });
 };
 
+// @description: UPdate User FORGOTTEN PASSWORD
+// @route: PUT /api/user-update-forgotten-password
+// @access: PUBLIC
+
+const userUpdateForgottenPassword = asyncHandler(async (req, res) => {
+  const { resetPasswordToken, password } = req.body;
+  const user = await User.findOne({
+    resetPasswordToken: resetPasswordToken,
+  });
+  if (user) {
+    if (password) {
+      user.password = password;
+    }
+    await user.save();
+    res.status(201).json('Password Successfully updated.');
+  } else {
+    res.status(404);
+    throw new Error('No user found');
+  }
+});
+
 export {
   registerUser,
   loginUser,
   getMyUserData,
   updateUser,
   userForgotPassword,
+  userUpdateForgottenPassword,
 };

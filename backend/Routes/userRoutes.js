@@ -5,6 +5,7 @@ import {
   getMyUserData,
   updateUser,
   userForgotPassword,
+  userUpdateForgottenPassword,
 } from '../controllers/userController.js';
 
 import { protect } from '../middleware/authMiddleware.js';
@@ -19,5 +20,8 @@ router.route('/:id').put(protect, updateUser);
 
 //Forgotten password Routes
 router.route('/user-forgot-password').post(userForgotPassword);
+router
+  .route('/user-update-forgotten-password')
+  .put(userUpdateForgottenPassword);
 
 export default router;
