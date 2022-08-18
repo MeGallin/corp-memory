@@ -373,6 +373,7 @@ export const userForgotPasswordAction = (email) => async (dispatch) => {
 // UPDATE new password if forgotten
 export const updateUserPasswordAction =
   (userUpdatedInfo) => async (dispatch, getState) => {
+    console.log('DDD', userUpdatedInfo);
     try {
       dispatch({
         type: USER_UPDATE_PASSWORD_REQUEST,
