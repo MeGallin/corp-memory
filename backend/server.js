@@ -20,7 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // This needed to accept json data
 
-//Routes
+//USER Routes
 app.use('/api/memory', memoryRoutes);
 app.use('/api/memories', memoryRoutes);
 app.use('/api/user', userRoutes);
