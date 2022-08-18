@@ -18,6 +18,6 @@ router.route('/user').get(protect, getMyUserData);
 router.route('/:id').put(protect, updateUser);
 
 //Forgotten password Routes
-router.route('/user_forgot_password').post(userForgotPassword);
+router.route('/user-forgot-password').post(userForgotPassword);
 
 export default router;

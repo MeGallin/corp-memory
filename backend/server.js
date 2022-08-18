@@ -21,6 +21,7 @@ app.use(cors());
 app.use(express.json()); // This needed to accept json data
 
 //USER Routes
+app.use('/api', userRoutes);
 app.use('/api/memory', memoryRoutes);
 app.use('/api/memories', memoryRoutes);
 app.use('/api/user', userRoutes);
