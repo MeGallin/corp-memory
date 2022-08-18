@@ -9,6 +9,9 @@ import {
   USER_DELETE_MEMORY_TAG_FAILURE,
   USER_DELETE_MEMORY_TAG_REQUEST,
   USER_DELETE_MEMORY_TAG_SUCCESS,
+  USER_FORGOT_PASSWORD_FAILURE,
+  USER_FORGOT_PASSWORD_REQUEST,
+  USER_FORGOT_PASSWORD_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -31,6 +34,9 @@ import {
   USER_UPDATE_MEMORY_SET_DUE_DATE_REQUEST,
   USER_UPDATE_MEMORY_SET_DUE_DATE_SUCCESS,
   USER_UPDATE_MEMORY_SUCCESS,
+  USER_UPDATE_PASSWORD_FAILURE,
+  USER_UPDATE_PASSWORD_REQUEST,
+  USER_UPDATE_PASSWORD_SUCCESS,
 } from '../constants/userConstants';
 
 // User Registration
@@ -345,19 +351,17 @@ export const userUpdateIsCompleteAction =
     }
   };
 
-// Request new password if forgotten
+/// Request new password if forgotten
 export const userForgotPasswordAction = (email) => async (dispatch) => {
   try {
     dispatch({
-      type: USER_UPDATE_FORGOT_PASSWORD_REQUEST,
+      type: USER_FORGOT_PASSWORD_REQUEST,
     });
-    const { data } = await axios.post('/api/user/user_forgot_password', {
-      email,
-    });
-    dispatch({ type: USER_UPDATE_FORGOT_PASSWORD_SUCCESS, payload: data });
+    const { data } = await axios.post('/api/user-forgot-password', { email });
+    dispatch({ type: USER_FORGOT_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: USER_UPDATE_FORGOT_PASSWORD_FAILURE,
+      type: USER_FORGOT_PASSWORD_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -365,3 +369,28 @@ export const userForgotPasswordAction = (email) => async (dispatch) => {
     });
   }
 };
+
+// UPDATE new password if forgotten
+export const updateUserPasswordAction =
+  (userUpdatedInfo) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: USER_UPDATE_PASSWORD_REQUEST,
+      });
+
+      const { data } = await axios.put(
+        `/api/user-update-password`,
+        userUpdatedInfo,
+      );
+      console.log('DDD', data);
+      dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_PASSWORD_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
