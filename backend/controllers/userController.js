@@ -256,12 +256,17 @@ const generateToken = (id, email) => {
 
 const userUpdateForgottenPassword = asyncHandler(async (req, res) => {
   const { resetPasswordToken, password } = req.body;
+
+  // hash the Password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   const user = await User.findOne({
     resetPasswordToken: resetPasswordToken,
   });
   if (user) {
     if (password) {
-      user.password = password;
+      user.password = hashedPassword;
     }
     await user.save();
     res.status(201).json('Password Successfully updated.');
