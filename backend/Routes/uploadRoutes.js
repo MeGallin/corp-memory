@@ -60,6 +60,12 @@ router.post('/', protect, upload.single('profileImage'), async (req, res) => {
         avatar: result.secure_url,
         cloudinaryId: result.public_id,
       });
+
+      // Save the USER
+      user.profileImage = result.secure_url;
+      user.cloudinaryId = result.public_id;
+      await user.save();
+
       //Save user profile
       await profileImage.save();
       res.status(200).json(profileImage);

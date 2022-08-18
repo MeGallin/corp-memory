@@ -3,4 +3,8 @@
   button {
     margin-top: 1em;
   }
+  .button-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
 }

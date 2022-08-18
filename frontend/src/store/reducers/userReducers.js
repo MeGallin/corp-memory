@@ -19,6 +19,9 @@ import {
   USER_REGISTER_FAILURE,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_FORGOT_PASSWORD_FAILURE,
+  USER_UPDATE_FORGOT_PASSWORD_REQUEST,
+  USER_UPDATE_FORGOT_PASSWORD_SUCCESS,
   USER_UPDATE_MEMORY_FAILURE,
   USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE,
   USER_UPDATE_MEMORY_IS_COMPLETE_REQUEST,
@@ -192,6 +195,25 @@ export const userUpdateMemoryIsCompleteReducer = (state = {}, action) => {
       };
     case USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE:
       return { loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+
+// UPDATE new password if forgotten
+export const userForgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_FORGOT_PASSWORD_REQUEST:
+      return { ...state, loading: true };
+    case USER_UPDATE_FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: action.payload,
+      };
+    case USER_UPDATE_FORGOT_PASSWORD_FAILURE:
+      return { ...state, loading: false, error: action.payload };
     default:
       return { ...state };
   }
