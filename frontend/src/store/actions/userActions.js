@@ -376,7 +376,7 @@ export const updateUserPasswordAction =
     console.log('DDD', userUpdatedInfo);
     try {
       dispatch({
-        type: USER_UPDATE_PASSWORD_REQUEST,
+        type: USER_UPDATE_FORGOT_PASSWORD_REQUEST,
       });
 
       const { data } = await axios.put(
@@ -384,10 +384,10 @@ export const updateUserPasswordAction =
         userUpdatedInfo,
       );
       console.log('DDD', data);
-      dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
+      dispatch({ type: USER_UPDATE_FORGOT_PASSWORD_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
-        type: USER_UPDATE_PASSWORD_FAILURE,
+        type: USER_UPDATE_FORGOT_PASSWORD_FAILURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
