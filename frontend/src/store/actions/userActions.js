@@ -19,6 +19,9 @@ import {
   USER_REGISTER_FAILURE,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_FORGOT_PASSWORD_FAILURE,
+  USER_UPDATE_FORGOT_PASSWORD_REQUEST,
+  USER_UPDATE_FORGOT_PASSWORD_SUCCESS,
   USER_UPDATE_MEMORY_FAILURE,
   USER_UPDATE_MEMORY_IS_COMPLETE_FAILURE,
   USER_UPDATE_MEMORY_IS_COMPLETE_REQUEST,
@@ -341,3 +344,24 @@ export const userUpdateIsCompleteAction =
       });
     }
   };
+
+// Request new password if forgotten
+export const userForgotPasswordAction = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_FORGOT_PASSWORD_REQUEST,
+    });
+    const { data } = await axios.post('/api/user/user_forgot_password', {
+      email,
+    });
+    dispatch({ type: USER_UPDATE_FORGOT_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FORGOT_PASSWORD_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

@@ -183,6 +183,66 @@ const getMyUserData = asyncHandler(async (req, res) => {
   });
 });
 
+// @description: UPdate User FORGOTTEN PASSWORD
+// @route: PUT /api/user_forgot_password
+// @access: PUBLIC
+const userForgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
+
+  if (user) {
+    const token = generateToken(user._id, { expiresIn: '360s' });
+    const link = `${process.env.RESET_PASSWORD_LOCAL_URL}/reset-password/${token}`;
+    user.resetPasswordToken = token;
+    await user.save();
+    // Email with magic link here
+
+    let transporter = nodemailer.createTransport({
+      host: process.env.MAILER_HOST,
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.MAILER_USER,
+        pass: process.env.MAILER_PW,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Your Corporate Memory" <info@yourcorporatememory.com>', // sender address
+      to: 'me@garyallin.uk', // list of receivers
+      bcc: 'me@garyallin.uk',
+      subject: 'Your Corporate Memory password re-set request', // Subject line
+      text: 'Your Corporate Memory password re-set request', // plain text body
+      html: `
+      <h1>Hi ${user.name}</h1>
+      <p>You can reset your password by clicking the link provided below</p>
+   
+      <p><a href=${link} id='link'>Click here to reset your password</a></p>
+      <h3 style="color: red;">PLEASE DELETE THIS EMAIL AFTER YOU HAVE RESET YOUR PASSWORD.</h3>
+      <p>Thank you Your Corporate Memory management</p>
+          
+       
+      `, // html body
+    });
+
+    console.log('Message sent: %s', info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    // Preview only available when sending through an Ethereal account
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+    res.status(200).json('Your password was successfully reset');
+  } else {
+    res.status(409);
+    throw new Error('Sorry, no match could be found for that email.');
+  }
+});
+
 // Generate a secret token for the user
 const generateToken = (id, email) => {
   return jwt.sign({ id, email }, process.env.JWT_SECRET, {
@@ -190,4 +250,10 @@ const generateToken = (id, email) => {
   });
 };
 
-export { registerUser, loginUser, getMyUserData, updateUser };
+export {
+  registerUser,
+  loginUser,
+  getMyUserData,
+  updateUser,
+  userForgotPassword,
+};

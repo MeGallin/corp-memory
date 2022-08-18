@@ -8,6 +8,8 @@ import ContactView from './views/contactView/ContactView';
 import FormsView from './views/formsView/FormsView';
 import UserDashboardView from './views/userDashboardView/UserDashboardView';
 import AdminView from './views/adminView/AdminView';
+import ErrorView from './views/errorView/ErrorView';
+import ResetPasswordView from './views/resetPasswordView/ResetPasswordView';
 
 function App() {
   return (
@@ -22,10 +24,15 @@ function App() {
             <Route path="/contact" element={<ContactView />} exact />
             <Route path="/forms" element={<FormsView />} exact />
             <Route
+              path="/reset-password/:token"
+              element={<ResetPasswordView />}
+            />
+            <Route
               path="/user-dashboard"
               element={<UserDashboardView />}
               exact
             />
+            <Route path="*" element={<ErrorView />} exact />
           </Routes>
         </div>
         <Footer />
