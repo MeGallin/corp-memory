@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './ResetPasswordView.scss';
 
@@ -10,6 +10,12 @@ import { updateUserPasswordAction } from '../../store/actions/userActions';
 const ResetPasswordView = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const updateUserPassword = useSelector((state) => state.updateUserPassword);
+  const { success, error, message } = updateUserPassword;
+
+  console.log('sss', updateUserPassword);
 
   const passwordRegEx =
     /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"£$%^&*()#~@])[A-Za-z\d!"£$%^&*()#~@]{6,}$/;
@@ -18,12 +24,12 @@ const ResetPasswordView = () => {
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState(null);
+  const [pwMismatchMessage, setPwMismatchMessage] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
+      setPwMismatchMessage('Passwords do not match');
     } else {
       // Dispatch registration data
       dispatch(
@@ -32,15 +38,26 @@ const ResetPasswordView = () => {
           password: password,
         }),
       );
-      setMessage(null);
+      setPwMismatchMessage(null);
       setPassword('');
       setConfirmPassword('');
+      setTimeout(() => {
+        navigate('/forms');
+      }, 6000);
     }
   };
 
   return (
     <div className="reset-pw-wrapper">
-      {message ? message : null}
+      {pwMismatchMessage ? pwMismatchMessage : null}
+      {success ? (
+        <>
+          <h3>{message}</h3>
+          <p>You will be direct shortly</p>
+        </>
+      ) : (
+        <p>{error}</p>
+      )}
       <fieldset className="fieldSet">
         <legend>
           Members <span>Reset Password</span> form
