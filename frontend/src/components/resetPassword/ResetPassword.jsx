@@ -19,9 +19,6 @@ const ResetPassword = () => {
   const userForgotPassword = useSelector((state) => state.userForgotPassword);
   const { success, error, message } = userForgotPassword;
 
-  console.log('success', success);
-  console.log('message', message);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Dispatch Check email
