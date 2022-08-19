@@ -8,6 +8,9 @@ import {
   USER_DELETE_MEMORY_TAG_FAILURE,
   USER_DELETE_MEMORY_TAG_REQUEST,
   USER_DELETE_MEMORY_TAG_SUCCESS,
+  USER_FORGOT_PASSWORD_FAILURE,
+  USER_FORGOT_PASSWORD_REQUEST,
+  USER_FORGOT_PASSWORD_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -200,20 +203,38 @@ export const userUpdateMemoryIsCompleteReducer = (state = {}, action) => {
   }
 };
 
-// UPDATE new password if forgotten
+// Request new password if forgotten (SEND EMAIL)
 export const userForgotPasswordReducer = (state = {}, action) => {
   switch (action.type) {
-    case USER_UPDATE_FORGOT_PASSWORD_REQUEST:
+    case USER_FORGOT_PASSWORD_REQUEST:
       return { ...state, loading: true };
-    case USER_UPDATE_FORGOT_PASSWORD_SUCCESS:
+    case USER_FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
         success: true,
         message: action.payload,
       };
-    case USER_UPDATE_FORGOT_PASSWORD_FAILURE:
+    case USER_FORGOT_PASSWORD_FAILURE:
       return { ...state, loading: false, error: action.payload };
+    default:
+      return { ...state };
+  }
+};
+
+// UPDATE new password if forgotten
+export const updateUserPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_FORGOT_PASSWORD_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_FORGOT_PASSWORD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        message: action.payload,
+      };
+    case USER_UPDATE_FORGOT_PASSWORD_FAILURE:
+      return { loading: false, error: action.payload };
     default:
       return { ...state };
   }

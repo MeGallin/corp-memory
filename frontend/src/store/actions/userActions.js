@@ -34,9 +34,6 @@ import {
   USER_UPDATE_MEMORY_SET_DUE_DATE_REQUEST,
   USER_UPDATE_MEMORY_SET_DUE_DATE_SUCCESS,
   USER_UPDATE_MEMORY_SUCCESS,
-  USER_UPDATE_PASSWORD_FAILURE,
-  USER_UPDATE_PASSWORD_REQUEST,
-  USER_UPDATE_PASSWORD_SUCCESS,
 } from '../constants/userConstants';
 
 // User Registration
@@ -351,7 +348,7 @@ export const userUpdateIsCompleteAction =
     }
   };
 
-/// Request new password if forgotten
+/// Request new password if forgotten (SEND EMAIL)
 export const userForgotPasswordAction = (email) => async (dispatch) => {
   try {
     dispatch({

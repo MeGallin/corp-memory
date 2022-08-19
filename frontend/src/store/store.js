@@ -13,6 +13,7 @@ import {
   userUpdateMemorySetDueDateReducer,
   userUpdateMemoryIsCompleteReducer,
   userForgotPasswordReducer,
+  updateUserPasswordReducer,
 } from './reducers/userReducers';
 
 import {
@@ -44,6 +45,7 @@ const reducer = combineReducers({
   profileImageUpload: profileImageUploadReducer,
   userDetails: userDetailsReducer,
   userForgotPassword: userForgotPasswordReducer,
+  updateUserPassword: updateUserPasswordReducer,
 });
 
 const initialState = {

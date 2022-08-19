@@ -183,7 +183,7 @@ const getMyUserData = asyncHandler(async (req, res) => {
   });
 });
 
-// @description:  User FORGOTTEN PASSWORD
+// @description:  User FORGOTTEN PASSWORD send EMAIL and  save TOKEN
 // @route: POST /api/user-forgot-password
 // @access: PUBLIC
 const userForgotPassword = asyncHandler(async (req, res) => {
@@ -192,7 +192,7 @@ const userForgotPassword = asyncHandler(async (req, res) => {
 
   if (user) {
     const token = generateToken(user._id, { expiresIn: '360s' });
-    const link = `${process.env.MAILER_LOCAL_URL}reset-password/${token}`;
+    const link = `${process.env.RESET_PASSWORD_LOCAL_URL}reset-password/${token}`;
     user.resetPasswordToken = token;
     await user.save();
     // Email with magic link here
@@ -269,7 +269,7 @@ const userUpdateForgottenPassword = asyncHandler(async (req, res) => {
       user.password = hashedPassword;
     }
     await user.save();
-    res.status(201).json('Password Successfully updated.');
+    res.status(201).json('Your password was SUCCESSFULLY updated.');
   } else {
     res.status(404);
     throw new Error('No user found');
