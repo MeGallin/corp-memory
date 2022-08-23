@@ -1,0 +1,16 @@
+@import '../../index.scss';
+
+.memories-images-wrapper {
+  width: auto;
+  .preview-image {
+    width: 50%;
+    height: auto;
+  }
+  .bg-image {
+    height: 200px;
+    border: red 4px solid;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
