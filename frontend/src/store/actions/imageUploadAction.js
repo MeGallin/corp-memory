@@ -28,7 +28,11 @@ export const profileImageUploadAction =
         },
       };
 
+<<<<<<< HEAD
       const { data } = await axios.post('/api/profileUpload', formData, config);
+=======
+      const { data } = await axios.post(`/api/profileUpload`, formData, config);
+>>>>>>> 2b42e6399505a740515546244d4e500a7bc2e204
       dispatch({
         type: PROFILE_IMAGE_UPLOAD_SUCCESS,
         payload: data,
@@ -47,7 +51,6 @@ export const profileImageUploadAction =
 //Memories images
 export const memoryImageUploadAction =
   (memoryId, formData) => async (dispatch, getState) => {
-    console.log('DDD', memoryId);
     try {
       dispatch({
         type: MEMORY_IMAGE_UPLOAD_REQUEST,
@@ -66,7 +69,7 @@ export const memoryImageUploadAction =
       };
 
       const { data } = await axios.post(
-        'http://localhost:5000/api/memory-image-upload',
+        `/api/memory-image-upload`,
         formData,
         config,
       );
