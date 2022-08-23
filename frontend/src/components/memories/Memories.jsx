@@ -28,6 +28,7 @@ const Memories = () => {
 
   const [keyword, setKeyword] = useState('');
   const [dateTime, setDateTime] = useState('');
+
   const [showMemoryImageUpload, setShowMemoryImageUpload] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -112,7 +113,9 @@ const Memories = () => {
   }, [sortedMemories]);
   // SORT
 
-  const handleShowIcon = () => {
+  const [showMemoryId, setShowMemoryId] = useState('');
+  const handleShowIcon = (memoryId) => {
+    setShowMemoryId(memoryId);
     setShowMemoryImageUpload(!showMemoryImageUpload);
   };
 
@@ -232,33 +235,28 @@ const Memories = () => {
                                     <StarComponent key={i} />
                                   ))}
                               </div>
-                              {memory.memoryImage || showMemoryImageUpload ? (
+
+                              {memory.memoryImage ||
+                              (showMemoryImageUpload &&
+                                memory._id === showMemoryId) ? (
                                 <>
-                                  <div
-                                    className="bg-image"
-                                    style={{
-                                      backgroundImage: memory.memoryImage
-                                        ? `url(${memory.memoryImage})`
-                                        : null,
-                                      backgroundRepeat: 'no-repeat',
-                                      backgroundPosition: 'center',
-                                      backgroundSize: 'cover',
-                                      paddingBottom: '1rem',
-                                    }}
-                                  ></div>
                                   <MemoriesImages
                                     memoryId={memory._id}
-                                    // memoryImage={memory.memoryImage}
+                                    memoryImage={memory.memoryImage}
                                   />
                                 </>
                               ) : null}
                               <div
                                 className="upload-wrapper"
-                                onClick={() => handleShowIcon()}
+                                onClick={() => handleShowIcon(memory._id)}
                               >
                                 {!memory.memoryImage ? (
                                   <>
-                                    <FaUpload size={28} title="upload a file" />
+                                    <FaUpload
+                                      size={28}
+                                      title="upload a file"
+                                      className="upload-icon"
+                                    />
                                   </>
                                 ) : null}
                               </div>

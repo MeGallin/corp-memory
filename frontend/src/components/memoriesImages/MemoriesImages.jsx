@@ -1,13 +1,18 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './MemoriesImages.scss';
 
 import { memoryImageUploadAction } from '../../store/actions/imageUploadAction';
 
 import InputFieldComponent from '../inputField/inputFieldComponent';
+import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
 
 const MemoriesImages = ({ memoryId, memoryImage }) => {
   const dispatch = useDispatch();
+
+  const memoryImageUpload = useSelector((state) => state.memoryImageUpload);
+  const { error, loading, success } = memoryImageUpload;
+
   const [previewImage, setPreviewImage] = useState('');
   const [previewImageFile, setPreviewImageFile] = useState('');
 
@@ -42,31 +47,38 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
 
   return (
     <div className="memories-images-wrapper">
-      <img src={memoryImage} alt="" className="preview-image" />
-      <form onSubmit={handleImageUpdate}>
-        <InputFieldComponent
-          id="memoryImage"
-          label="Change Profile Image"
-          type="file"
-          name="memoryImage"
-          onChange={uploadFileHandler}
-        />
-
-        {previewImage ? (
-          <>
-            Image Preview
-            <img
-              src={previewImage}
-              alt="profile preview"
-              className="preview-image"
+      {error ? error : null}
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <>
+          <img src={memoryImage} alt="" className="preview-image" />
+          <form onSubmit={handleImageUpdate}>
+            <InputFieldComponent
+              id="memoryImage"
+              label="Change Profile Image"
+              type="file"
+              name="memoryImage"
+              onChange={uploadFileHandler}
             />
-            <button type="submit">I Like It</button>
-            <button type="button" onClick={handelCancelUpload}>
-              Cancel
-            </button>
-          </>
-        ) : null}
-      </form>
+
+            {previewImage ? (
+              <>
+                Image Preview
+                <img
+                  src={previewImage}
+                  alt="profile preview"
+                  className="preview-image"
+                />
+                <button type="submit">I Like It</button>
+                <button type="button" onClick={handelCancelUpload}>
+                  Cancel
+                </button>
+              </>
+            ) : null}
+          </form>
+        </>
+      )}
     </div>
   );
 };
