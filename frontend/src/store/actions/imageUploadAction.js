@@ -28,11 +28,8 @@ export const profileImageUploadAction =
         },
       };
 
-<<<<<<< HEAD
       const { data } = await axios.post('/api/profileUpload', formData, config);
-=======
-      const { data } = await axios.post(`/api/profileUpload`, formData, config);
->>>>>>> 2b42e6399505a740515546244d4e500a7bc2e204
+
       dispatch({
         type: PROFILE_IMAGE_UPLOAD_SUCCESS,
         payload: data,
