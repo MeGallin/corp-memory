@@ -37,7 +37,14 @@ const memoriesSchema = mongoose.Schema(
       default: 1,
     },
     tags: [tagsSchema],
+    memoryImage: {
+      type: String,
+    },
+    cloudinaryId: {
+      type: String,
+    },
   },
+
   {
     timestamps: true,
   },

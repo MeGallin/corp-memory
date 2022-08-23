@@ -12,7 +12,7 @@ import {
 } from '../../store/actions/userActions';
 import { detailsAction } from '../../store/actions/userDetailActions';
 
-import { FaPencilAlt, FaSortUp, FaSortDown } from 'react-icons/fa';
+import { FaPencilAlt, FaSortUp, FaSortDown, FaUpload } from 'react-icons/fa';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
@@ -21,12 +21,14 @@ import SearchComponent from '../searchComponent/SearchComponent';
 import Modal from '../modal/Modal';
 import StarComponent from '../starComponent/StarComponent';
 import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
+import MemoriesImages from '../memoriesImages/MemoriesImages';
 
 const Memories = () => {
   const dispatch = useDispatch();
 
   const [keyword, setKeyword] = useState('');
   const [dateTime, setDateTime] = useState('');
+  const [showMemoryImageUpload, setShowMemoryImageUpload] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -109,6 +111,10 @@ const Memories = () => {
     setSortedMemories(sortedMemories);
   }, [sortedMemories]);
   // SORT
+
+  const handleShowIcon = () => {
+    setShowMemoryImageUpload(!showMemoryImageUpload);
+  };
 
   return (
     <div className="memories-wrapper">
@@ -215,17 +221,47 @@ const Memories = () => {
                             </div>
 
                             <div className="memory-inner-wrapper">
-                              <div className="memory-title-wrapper">
-                                <h2>{memory.title}</h2>
+                              <div>
+                                <div className="memory-title-wrapper">
+                                  <h2>{memory.title}</h2>
+                                </div>
+                                <p>{memory.memory}</p>
+                                {new Array(memory.priority)
+                                  .fill(null)
+                                  .map((num, i) => (
+                                    <StarComponent key={i} />
+                                  ))}
                               </div>
-
-                              <p>{memory.memory}</p>
-
-                              {new Array(memory.priority)
-                                .fill(null)
-                                .map((num, i) => (
-                                  <StarComponent key={i} />
-                                ))}
+                              {memory.memoryImage || showMemoryImageUpload ? (
+                                <>
+                                  <div
+                                    className="bg-image"
+                                    style={{
+                                      backgroundImage: memory.memoryImage
+                                        ? `url(${memory.memoryImage})`
+                                        : null,
+                                      backgroundRepeat: 'no-repeat',
+                                      backgroundPosition: 'center',
+                                      backgroundSize: 'cover',
+                                      paddingBottom: '1rem',
+                                    }}
+                                  ></div>
+                                  <MemoriesImages
+                                    memoryId={memory._id}
+                                    // memoryImage={memory.memoryImage}
+                                  />
+                                </>
+                              ) : null}
+                              <div
+                                className="upload-wrapper"
+                                onClick={() => handleShowIcon()}
+                              >
+                                {!memory.memoryImage ? (
+                                  <>
+                                    <FaUpload size={28} title="upload a file" />
+                                  </>
+                                ) : null}
+                              </div>
                             </div>
 
                             <div className="memories-priority-wrapper small-text">
