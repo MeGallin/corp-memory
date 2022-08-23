@@ -13,6 +13,7 @@ import contactFormRoutes from './Routes/contactFormRoutes.js';
 import emailConfirmationRoutes from './Routes/emailConfirmationRoutes.js';
 import adminRoutes from './Routes/adminRoutes.js';
 import uploadRoutes from './Routes/uploadRoutes.js';
+import memoryImageUploadRoutes from './Routes/memoryImageUploadRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -35,6 +36,8 @@ app.use('/api/admin/user-memories', adminRoutes);
 app.use('/api/admin/user', adminRoutes);
 // Profile Upload Routes
 app.use('/api/profileUpload', uploadRoutes);
+// Memory Upload Routes
+app.use('/api/memory-image-upload', memoryImageUploadRoutes);
 
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {

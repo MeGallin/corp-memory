@@ -22,7 +22,10 @@ import {
 } from './reducers/userDetailsReducers';
 import { contactFormReducer } from './reducers/contactFormReducers';
 import { adminUserMemoriesReducer } from './reducers/adminReducers';
-import { profileImageUploadReducer } from './reducers/imageUploadReducers';
+import {
+  profileImageUploadReducer,
+  memoryImageUploadReducer,
+} from './reducers/imageUploadReducers';
 
 //Initialise state to hold user info if logged in.
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -43,6 +46,7 @@ const reducer = combineReducers({
   userUpdateMemoryIsComplete: userUpdateMemoryIsCompleteReducer,
   userUpdateDetails: userUpdateDetailsReducer,
   profileImageUpload: profileImageUploadReducer,
+  memoryImageUpload: memoryImageUploadReducer,
   userDetails: userDetailsReducer,
   userForgotPassword: userForgotPasswordReducer,
   updateUserPassword: updateUserPasswordReducer,
