@@ -25,6 +25,7 @@ import { adminUserMemoriesReducer } from './reducers/adminReducers';
 import {
   profileImageUploadReducer,
   memoryImageUploadReducer,
+  memoryDeleteImageReducer,
 } from './reducers/imageUploadReducers';
 
 //Initialise state to hold user info if logged in.
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   userUpdateDetails: userUpdateDetailsReducer,
   profileImageUpload: profileImageUploadReducer,
   memoryImageUpload: memoryImageUploadReducer,
+  memoryDeleteImage: memoryDeleteImageReducer,
   userDetails: userDetailsReducer,
   userForgotPassword: userForgotPasswordReducer,
   updateUserPassword: updateUserPasswordReducer,

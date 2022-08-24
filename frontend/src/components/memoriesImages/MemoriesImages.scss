@@ -3,14 +3,26 @@
 .memories-images-wrapper {
   width: auto;
   .preview-image {
+    border: 1px solid $border-colour-dark;
     width: 50%;
     height: auto;
+    -webkit-filter: drop-shadow(5px 5px 5px $image-shadow-colour);
+    filter: drop-shadow(5px 5px 5px $image-shadow-colour);
   }
-  .bg-image {
-    height: 200px;
-    border: red 4px solid;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  .image-wrapper {
+    .trash {
+      position: relative;
+      top: 16px;
+      left: -6px;
+      z-index: 10;
+      width: auto;
+      height: auto;
+      align-content: center;
+      color: $warning;
+    }
+    & :hover {
+      cursor: pointer;
+      color: $danger;
+    }
   }
 }
