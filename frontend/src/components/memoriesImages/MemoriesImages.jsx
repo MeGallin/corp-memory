@@ -2,16 +2,21 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MemoriesImages.scss';
 
-import { memoryImageUploadAction } from '../../store/actions/imageUploadAction';
+import {
+  memoryImageUploadAction,
+  deleteMemoryImageAction,
+} from '../../store/actions/imageUploadAction';
 
 import InputFieldComponent from '../inputField/inputFieldComponent';
 import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
+
+import { FaTrash } from 'react-icons/fa';
 
 const MemoriesImages = ({ memoryId, memoryImage }) => {
   const dispatch = useDispatch();
 
   const memoryImageUpload = useSelector((state) => state.memoryImageUpload);
-  const { error, loading, success } = memoryImageUpload;
+  const { error, loading } = memoryImageUpload;
 
   const [previewImage, setPreviewImage] = useState('');
   const [previewImageFile, setPreviewImageFile] = useState('');
@@ -45,6 +50,13 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
     setPreviewImage('');
   };
 
+  const handleImageDelete = (id) => {
+    if (window.confirm(`Are you sure you want to delete ${id}`)) {
+      // Dispatch delete Image Action
+      dispatch(deleteMemoryImageAction(id));
+    }
+  };
+
   return (
     <div className="memories-images-wrapper">
       {error ? error : null}
@@ -52,11 +64,17 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
         <LoadingComponent />
       ) : (
         <>
-          <img src={memoryImage} alt="" className="preview-image" />
+          <div className="image-wrapper">
+            <span className="trash" onClick={() => handleImageDelete(memoryId)}>
+              <FaTrash size={22} title="Delete this Image" />
+            </span>
+            <img src={memoryImage} alt="" className="preview-image" />
+          </div>
+
           <form onSubmit={handleImageUpdate}>
             <InputFieldComponent
               id="memoryImage"
-              label="Change Profile Image"
+              label="Change Memory Image"
               type="file"
               name="memoryImage"
               onChange={uploadFileHandler}

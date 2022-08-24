@@ -254,7 +254,7 @@ const Memories = () => {
                                   <>
                                     <FaUpload
                                       size={28}
-                                      title="upload a file"
+                                      title="Upload an Image"
                                       className="upload-icon"
                                     />
                                   </>
