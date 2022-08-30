@@ -10,7 +10,7 @@ import {
 import InputFieldComponent from '../inputField/inputFieldComponent';
 import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
 
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 
 const MemoriesImages = ({ memoryId, memoryImage }) => {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
 
   const [previewImage, setPreviewImage] = useState('');
   const [previewImageFile, setPreviewImageFile] = useState('');
+  const [showHideInput, setShowHideInput] = useState(false);
 
   const previewFile = (file) => {
     const reader = new FileReader();
@@ -87,9 +88,15 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
                   <FaTrash size={22} title="Delete this Image" />
                 </span>
                 <img src={memoryImage} alt="" className="preview-image" />
+                <span
+                  className="edit"
+                  onClick={() => setShowHideInput(!showHideInput)}
+                >
+                  <FaPencilAlt size={22} title="EDIT this Image" />
+                </span>
               </div>
             )}
-            {!previewImage ? (
+            {!previewImage && showHideInput ? (
               <InputFieldComponent
                 id="memoryImage"
                 label="Change Image"
