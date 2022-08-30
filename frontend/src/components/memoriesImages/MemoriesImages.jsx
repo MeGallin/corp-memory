@@ -64,22 +64,7 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
         <LoadingComponent />
       ) : (
         <>
-          <div className="image-wrapper">
-            <span className="trash" onClick={() => handleImageDelete(memoryId)}>
-              <FaTrash size={22} title="Delete this Image" />
-            </span>
-            <img src={memoryImage} alt="" className="preview-image" />
-          </div>
-
           <form onSubmit={handleImageUpdate}>
-            <InputFieldComponent
-              id="memoryImage"
-              label="Change Memory Image"
-              type="file"
-              name="memoryImage"
-              onChange={uploadFileHandler}
-            />
-
             {previewImage ? (
               <>
                 Image Preview
@@ -93,6 +78,25 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
                   Cancel
                 </button>
               </>
+            ) : (
+              <div className="image-wrapper">
+                <span
+                  className="trash"
+                  onClick={() => handleImageDelete(memoryId)}
+                >
+                  <FaTrash size={22} title="Delete this Image" />
+                </span>
+                <img src={memoryImage} alt="" className="preview-image" />
+              </div>
+            )}
+            {!previewImage ? (
+              <InputFieldComponent
+                id="memoryImage"
+                label="Change Image"
+                type="file"
+                name="memoryImage"
+                onChange={uploadFileHandler}
+              />
             ) : null}
           </form>
         </>
