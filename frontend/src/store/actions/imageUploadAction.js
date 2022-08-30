@@ -105,7 +105,7 @@ export const deleteMemoryImageAction = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    await axios.delete(`/api/memory-image-delete/${id}`, config);
+    await axios.delete(`/api/memory-image/delete/${id}`, config);
     dispatch({ type: MEMORY_IMAGE_DELETE_SUCCESS });
     dispatch(memoriesAction());
   } catch (error) {
