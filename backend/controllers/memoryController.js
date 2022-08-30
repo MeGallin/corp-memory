@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Memories from '../models/memoriesModel.js';
 import User from '../models/userModel.js';
+import MemoryImages from '../models/memoryImageModel.js';
 
 // @description: Get All the Memories
 // @route: GET /api/memories
@@ -115,6 +116,7 @@ const deleteMemory = asyncHandler(async (req, res) => {
   await memory.remove();
   res.status(200).json({ id: `Memory ${req.params.id} deleted` });
 });
+
 // @description: Delete a Memory TAG
 // @route: DELETE /api/memory/tag:id
 // @access: Private
@@ -142,10 +144,69 @@ const deleteMemoryTag = asyncHandler(async (req, res) => {
   res.status(200).json(memory);
 });
 
+// @description: Delete a Memory Image
+// @route: DELETE /api/memory-image/delete/:id
+// @access: Private
+const deleteMemoryImage = asyncHandler(async (req, res) => {
+  // Find a memory
+  const memory = await Memories.findById(req.params.id);
+
+  console.log(memory);
+
+  if (memory) {
+    // Associate it with memory image
+    const image = await MemoryImages.findOne({
+      cloudinaryId: memory.cloudinaryId,
+    });
+    await image.remove();
+
+    const tags = req.body.tags;
+    const updatedData = {
+      title: req.body.title,
+      memory: req.body.memory,
+      priority: req.body.priority,
+      setDueDate: req.body.setDueDate,
+      dueDate: req.body.dueDate,
+      isComplete: req.body.isComplete,
+      tags: tags,
+      cloudinaryId: null,
+      memoryImage: null,
+    };
+
+    const undatedMemory = await Memories.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true },
+    );
+
+    res.status(200).json(undatedMemory);
+
+    res.status(200).json({ id: `Memory ${req.params.id} deleted` });
+  }
+
+  // if (!memory) {
+  //   res.status(400);
+  //   throw new Error('Memory not found');
+  // }
+  // const user = await User.findById(req.user._id);
+  // // check for logged in user
+  // if (!user) {
+  //   res.status(401);
+  //   throw new Error('User not found');
+  // }
+  // if (memory.user.toString() !== user.id) {
+  //   res.status(401);
+  //   throw new Error('User not authorised');
+  // }
+  // await memory.remove();
+  // res.status(200).json({ id: `Memory ${req.params.id} deleted` });
+});
+
 export {
   getAllMemories,
   createMemory,
   updateMemory,
   deleteMemory,
   deleteMemoryTag,
+  deleteMemoryImage,
 };

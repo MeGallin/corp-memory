@@ -1,4 +1,7 @@
 import {
+  MEMORY_IMAGE_DELETE_FAILURE,
+  MEMORY_IMAGE_DELETE_REQUEST,
+  MEMORY_IMAGE_DELETE_SUCCESS,
   MEMORY_IMAGE_UPLOAD_FAILURE,
   MEMORY_IMAGE_UPLOAD_REQUEST,
   MEMORY_IMAGE_UPLOAD_SUCCESS,
@@ -41,5 +44,23 @@ export const memoryImageUploadReducer = (state = {}, action) => {
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
+  }
+};
+
+//Memories Image Delete
+export const memoryDeleteImageReducer = (state = {}, action) => {
+  switch (action.type) {
+    case MEMORY_IMAGE_DELETE_REQUEST:
+      return { loading: true };
+    case MEMORY_IMAGE_DELETE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: null,
+      };
+    case MEMORY_IMAGE_DELETE_FAILURE:
+      return { loading: false, error: action.payload };
+    default:
+      return { ...state };
   }
 };
