@@ -103,22 +103,26 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
               </div>
             )}
             {!previewImage && !memoryImage ? (
-              <InputFieldComponent
-                id="memoryImage"
-                // label={memoryImage ? 'Change Image' : 'Add Image'}
-                type="file"
-                name="memoryImage"
-                onChange={uploadFileHandler}
-              />
+              <div className="input-field-wrapper">
+                <InputFieldComponent
+                  id="memoryImage"
+                  // label={memoryImage ? 'Change Image' : 'Add Image'}
+                  type="file"
+                  name="memoryImage"
+                  onChange={uploadFileHandler}
+                />
+              </div>
             ) : null}
             {showHideInput ? (
-              <InputFieldComponent
-                id="memoryImage"
-                // label={memoryImage ? 'Change Image' : 'Add Image'}
-                type="file"
-                name="memoryImage"
-                onChange={uploadFileHandler}
-              />
+              <div className="input-field-wrapper">
+                <InputFieldComponent
+                  id="memoryImage"
+                  // label={memoryImage ? 'Change Image' : 'Add Image'}
+                  type="file"
+                  name="memoryImage"
+                  onChange={uploadFileHandler}
+                />
+              </div>
             ) : null}
           </form>
         </>
