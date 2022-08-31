@@ -158,6 +158,7 @@ const Memories = () => {
                   </div>
                   {!details?.isSuspended ? (
                     <Modal
+                      className="create-btn"
                       openButtonTitle="Create"
                       closeButtonTitle="X"
                       props={<CreateMemory />}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Modal.scss';
 
-const Modal = ({ openButtonTitle, closeButtonTitle, props }) => {
+const Modal = ({ openButtonTitle, closeButtonTitle, props, className }) => {
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => {
     setShowModal(true);
@@ -26,7 +26,11 @@ const Modal = ({ openButtonTitle, closeButtonTitle, props }) => {
           </div>
         </div>
       ) : null}
-      <button type="button" onClick={handleShowModal} className="modal-btn">
+      <button
+        type="button"
+        onClick={handleShowModal}
+        className={`${className} modal-btn`}
+      >
         {openButtonTitle}
       </button>
     </>
