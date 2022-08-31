@@ -236,29 +236,31 @@ const Memories = () => {
                                   ))}
                               </div>
 
-                              {memory.memoryImage ||
-                              (showMemoryImageUpload &&
-                                memory._id === showMemoryId) ? (
-                                <>
-                                  <MemoriesImages
-                                    memoryId={memory._id}
-                                    memoryImage={memory.memoryImage}
-                                  />
-                                </>
-                              ) : null}
-                              <div
-                                className="upload-wrapper"
-                                onClick={() => handleShowIcon(memory._id)}
-                              >
-                                {!memory.memoryImage ? (
-                                  <>
-                                    <FaUpload
-                                      size={28}
-                                      title="Upload an Image"
-                                      className="upload-icon"
+                              <div className="memory-show-wrapper">
+                                {memory.memoryImage ||
+                                (showMemoryImageUpload &&
+                                  memory._id === showMemoryId) ? (
+                                  <div className="memory-show-inner-wrapper">
+                                    <MemoriesImages
+                                      memoryId={memory._id}
+                                      memoryImage={memory.memoryImage}
                                     />
-                                  </>
+                                  </div>
                                 ) : null}
+                                <div
+                                  className="upload-wrapper"
+                                  onClick={() => handleShowIcon(memory._id)}
+                                >
+                                  {!memory.memoryImage ? (
+                                    <>
+                                      <FaUpload
+                                        size={22}
+                                        title="Upload an Image"
+                                        className="upload-icon"
+                                      />
+                                    </>
+                                  ) : null}
+                                </div>
                               </div>
                             </div>
 
