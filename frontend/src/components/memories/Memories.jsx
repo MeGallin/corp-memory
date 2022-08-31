@@ -226,9 +226,6 @@ const Memories = () => {
 
                             <div className="memory-inner-wrapper">
                               <div>
-                                <div className="memory-title-wrapper">
-                                  <h2>{memory.title}</h2>
-                                </div>
                                 <p>{memory.memory}</p>
                                 {new Array(memory.priority)
                                   .fill(null)
