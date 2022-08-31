@@ -110,11 +110,19 @@
 
         .upload-wrapper {
           .upload-icon {
+            color: $warning;
             cursor: pointer;
             opacity: 0.7;
           }
           & :hover {
             opacity: 1;
+          }
+        }
+
+        .memory-show-wrapper {
+          display: flex;
+          .memory-show-inner-wrapper {
+            width: 100%;
           }
         }
       }

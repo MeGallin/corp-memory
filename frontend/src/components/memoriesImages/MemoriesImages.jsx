@@ -37,8 +37,10 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
   };
 
   const handelCancelUpload = () => {
-    document.getElementById('memoryImage').value = '';
+    document.querySelectorAll('[name="memoryImage"]').value = '';
+    // document.getElementById('memoryImage').value = null;
     setPreviewImage('');
+    setShowHideInput(false);
   };
 
   const handleImageUpdate = (e) => {
@@ -81,25 +83,38 @@ const MemoriesImages = ({ memoryId, memoryImage }) => {
               </>
             ) : (
               <div className="image-wrapper">
-                <span
-                  className="trash"
-                  onClick={() => handleImageDelete(memoryId)}
-                >
-                  <FaTrash size={22} title="Delete this Image" />
-                </span>
-                <img src={memoryImage} alt="" className="preview-image" />
-                <span
-                  className="edit"
-                  onClick={() => setShowHideInput(!showHideInput)}
-                >
-                  <FaPencilAlt size={22} title="EDIT this Image" />
-                </span>
+                {memoryImage ? (
+                  <>
+                    <span
+                      className="trash"
+                      onClick={() => handleImageDelete(memoryId)}
+                    >
+                      <FaTrash size={22} title="Delete this Image" />
+                    </span>
+                    <img src={memoryImage} alt="" className="preview-image" />
+                    <span
+                      className="edit"
+                      onClick={() => setShowHideInput(!showHideInput)}
+                    >
+                      <FaPencilAlt size={22} title="EDIT this Image" />
+                    </span>
+                  </>
+                ) : null}
               </div>
             )}
-            {!previewImage && showHideInput ? (
+            {!previewImage && !memoryImage ? (
               <InputFieldComponent
                 id="memoryImage"
-                label="Change Image"
+                // label={memoryImage ? 'Change Image' : 'Add Image'}
+                type="file"
+                name="memoryImage"
+                onChange={uploadFileHandler}
+              />
+            ) : null}
+            {showHideInput ? (
+              <InputFieldComponent
+                id="memoryImage"
+                // label={memoryImage ? 'Change Image' : 'Add Image'}
                 type="file"
                 name="memoryImage"
                 onChange={uploadFileHandler}
