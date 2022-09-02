@@ -66,7 +66,7 @@ const Header = () => {
           )}
         </nav>
       </header>
-      <UserComponent />
+      {userInfo ? <UserComponent /> : null}
     </>
   );
 };
