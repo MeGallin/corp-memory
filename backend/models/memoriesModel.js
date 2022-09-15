@@ -32,6 +32,14 @@ const memoriesSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    hasSentSevenDayReminder: {
+      type: Boolean,
+      default: false,
+    },
+    hasSentOneDayReminder: {
+      type: Boolean,
+      default: false,
+    },
     priority: {
       type: Number,
       default: 1,

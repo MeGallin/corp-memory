@@ -3,13 +3,81 @@ import Memories from '../models/memoriesModel.js';
 import User from '../models/userModel.js';
 import MemoryImages from '../models/memoryImageModel.js';
 
+import cron from 'node-cron';
+import moment from 'moment';
+import nodemailer from 'nodemailer';
+
 // @description: Get All the Memories
 // @route: GET /api/memories
-// @access: Public
+// @access: Private
 const getAllMemories = asyncHandler(async (req, res) => {
   const memories = await Memories.find({ user: req.user._id }).sort({
     createdAt: -1,
   });
+
+  const user = await User.findById(req.user._id);
+
+  memories.filter((memory) => {
+    // NOTES: setTimeout then fire a function
+    if (
+      moment(new Date()).diff(moment(memory?.dueDate), 'seconds') >
+        Number(-604850) &&
+      memory?.setDueDate &&
+      !memory?.isComplete &&
+      !memory?.hasSentSevenDayReminder
+    ) {
+      // REF https://crontab.guru/
+      cron.schedule(`30 * * * *`, async () => {
+        // Emailer here
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          host: process.env.MAILER_HOST,
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: process.env.MAILER_USER,
+            pass: process.env.MAILER_PW,
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
+        });
+
+        // send mail with defined transport object
+        let info = await transporter.sendMail({
+          from: '"Your Corporate Memory" <info@yourcorporatememory.com>', // sender address
+          to: `${user.email}`, // list of receivers
+          bcc: 'me@garyallin.uk',
+          subject: 'Your Corporate Memory Reminder', // Subject line
+          text: 'Your Corporate Memory Reminder', // plain text body
+          html: `
+          <h1>Hi ${user.name}</h1>
+      <p>You have a memory due within the next seven (7) days.</p>
+      <h3>The title is: <span style="color: orange;"> ${memory.title}</span> </h3>
+      <p>Please log into <a href="http://www.yourcorporatememory.com" id='link'>YOUR ACCOUNT</a> to see the reminder</p>
+      <p>Thank you</p>
+      <h3>Your Corporate Memory management</h3> 
+          
+       
+      `, // html body
+        });
+
+        console.log('Message sent: %s', info.messageId);
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+        // Preview only available when sending through an Ethereal account
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+        await Memories.findByIdAndUpdate(
+          memory._id.toString(),
+          { hasSentSevenDayReminder: true },
+          { new: true },
+        );
+      });
+    }
+  });
+
   res.status(200).json(memories);
 });
 // @description: Create a Memory
@@ -34,6 +102,8 @@ const createMemory = asyncHandler(async (req, res) => {
       dueDate: req.body.dueDate,
       priority: req.body.priority,
       isComplete: req.body.isComplete,
+      hasSentSevenDayReminder: false,
+      hasSentOneDayReminder: false,
       user: req.user._id,
       tags: tag,
     });
@@ -47,6 +117,8 @@ const createMemory = asyncHandler(async (req, res) => {
       dueDate: req.body.dueDate,
       priority: req.body.priority,
       isComplete: req.body.isComplete,
+      hasSentSevenDayReminder: false,
+      hasSentOneDayReminder: false,
       user: req.user._id,
     });
 
