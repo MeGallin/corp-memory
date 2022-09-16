@@ -54,6 +54,7 @@ const getAllMemories = asyncHandler(async (req, res) => {
           <h1>Hi ${user.name}</h1>
       <p>You have a memory due within the next seven (7) days.</p>
       <h3>The title is: <span style="color: orange;"> ${memory.title}</span> </h3>
+      <p>The task is due on ${memory.dueDate}</p>
       <p>Please log into <a href="http://www.yourcorporatememory.com" id='link'>YOUR ACCOUNT</a> to see the reminder</p>
       <p>Thank you</p>
       <h3>Your Corporate Memory management</h3> 
