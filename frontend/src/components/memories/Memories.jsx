@@ -119,6 +119,12 @@ const Memories = () => {
     setShowMemoryImageUpload(!showMemoryImageUpload);
   };
 
+  const activateVoice = (text) => {
+    {
+      window.responsiveVoice.speak(text);
+    }
+  };
+
   return (
     <div className="memories-wrapper">
       {loading ? (
@@ -227,11 +233,21 @@ const Memories = () => {
                             <div className="memory-inner-wrapper">
                               <div>
                                 <p>{memory.memory}</p>
-                                {new Array(memory.priority)
-                                  .fill(null)
-                                  .map((num, i) => (
-                                    <StarComponent key={i} />
-                                  ))}
+
+                                <div className="memory-inner-wrapper__wrapper">
+                                  <button
+                                    onClick={() => activateVoice(memory.memory)}
+                                  >
+                                    Activate Voice Response
+                                  </button>
+                                  <div>
+                                    {new Array(memory.priority)
+                                      .fill(null)
+                                      .map((num, i) => (
+                                        <StarComponent key={i} />
+                                      ))}
+                                  </div>
+                                </div>
                               </div>
 
                               <div className="memory-show-wrapper">

@@ -95,9 +95,9 @@
         }
       }
       .memory-inner-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: space-between;
 
         .bg-image {
           height: 200px;
@@ -124,6 +124,12 @@
           .memory-show-inner-wrapper {
             width: 100%;
           }
+        }
+        .memory-inner-wrapper__wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin-bottom: 0.8em;
         }
       }
       .memories-priority-wrapper {
