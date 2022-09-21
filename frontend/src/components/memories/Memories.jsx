@@ -12,7 +12,13 @@ import {
 } from '../../store/actions/userActions';
 import { detailsAction } from '../../store/actions/userDetailActions';
 
-import { FaPencilAlt, FaSortUp, FaSortDown, FaUpload } from 'react-icons/fa';
+import {
+  FaPencilAlt,
+  FaSortUp,
+  FaSortDown,
+  FaUpload,
+  FaBullhorn,
+} from 'react-icons/fa';
 import CreateMemory from '../createMemory/CreateMemory';
 import DeleteMemory from '../deleteMemory/DeleteMemory';
 import UpdateMemory from '../updateMemory/UpdateMemory';
@@ -234,12 +240,7 @@ const Memories = () => {
                               <div>
                                 <p>{memory.memory}</p>
 
-                                <div className="memory-inner-wrapper__wrapper">
-                                  <button
-                                    onClick={() => activateVoice(memory.memory)}
-                                  >
-                                    Activate Voice Response
-                                  </button>
+                                <div className="memory-inner-wrapper__wrapperXXX">
                                   <div>
                                     {new Array(memory.priority)
                                       .fill(null)
@@ -250,30 +251,44 @@ const Memories = () => {
                                 </div>
                               </div>
 
-                              <div className="memory-show-wrapper">
-                                {memory.memoryImage ||
-                                (showMemoryImageUpload &&
-                                  memory._id === showMemoryId) ? (
-                                  <div className="memory-show-inner-wrapper">
-                                    <MemoriesImages
-                                      memoryId={memory._id}
-                                      memoryImage={memory.memoryImage}
-                                    />
-                                  </div>
-                                ) : null}
-                                <div
-                                  className="upload-wrapper"
-                                  onClick={() => handleShowIcon(memory._id)}
-                                >
-                                  {!memory.memoryImage ? (
-                                    <>
-                                      <FaUpload
-                                        size={22}
-                                        title="Upload an Image"
-                                        className="upload-icon"
+                              <div className="icon-wrapper">
+                                <div className="memory-show-wrapper">
+                                  {memory.memoryImage ||
+                                  (showMemoryImageUpload &&
+                                    memory._id === showMemoryId) ? (
+                                    <div className="memory-show-inner-wrapper">
+                                      <MemoriesImages
+                                        memoryId={memory._id}
+                                        memoryImage={memory.memoryImage}
                                       />
-                                    </>
+                                    </div>
                                   ) : null}
+
+                                  <div
+                                    className="upload-wrapper"
+                                    onClick={() => handleShowIcon(memory._id)}
+                                  >
+                                    {!memory.memoryImage ? (
+                                      <>
+                                        <FaUpload
+                                          size={22}
+                                          title="Upload an Image"
+                                          className="upload-icon"
+                                        />
+                                      </>
+                                    ) : null}
+                                  </div>
+
+                                  <div
+                                    className="memory-inner-wrapper__icon-position"
+                                    onClick={() => activateVoice(memory.memory)}
+                                  >
+                                    <FaBullhorn
+                                      size={22}
+                                      title="Activate voice text"
+                                      className="voice-icon__memory-inner-wrapper__wrapper"
+                                    />{' '}
+                                  </div>
                                 </div>
                               </div>
                             </div>

@@ -95,9 +95,16 @@
         }
       }
       .memory-inner-wrapper {
-        // display: flex;
-        // flex-wrap: wrap;
-        // justify-content: space-between;
+        .memory-inner-wrapper__icon-position {
+          .voice-icon__memory-inner-wrapper__wrapper {
+            color: $warning;
+            cursor: pointer;
+            opacity: 0.7;
+          }
+          & :hover {
+            opacity: 1;
+          }
+        }
 
         .bg-image {
           height: 200px;
@@ -119,17 +126,14 @@
           }
         }
 
-        .memory-show-wrapper {
-          display: flex;
-          .memory-show-inner-wrapper {
-            width: 100%;
+        .icon-wrapper {
+          .memory-show-wrapper {
+            display: flex;
+            justify-content: space-between;
+            .memory-show-inner-wrapper {
+              width: 100%;
+            }
           }
-        }
-        .memory-inner-wrapper__wrapper {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          margin-bottom: 0.8em;
         }
       }
       .memories-priority-wrapper {
