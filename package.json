@@ -2,10 +2,10 @@
   "name": "corp-mem",
   "version": "1.0.0",
   "description": "Corporate Memory to store information",
-  "main": "./backend/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "server.js",
+    "start": "node backend/server.js",
     "server": "nodemon server.js"
   },
   "repository": {
