@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import nodemailer from 'nodemailer';
+import { sendEmail } from '../utils/sendEmail.js';
 
 // @description: Send Email of details from contact form
 // @route: POST /api/send
@@ -8,50 +8,23 @@ import nodemailer from 'nodemailer';
 const sendContactForm = asyncHandler(async (req, res, next) => {
   const { name, email, message } = req.body;
 
-  if ((name, email, message)) {
-    res.status(201).json({
-      message: 'Contact form sent successfully.',
-    });
-    // nodemailer stuff to follow
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAILER_HOST,
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: process.env.MAILER_USER,
-        pass: process.env.MAILER_PW,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
+  try {
+    if (!name && !email & !message)
+      return next(new ErrorResponse('Form can NOT be black', 500));
+
+    const html = `<h1>Hi ${name}</h1><p>Thank you for your enquiry</p><p>This is what your query said:</p><h2>${message}</h2><h4>Somebody will make contact with in due course.</h4><p>Thank you.</p><h3>Your Manager management</h3>`;
+
+    // Send Email
+    sendEmail({
+      from: process.env.MAILER_FROM,
+      to: email,
+      subject: 'YCM Contact Request',
+      html: html,
     });
 
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: '"Your Corporate Memory" <info@yourcorporatememory.com>', // sender address
-      to: `${email}`, // list of receivers
-      subject: 'YCM Contact Request', // Subject line
-      text: 'YCM Contact Request', // plain text body
-      bcc: 'me@garyallin.uk',
-      html: `
-        <p>${message}</p> 
-        <p>Thank you for contacting YCR.</p>
-        <p>We will be in touch shortly.</p>
-        <p>YCM management</p>  
-        `, // html body
-    });
-
-    console.log('Message sent: %s', info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // Preview only available when sending through an Ethereal account
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-  } else {
-    res.status(400).json({
-      message: 'There was an error sending your form. Please try again.',
-    });
+    res.status(200).json({ success: true, data: `Email sent successfully` });
+  } catch (error) {
+    next(error);
   }
 });
 

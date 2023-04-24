@@ -81,6 +81,7 @@ const getAllMemories = asyncHandler(async (req, res) => {
 
   res.status(200).json(memories);
 });
+
 // @description: Create a Memory
 // @route: POST /api/memories
 // @access: Private
